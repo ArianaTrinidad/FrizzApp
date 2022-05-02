@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FrizzApp.Api
 {
@@ -40,10 +42,14 @@ namespace FrizzApp.Api
             //    option.UseSqlite("Filename=FrizzAppDB.sqlite;"));
 
 
-            //var pepe1 = ??; // Obtener el dato "pepe1" de "PepeString"
-            //var pepe2 = ??; // Obtener el dato "pepe2" del objecto "PepeObject" en su propiedad "Pepevalue"
-            //var pepe3 = ??; // Obtener el dato "pepe3" del array "PepeArray", su primer item
-            //var pepe4 = ??; // Obtener el dato "pepe4" del array "PepeArray", su segundo item
+            var pepe1 = Configuration.GetSection("PepeString"); ; // Obtener el dato "pepe-1" de "PepeString"
+            var pepe2 = Configuration.GetSection("PepeObject:Pepevalue").Value; // Obtener el dato "pepe-2" del objecto "PepeObject" en su propiedad "Pepevalue"
+            var pepe3 = Configuration.GetSection("PepeArray")
+                                     .GetChildren()
+                                     .ToList().Select(x => (x.GetValue<string>("PepeArr1")));// Obtener el dato "pepe-3" del array "PepeArray", su primer item
+            var pepe4 = Configuration.GetSection("PepeArray")
+                                     .GetChildren()
+                                     .ToList().Select(x => (x.GetValue<string>("PepeArr2"))); // Obtener el dato "pepe-4" del array "PepeArray", su segundo item
 
 
             services.AddMemoryCache();
