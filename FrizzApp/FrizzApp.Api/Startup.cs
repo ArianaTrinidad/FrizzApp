@@ -49,9 +49,12 @@ namespace FrizzApp.Api
             services.AddMemoryCache();
 
             services.AddAutoMapper(typeof(Startup));
-
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IOrderStatusService, OrderStatusService>();
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IOrderStatusRepository, OrderStatusRepository>();
 
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
 
