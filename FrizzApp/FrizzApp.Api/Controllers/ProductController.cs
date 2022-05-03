@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using FirzzApp.Business.Dtos.RequestDto;
+﻿using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Interfaces;
-using FirzzApp.Business.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace FrizzApp.Api.Controllers
 {
@@ -38,7 +35,14 @@ namespace FrizzApp.Api.Controllers
                 : BadRequest(result);
         }
 
-        
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete([FromRoute] int id)
+        {
+            var result = _service.Delete(id);
+
+            return Ok(result);
+        }
     }
 
 

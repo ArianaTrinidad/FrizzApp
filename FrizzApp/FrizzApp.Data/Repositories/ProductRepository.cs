@@ -31,5 +31,22 @@ namespace FrizzApp.Data.Repositories
             _context.Products.Add(entity);
             _context.SaveChanges();
         }
+
+        public string Delete(int id)
+        {
+            var entity = _context.Products.Where(x => x.Id == id).FirstOrDefault();
+
+            if (entity != null)
+            {
+                _context.Products.Remove(entity);
+                _context.SaveChanges();
+
+                return "Entity deleted correctly";
+            }
+            else
+            {
+                return "The entity does not exists";
+            }
+        }
     }
 }

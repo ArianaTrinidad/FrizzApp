@@ -5,7 +5,8 @@ namespace FrizzApp.Data.Interfaces
 {
     public interface IProductRepository
     {
-        void Create(Product entity);
         List<Product> GetAll();
+        void Create(Product entity);
+        string Delete(int id);
     }
 }

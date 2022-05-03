@@ -43,5 +43,12 @@ namespace FirzzApp.Business.Services
 
             return Result.Success($"Product {entity.Name} - ${entity.Price} was created succesfully");
         }
+
+        public string Delete(int id)
+        {
+            var result = _repository.Delete(id);
+
+            return result;
+        }
     }
 }

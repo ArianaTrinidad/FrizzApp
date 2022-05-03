@@ -9,5 +9,6 @@ namespace FirzzApp.Business.Interfaces
     {
         List<GetProductResponseDto> GetAll();
         Result CreateProduct(CreateProductDto dto);
+        string Delete(int id);
     }
 }
