@@ -6,12 +6,7 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Services
 {
@@ -22,7 +17,7 @@ namespace FirzzApp.Business.Services
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
 
-        public CategoryService(ICategoryRepository repository, IMapper mapper, IMemoryCache cache, IConfiguration configuration)
+        public CategoryService(ICategoryRepository repository, IMapper mapper, IMemoryCache cache)
         {
             _repository = repository;
             _mapper = mapper;
@@ -48,6 +43,7 @@ namespace FirzzApp.Business.Services
 
             return Result.Success($"Category {entity.CategoryName} was created succesfully");
         }
+
 
         public string DeleteCategory(int id)
         {

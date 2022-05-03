@@ -12,6 +12,6 @@ namespace FrizzApp.Data.Interfaces
         void CreateOrderStatus(OrderStatus entity);
         List<OrderStatus> GetAll();
 
-        string DeleteOrderStatus(OrderStatusEnum stateId);
+        string DeleteOrderStatus(OrderStatusEnum statusId);
     }
 }

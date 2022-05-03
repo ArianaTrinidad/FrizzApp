@@ -17,7 +17,7 @@ namespace FirzzApp.Business.Services
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
 
-        public ProductService(IProductRepository repository, IMapper mapper, IMemoryCache cache, IConfiguration configuration)
+        public ProductService(IProductRepository repository, IMapper mapper, IMemoryCache cache)
         {
             _repository = repository;
             _mapper = mapper;

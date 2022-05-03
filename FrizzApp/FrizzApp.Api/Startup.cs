@@ -1,4 +1,5 @@
 using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Mappings;
 using FirzzApp.Business.Services;
 using FirzzApp.Business.Validators;
 using FluentValidation.AspNetCore;
@@ -40,18 +41,14 @@ namespace FrizzApp.Api
             //    option.UseSqlite("Filename=FrizzAppDB.sqlite;"));
 
 
-            //var pepe1 = ??; // Obtener el dato "pepe1" de "PepeString"
-            //var pepe2 = ??; // Obtener el dato "pepe2" del objecto "PepeObject" en su propiedad "Pepevalue"
-            //var pepe3 = ??; // Obtener el dato "pepe3" del array "PepeArray", su primer item
-            //var pepe4 = ??; // Obtener el dato "pepe4" del array "PepeArray", su segundo item
-
-
             services.AddMemoryCache();
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(CategoryMapping).Assembly);
+            
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IOrderStatusService, OrderStatusService>();
+            
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IOrderStatusRepository, OrderStatusRepository>();

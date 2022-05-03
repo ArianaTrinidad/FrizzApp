@@ -1,4 +1,6 @@
-﻿namespace FrizzApp.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FrizzApp.Data.Entities
 {
     public class Product
     {
@@ -12,11 +14,11 @@
         public decimal? OldPrice { get; set; }
         public bool IsPromo { get; set; }
         public ProductStatusEnum ProductStatusId { get; set; }
-        public int? TagId { get; set; }
+        public int? CategoryId { get; set; }
 
 
         public virtual ProductStatus ProductStatus { get; set; }
-        public virtual Category Tag { get; set; }
+        public virtual Category Category { get; set; }
 
 
     }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Mappings
 {
-    class CategoryMapping : Profile
+    public class CategoryMapping : Profile
     {
         public CategoryMapping()
         {

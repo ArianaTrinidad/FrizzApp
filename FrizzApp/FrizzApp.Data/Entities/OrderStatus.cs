@@ -1,4 +1,6 @@
-﻿namespace FrizzApp.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FrizzApp.Data.Entities
 {
     public class OrderStatus
     {

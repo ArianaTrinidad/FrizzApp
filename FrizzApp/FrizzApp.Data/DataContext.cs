@@ -1,4 +1,5 @@
-﻿using FrizzApp.Data.Entities;
+﻿using FrizzApp.Data.ConfigurationBuilders;
+using FrizzApp.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FrizzApp.Data
@@ -7,6 +8,12 @@ namespace FrizzApp.Data
     {
         public DataContext(DbContextOptions options) : base(options) { }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CategoryConfigurationBuilder());
+            modelBuilder.ApplyConfiguration(new ProductConfigurationBuilder());
+        }
 
 
         public DbSet<Product> Products { get; set; }
