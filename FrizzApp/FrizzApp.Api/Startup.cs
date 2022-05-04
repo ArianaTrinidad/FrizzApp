@@ -48,10 +48,14 @@ namespace FrizzApp.Api
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IOrderStatusService, OrderStatusService>();
-            
+            services.AddTransient<IPaymentTypeService, PaymentTypeService>();
+            services.AddTransient<IProductStatusService, ProductStatusService>();
+
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IOrderStatusRepository, OrderStatusRepository>();
+            services.AddTransient<IPaymentTypeRepository, PymentTypeRepository>();
+            services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
 
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
 
