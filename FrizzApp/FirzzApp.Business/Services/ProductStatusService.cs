@@ -6,12 +6,11 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
 namespace FirzzApp.Business.Services
 {
-    class ProductStatusService
+    public class ProductStatusService : IProductStatusService
     {
         private readonly IProductStatusRepository _repository;
         private readonly IMapper _mapper;

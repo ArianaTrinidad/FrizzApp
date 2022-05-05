@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FrizzApp.Data.Repositories
 {
-    class ProductStatusRepository : IProductStatusRepository
+    public class ProductStatusRepository : IProductStatusRepository
     {
         private readonly DataContext _context;
 
