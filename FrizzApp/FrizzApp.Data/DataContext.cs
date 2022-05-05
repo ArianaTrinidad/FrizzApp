@@ -1,6 +1,7 @@
 ﻿using FrizzApp.Data.ConfigurationBuilders;
 using FrizzApp.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace FrizzApp.Data
 {
@@ -11,6 +12,15 @@ namespace FrizzApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var productsStatus = new List<ProductStatus>()
+            {
+                new ProductStatus(){ ProductStatusId = ProductStatusEnum.Avaiable, Name = nameof(ProductStatusEnum.Avaiable)},
+                new ProductStatus(){ ProductStatusId = ProductStatusEnum.WithoutStock, Name = nameof(ProductStatusEnum.WithoutStock)},
+                new ProductStatus(){ ProductStatusId = ProductStatusEnum.Deleted, Name = nameof(ProductStatusEnum.Deleted)},
+            };
+            modelBuilder.Entity<ProductStatus>().HasData(productsStatus);
+            
+            
             modelBuilder.ApplyConfiguration(new CategoryConfigurationBuilder());
             modelBuilder.ApplyConfiguration(new ProductConfigurationBuilder());
         }

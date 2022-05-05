@@ -17,9 +17,9 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpGet]
-        public ActionResult GetAll()
+        public ActionResult GetAll([FromQuery] GetAllProductDto dto)
         {
-            var result = _service.GetAll();
+            var result = _service.GetAll(dto);
 
             return Ok(result);
         }

@@ -16,10 +16,22 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public virtual List<Product> GetAll()
+        public virtual List<Product> GetAll(string search, int pageNumber, int pageSize)
         {
-            var result = _context.Products
-                .Take(500)
+            // TODO: Mejora - la lógica del paginado no va acá
+            int take = pageSize > 0
+                ? pageSize
+                : 50;
+
+            int skip = pageNumber > 0
+                ? (pageNumber - 1) * take
+                : 0;
+
+            var partialResult = _context.Products
+                .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted);
+
+            var result = partialResult.Skip(skip)
+                .Take(take)
                 .ToList();
 
             return result;
@@ -38,7 +50,8 @@ namespace FrizzApp.Data.Repositories
 
             if (entity != null)
             {
-                _context.Products.Remove(entity);
+                entity.ProductStatusId = ProductStatusEnum.Deleted;
+                _context.Products.Update(entity);
                 _context.SaveChanges();
 
                 return "Entity deleted correctly";

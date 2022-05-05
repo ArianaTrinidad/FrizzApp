@@ -25,9 +25,9 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public List<GetProductResponseDto> GetAll()
+        public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
         {
-            var result = _repository.GetAll();
+            var result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
 
             var response = _mapper.Map<List<GetProductResponseDto>>(result);
 
@@ -43,6 +43,7 @@ namespace FirzzApp.Business.Services
 
             return Result.Success($"Product {entity.Name} - ${entity.Price} was created succesfully");
         }
+
 
         public string Delete(int id)
         {
