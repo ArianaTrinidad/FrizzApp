@@ -11,6 +11,6 @@ namespace FirzzApp.Business.Dtos.ResponseDto
     {
         public PaymentTypeEnum Id { get; set; }
 
-        public string Nombre;
+        public string Nombre { get; set; }
     }
 }
