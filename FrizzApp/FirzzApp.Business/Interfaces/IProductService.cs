@@ -1,6 +1,7 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Wrappers;
+using FrizzApp.Data.Entities;
 using System.Collections.Generic;
 
 namespace FirzzApp.Business.Interfaces
@@ -8,7 +9,7 @@ namespace FirzzApp.Business.Interfaces
     public interface IProductService
     {
         List<GetProductResponseDto> GetAll(GetAllProductDto dto);
-        Result CreateProduct(CreateProductDto dto);
+        Result<Product> CreateProduct(CreateProductDto dto);
         string Delete(int id);
     }
 }

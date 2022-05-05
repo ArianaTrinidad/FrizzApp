@@ -13,7 +13,7 @@ namespace FirzzApp.Business.Interfaces
     public interface IOrderStatusService
     {
         List<GetOrderStatusResponseDto> GetAll();
-        Result CreateOrderStatus(CreateOrderStatusDto dto);
+        Result<OrderStatus> CreateOrderStatus(CreateOrderStatusDto dto);
 
         string DeleteOrderStatus(OrderStatusEnum id);
     }

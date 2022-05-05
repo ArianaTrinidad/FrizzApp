@@ -35,13 +35,13 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public Result CreateProduct(CreateProductDto dto)
+        public Result<Product> CreateProduct(CreateProductDto dto)
         {
             var entity = _mapper.Map<Product>(dto);
 
             _repository.Create(entity);
 
-            return Result.Success($"Product {entity.Name} - ${entity.Price} was created succesfully");
+            return Result<Product>.Success($"{entity.Name} - ${entity.Price}");
         }
 
 

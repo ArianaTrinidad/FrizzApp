@@ -35,13 +35,13 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public Result CreateCategory(CreateCategoryDto dto)
+        public Result<Category> CreateCategory(CreateCategoryDto dto)
         {
             var entity = _mapper.Map<Category>(dto);
 
             _repository.CreateCategory(entity);
 
-            return Result.Success($"Category {entity.CategoryName} was created succesfully");
+            return Result<Category>.Success($"{entity.CategoryName}");
         }
 
 

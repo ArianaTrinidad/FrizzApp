@@ -34,13 +34,13 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public Result Create(CreatePaymentTypeDto dto)
+        public Result<PaymentType> Create(CreatePaymentTypeDto dto)
         {
             var entity = _mapper.Map<PaymentType>(dto);
 
             _repository.Create(entity);
 
-            return Result.Success($"PaymentType {entity.PaymentTypeName} was created succesfully");
+            return Result<PaymentType>.Success($"{entity.PaymentTypeName}");
         }
 
 
