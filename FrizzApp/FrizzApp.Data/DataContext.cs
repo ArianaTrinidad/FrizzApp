@@ -12,18 +12,12 @@ namespace FrizzApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var productsStatus = new List<ProductStatus>()
-            {
-                new ProductStatus(){ ProductStatusId = ProductStatusEnum.Avaiable, Name = nameof(ProductStatusEnum.Avaiable)},
-                new ProductStatus(){ ProductStatusId = ProductStatusEnum.WithoutStock, Name = nameof(ProductStatusEnum.WithoutStock)},
-                new ProductStatus(){ ProductStatusId = ProductStatusEnum.Deleted, Name = nameof(ProductStatusEnum.Deleted)},
-            };
-            modelBuilder.Entity<ProductStatus>().HasData(productsStatus);
-            
-            
+            SeedInitialData(modelBuilder);
+
             modelBuilder.ApplyConfiguration(new CategoryConfigurationBuilder());
             modelBuilder.ApplyConfiguration(new ProductConfigurationBuilder());
         }
+
 
 
         public DbSet<Product> Products { get; set; }
@@ -31,14 +25,36 @@ namespace FrizzApp.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderStatus> OrderStatus { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
-        public DbSet<Category> Tags { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<OrderStatus> OrderStates { get; set; }
 
-        //public DbSet<ProductByOrder> ProductsByOrder { get; set; }
 
-        //public DbSet<User> Users { get; set; }
-        //public DbSet<ProductByTag> ProductsByTag { get; set; }
-        //public DbSet<Promo> Promos { get; set; }
+        private static void SeedInitialData(ModelBuilder modelBuilder)
+        {
+            var productsStatusInitialData = new List<ProductStatus>()
+            {
+                new ProductStatus(){ ProductStatusId = ProductStatusEnum.Avaiable, Name = nameof(ProductStatusEnum.Avaiable)},
+                new ProductStatus(){ ProductStatusId = ProductStatusEnum.WithoutStock, Name = nameof(ProductStatusEnum.WithoutStock)},
+                new ProductStatus(){ ProductStatusId = ProductStatusEnum.Deleted, Name = nameof(ProductStatusEnum.Deleted)},
+            };
+
+            var orderStatusInitialData = new List<OrderStatus>()
+            {
+                new OrderStatus(){ OrderStatusId = OrderStatusEnum.Pending, StatusName = nameof(OrderStatusEnum.Pending)},
+                new OrderStatus(){ OrderStatusId = OrderStatusEnum.Done, StatusName = nameof(OrderStatusEnum.Done)},
+                new OrderStatus(){ OrderStatusId = OrderStatusEnum.Canceled, StatusName = nameof(OrderStatusEnum.Canceled)},
+            };
+
+            var paymentTypesInitialData = new List<PaymentType>()
+            {
+                new PaymentType(){ PaymentTypeId = PaymentTypeEnum.Cash, PaymentTypeName= nameof(PaymentTypeEnum.Cash)},
+                new PaymentType(){ PaymentTypeId = PaymentTypeEnum.MercadoPago, PaymentTypeName= nameof(PaymentTypeEnum.MercadoPago)},
+                new PaymentType(){ PaymentTypeId = PaymentTypeEnum.Debit, PaymentTypeName= nameof(PaymentTypeEnum.Debit)},
+                new PaymentType(){ PaymentTypeId = PaymentTypeEnum.Credit, PaymentTypeName= nameof(PaymentTypeEnum.Credit)}
+            };
+
+            modelBuilder.Entity<ProductStatus>().HasData(productsStatusInitialData);
+            modelBuilder.Entity<OrderStatus>().HasData(orderStatusInitialData);
+            modelBuilder.Entity<PaymentType>().HasData(paymentTypesInitialData);
+        }
     }
 }

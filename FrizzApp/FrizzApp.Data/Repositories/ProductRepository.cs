@@ -21,7 +21,7 @@ namespace FrizzApp.Data.Repositories
             // TODO: Mejora - la lógica del paginado no va acá
             int take = pageSize > 0
                 ? pageSize
-                : 50;
+                : 5000;
 
             int skip = pageNumber > 0
                 ? (pageNumber - 1) * take

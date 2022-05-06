@@ -6,7 +6,7 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 
 namespace FirzzApp.Business.Services
@@ -27,14 +27,37 @@ namespace FirzzApp.Business.Services
 
         public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
         {
-            var result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
+            var cacheKey = $"{dto.Busqueda}:{dto.NumeroPagina}:{dto.CantidadPagina}";
+            var result = new List<Product>();
 
-            var response = _mapper.Map<List<GetProductResponseDto>>(result);
-
-            return response;
+            if (_cache.TryGetValue(cacheKey, out result))
+            {
+                var response = _mapper.Map<List<GetProductResponseDto>>(result);
+                Console.WriteLine("From cache");
+                return response;
+            }
+            else
+            {
+                result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
+                _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
+                {
+                    Size = 10000,
+                    SlidingExpiration = TimeSpan.FromSeconds(5)
+                });
+                Console.WriteLine("From dataabse");
+                var response = _mapper.Map<List<GetProductResponseDto>>(result);
+                return response;
+            }
         }
 
+		//public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
+        //{
+        //    var result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
 
+        //    var response = _mapper.Map<List<GetProductResponseDto>>(result);
+
+        //    return response;
+        //}
         public Result<Product> CreateProduct(CreateProductDto dto)
         {
             var entity = _mapper.Map<Product>(dto);

@@ -1,5 +1,6 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Interfaces;
+using FrizzApp.Api.ControllerSecurity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrizzApp.Api.Controllers
@@ -26,6 +27,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpPost]
+        [CreateKeyAuth]
         public ActionResult Create([FromBody] CreateProductDto dto)
         {
             var result = _service.CreateProduct(dto);

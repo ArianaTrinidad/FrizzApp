@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace FrizzApp.Data.Entities
+﻿namespace FrizzApp.Data.Entities
 {
     public class PaymentType
     {
@@ -17,10 +15,10 @@ namespace FrizzApp.Data.Entities
 
     public enum PaymentTypeEnum
     {
-        Cash = 1,
-        MercadoPago = 2,
-        Debit = 3,
-        Credit = 4,
+        Cash = 10,
+        MercadoPago = 11,
+        Debit = 13,
+        Credit = 14,
     }
 
 }
