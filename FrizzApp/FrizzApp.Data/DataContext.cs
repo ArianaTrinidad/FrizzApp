@@ -52,9 +52,17 @@ namespace FrizzApp.Data
                 new PaymentType(){ PaymentTypeId = PaymentTypeEnum.Credit, PaymentTypeName= nameof(PaymentTypeEnum.Credit)}
             };
 
+            var categoriesInitialData = new List<Category>()
+            {
+                new Category(){ CategoryId = 100, CategoryName= "Panaderia"},
+                new Category(){ CategoryId = 101, CategoryName= "Salado"},
+                new Category(){ CategoryId = 102, CategoryName= "Dulce"}
+            };
+
             modelBuilder.Entity<ProductStatus>().HasData(productsStatusInitialData);
             modelBuilder.Entity<OrderStatus>().HasData(orderStatusInitialData);
             modelBuilder.Entity<PaymentType>().HasData(paymentTypesInitialData);
+            modelBuilder.Entity<Category>().HasData(categoriesInitialData);
         }
     }
 }

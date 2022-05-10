@@ -3,6 +3,7 @@ using FirzzApp.Business.Dtos.RequestDto;
 using FrizzApp.DataLoader.Common;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -18,6 +19,7 @@ namespace FrizzApp.DataLoader
             {
                 BaseAddress = new Uri("http://localhost:5000")
             };
+            client.DefaultRequestHeaders.Add("CreateProductKey", "AlgunDiaBitch");
 
             DataLoaderHelper.ShowMainMenu();
 
@@ -70,6 +72,11 @@ namespace FrizzApp.DataLoader
         private static CreateProductDto CreateFakeObject()
         {
             var random = new Random();
+            var isPromo = random.Next(100) <= 10 ? true : false;
+
+            var possibleCategories = new List<int?>() { null, null, null, 100, 101, 102 };
+
+            var data = GetRandomFrom(possibleCategories);
 
             var fakeObject = new Faker<CreateProductDto>()
                 .RuleFor(x => x.Nombre, f => f.Commerce.ProductName())
@@ -78,11 +85,20 @@ namespace FrizzApp.DataLoader
                 .RuleFor(x => x.Presentacion, f => f.Lorem.Word())
                 .RuleFor(x => x.ImagenUrl, f => f.Image.PicsumUrl())
                 .RuleFor(x => x.Precio, f => random.Next(0, 700))
-                .RuleFor(x => x.EsPromo, f => false)
+                .RuleFor(x => x.EsPromo, f => isPromo)
+                .RuleFor(x => x.Categoria, f => data)
                 .Generate(1)
                 .FirstOrDefault();
 
             return fakeObject;
+        }
+
+
+        public static T GetRandomFrom<T>(List<T> data)
+        {
+            var random = new Random();
+            
+            return data[random.Next(data.Count)];
         }
     }
 }

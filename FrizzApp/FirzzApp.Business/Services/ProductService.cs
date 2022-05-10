@@ -27,7 +27,7 @@ namespace FirzzApp.Business.Services
 
         public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
         {
-            var cacheKey = $"{dto.Busqueda}:{dto.NumeroPagina}:{dto.CantidadPagina}";
+            var cacheKey = $"GetAllProducts";
             var result = new List<Product>();
 
             if (_cache.TryGetValue(cacheKey, out result))
@@ -42,7 +42,7 @@ namespace FirzzApp.Business.Services
                 _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
                 {
                     Size = 10000,
-                    SlidingExpiration = TimeSpan.FromSeconds(5)
+                    SlidingExpiration = TimeSpan.FromSeconds(1000)
                 });
                 Console.WriteLine("From dataabse");
                 var response = _mapper.Map<List<GetProductResponseDto>>(result);
@@ -50,14 +50,7 @@ namespace FirzzApp.Business.Services
             }
         }
 
-		//public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
-        //{
-        //    var result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
 
-        //    var response = _mapper.Map<List<GetProductResponseDto>>(result);
-
-        //    return response;
-        //}
         public Result<Product> CreateProduct(CreateProductDto dto)
         {
             var entity = _mapper.Map<Product>(dto);

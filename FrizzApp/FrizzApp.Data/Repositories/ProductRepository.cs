@@ -21,7 +21,7 @@ namespace FrizzApp.Data.Repositories
             // TODO: Mejora - la lógica del paginado no va acá
             int take = pageSize > 0
                 ? pageSize
-                : 5000;
+                : 100;
 
             int skip = pageNumber > 0
                 ? (pageNumber - 1) * take
@@ -30,7 +30,8 @@ namespace FrizzApp.Data.Repositories
             var partialResult = _context.Products
                 .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted);
 
-            var result = partialResult.Skip(skip)
+            var result = partialResult
+                .Skip(skip)
                 .Take(take)
                 .ToList();
 

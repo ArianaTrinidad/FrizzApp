@@ -9,5 +9,6 @@
         public string ImagenUrl { get; set; }
         public decimal Precio { get; set; }
         public bool EsPromo { get; set; }
+        public int? Categoria { get; set; }
     }
 }

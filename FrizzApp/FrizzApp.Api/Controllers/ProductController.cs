@@ -39,6 +39,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpDelete("{id}")]
+        [CreateKeyAuth]
         public ActionResult Delete([FromRoute] int id)
         {
             var result = _service.Delete(id);
