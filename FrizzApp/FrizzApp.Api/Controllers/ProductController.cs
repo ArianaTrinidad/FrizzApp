@@ -28,9 +28,13 @@ namespace FrizzApp.Api.Controllers
 
         [HttpPost]
         [CreateKeyAuth]
+        //[OutputCache(Duration = 10000, Location=System.Web.UI.OutputCacheLocation.Server)]
         public ActionResult Create([FromBody] CreateProductDto dto)
         {
             var result = _service.CreateProduct(dto);
+
+            //string path = Url.Action("Create");
+            //Response.RemoveOutputCacheItem(path);
 
             return result.IsSuccess
                 ? Ok(result)
