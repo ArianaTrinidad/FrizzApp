@@ -2,6 +2,11 @@ using FirzzApp.Business.Interfaces;
 using FirzzApp.Business.Mappings;
 using FirzzApp.Business.Services;
 using FirzzApp.Business.Validators;
+using FirzzApp.Business.Validators.CategoryValidators;
+using FirzzApp.Business.Validators.ProductStatusValidators;
+using FirzzApp.Business.Validators.OrderStatusValidators;
+using FirzzApp.Business.Validators.PaymentTypeValidators;
+using FirzzApp.Business.Validators.ProductValidators;
 using FluentValidation.AspNetCore;
 using FrizzApp.Api.Middlewares;
 using FrizzApp.Data;
@@ -57,7 +62,17 @@ namespace FrizzApp.Api
             services.AddTransient<IPaymentTypeRepository, PymentTypeRepository>();
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
 
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCategoryDtoValidator>());
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeleteCategoryDtoValidator>());
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateOrderStatusDtoValidator>());
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeleteOrderStatusDtoValidator>());
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePaymentTypeDtoValidator>());
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeletePaymentTypeDtoValidator>());
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProductStatusDtoValidator>());
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeleteProductStatusDtoValidator>());
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeleteProductDtoValidator>());
+
 
             services.AddSwaggerGen(c =>
             {
