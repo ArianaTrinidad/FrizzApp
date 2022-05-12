@@ -7,6 +7,6 @@ namespace FirzzApp.Business.Dtos.RequestDto
     {
         public PaymentTypeEnum Id { get; set; }
 
-        public string Nombre; 
+        //No me parece necesario public string Nombre; 
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Dtos.RequestDto
 {
-    public class DeleteOrderStatus
+    public class DeleteOrderStatusDto
     {
         public string EstadoId { get; set; }
-        public string Estado { get; set; }
+
+        //No me parece necesario public string Estado { get; set; }
     }
 }
