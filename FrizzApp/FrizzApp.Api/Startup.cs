@@ -30,13 +30,23 @@ namespace FrizzApp.Api
         {
             services.AddControllers();
 
-            services
-                .AddEntityFrameworkSqlite()
-                .AddDbContext<DataContext>(option =>
-                    option.UseSqlServer(Configuration.GetConnectionString("FrizzAppDB")));
 
-            //.AddDbContext<DataContext>(option =>
-            //    option.UseSqlite("Filename=FrizzAppDB.sqlite;"));
+            var useSqlLite = Configuration.GetValue<bool>("UseSqlLite");
+
+            if (useSqlLite)
+            {
+                services
+                    .AddEntityFrameworkSqlite()
+                    .AddDbContext<DataContext>(option =>
+                        option.UseSqlite("Filename=FrizzAppDB.sqlite;"));
+            }
+            else
+            {
+                services
+                    .AddDbContext<DataContext>(option =>
+                        option.UseSqlServer(Configuration.GetConnectionString("FrizzAppDB")));
+            }
+
 
 
             services.AddMemoryCache();
