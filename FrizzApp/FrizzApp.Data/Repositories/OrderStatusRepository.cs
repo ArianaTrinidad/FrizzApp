@@ -20,7 +20,7 @@ namespace FrizzApp.Data.Repositories
 
         public List<OrderStatus> GetAll()
         {
-            var result = _context.OrderStatus
+            var result = _context.OrderStates
                 .Take(500)
                 .ToList();
 
@@ -30,18 +30,18 @@ namespace FrizzApp.Data.Repositories
 
         public void CreateOrderStatus(OrderStatus entity)
         {
-            _context.OrderStatus.Add(entity);
+            _context.OrderStates.Add(entity);
             _context.SaveChanges();
         }
 
 
         public string DeleteOrderStatus(OrderStatusEnum statusId)
         {
-            var entity = _context.OrderStatus.Where(x => x.OrderStatusId == statusId).FirstOrDefault();
+            var entity = _context.OrderStates.Where(x => x.OrderStatusId == statusId).FirstOrDefault();
 
             if (entity != null)
             {
-                _context.OrderStatus.Remove(entity);
+                _context.OrderStates.Remove(entity);
                 _context.SaveChanges();
 
                 return "Entity deleted correctly";

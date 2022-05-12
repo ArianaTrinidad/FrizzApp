@@ -16,6 +16,9 @@ namespace FrizzApp.Data
 
             modelBuilder.ApplyConfiguration(new CategoryConfigurationBuilder());
             modelBuilder.ApplyConfiguration(new ProductConfigurationBuilder());
+            modelBuilder.ApplyConfiguration(new OrderStatusConfigurationBuilder());
+            modelBuilder.ApplyConfiguration(new PaymentTypeConfigurationBuilder());
+            modelBuilder.ApplyConfiguration(new ProductStatusConfigurationBuilder());
         }
 
 
@@ -23,8 +26,9 @@ namespace FrizzApp.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductStatus> ProductStatus { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderStatus> OrderStatus { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
+
+        public DbSet<OrderStatus> OrderStates { get; set; }
         public DbSet<Category> Categories { get; set; }
 
 
