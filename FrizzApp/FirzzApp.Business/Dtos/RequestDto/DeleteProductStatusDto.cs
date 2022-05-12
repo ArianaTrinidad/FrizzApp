@@ -6,6 +6,5 @@ namespace FirzzApp.Business.Dtos.RequestDto
     {
         public ProductStatusEnum Id { get; set; }
 
-       //No me parece necesario public string Nombre;
     }
 }

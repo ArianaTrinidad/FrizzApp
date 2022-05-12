@@ -9,7 +9,5 @@ namespace FirzzApp.Business.Dtos.RequestDto
     public class DeleteOrderStatusDto
     {
         public string EstadoId { get; set; }
-
-        //No me parece necesario public string Estado { get; set; }
     }
 }

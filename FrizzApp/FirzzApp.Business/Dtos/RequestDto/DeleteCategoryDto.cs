@@ -9,6 +9,5 @@ namespace FirzzApp.Business.Dtos.RequestDto
     public class DeleteCategoryDto
     {
         public int Id { get; set; }
-        //No me parece necesario public string Nombre { get; set; }
     }
 }

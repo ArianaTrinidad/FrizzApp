@@ -63,9 +63,9 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public string Delete(int id)
+        public string Delete(DeleteProductDto dto)
         {
-            var result = _repository.Delete(id);
+            var result = _repository.Delete(dto.Id);
 
             _cache.Remove("GetAll");
 

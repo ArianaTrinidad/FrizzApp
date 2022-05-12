@@ -23,7 +23,6 @@ namespace FirzzApp.Business.Mappings
 
 
             CreateMap<CreateOrderStatusDto, OrderStatus>()
-                .ForMember(dest => dest.OrderStatusId, opt => opt.MapFrom(src => src.EstadoId))
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Estado))
                 ;
         }

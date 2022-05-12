@@ -28,13 +28,9 @@ namespace FrizzApp.Api.Controllers
 
         [HttpPost]
         [CreateKeyAuth]
-        //[OutputCache(Duration = 10000, Location=System.Web.UI.OutputCacheLocation.Server)]
         public ActionResult Create([FromBody] CreateProductDto dto)
         {
             var result = _service.CreateProduct(dto);
-
-            //string path = Url.Action("Create");
-            //Response.RemoveOutputCacheItem(path);
 
             return result.IsSuccess
                 ? Ok(result)
@@ -44,9 +40,9 @@ namespace FrizzApp.Api.Controllers
 
         [HttpDelete("{id}")]
         [CreateKeyAuth]
-        public ActionResult Delete([FromRoute] int id)
+        public ActionResult Delete([FromRoute] DeleteProductDto dto)
         {
-            var result = _service.Delete(id);
+            var result = _service.Delete(dto);
 
             return Ok(result);
         }

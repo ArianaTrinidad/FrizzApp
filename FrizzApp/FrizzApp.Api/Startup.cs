@@ -1,11 +1,6 @@
 using FirzzApp.Business.Interfaces;
 using FirzzApp.Business.Mappings;
 using FirzzApp.Business.Services;
-using FirzzApp.Business.Validators;
-using FirzzApp.Business.Validators.CategoryValidators;
-using FirzzApp.Business.Validators.ProductStatusValidators;
-using FirzzApp.Business.Validators.OrderStatusValidators;
-using FirzzApp.Business.Validators.PaymentTypeValidators;
 using FirzzApp.Business.Validators.ProductValidators;
 using FluentValidation.AspNetCore;
 using FrizzApp.Api.Middlewares;
@@ -17,9 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
 
 namespace FrizzApp.Api
 {
@@ -49,7 +42,7 @@ namespace FrizzApp.Api
             services.AddMemoryCache();
 
             services.AddAutoMapper(typeof(CategoryMapping).Assembly);
-            
+
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IOrderStatusService, OrderStatusService>();
@@ -62,17 +55,8 @@ namespace FrizzApp.Api
             services.AddTransient<IPaymentTypeRepository, PymentTypeRepository>();
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
 
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCategoryDtoValidator>());
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeleteCategoryDtoValidator>());
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateOrderStatusDtoValidator>());
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeleteOrderStatusDtoValidator>());
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePaymentTypeDtoValidator>());
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeletePaymentTypeDtoValidator>());
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProductStatusDtoValidator>());
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeleteProductStatusDtoValidator>());
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DeleteProductDtoValidator>());
-
+            services.AddFluentValidation(fv =>
+                fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
 
             services.AddSwaggerGen(c =>
             {
