@@ -11,9 +11,9 @@ namespace FrizzApp.Data.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CategoryName = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CategoryName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,8 +24,8 @@ namespace FrizzApp.Data.Migrations
                 name: "PaymentTypes",
                 columns: table => new
                 {
-                    PaymentTypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PaymentTypeName = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
+                    PaymentTypeId = table.Column<int>(type: "int", nullable: false),
+                    PaymentTypeName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,8 +36,8 @@ namespace FrizzApp.Data.Migrations
                 name: "ProductStates",
                 columns: table => new
                 {
-                    OrderStatusId = table.Column<int>(type: "INTEGER", nullable: false),
-                    StatusName = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
+                    OrderStatusId = table.Column<int>(type: "int", nullable: false),
+                    StatusName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,8 +48,8 @@ namespace FrizzApp.Data.Migrations
                 name: "ProductStatus",
                 columns: table => new
                 {
-                    ProductStatusId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
+                    ProductStatusId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,17 +60,17 @@ namespace FrizzApp.Data.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "TEXT", nullable: false),
-                    IsDelivery = table.Column<bool>(type: "INTEGER", nullable: false),
-                    DeliveryAddress = table.Column<string>(type: "TEXT", nullable: true),
-                    ClientName = table.Column<string>(type: "TEXT", nullable: true),
-                    ClientPhone = table.Column<string>(type: "TEXT", nullable: true),
-                    IsPaid = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PaymentTypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrderStatusId = table.Column<int>(type: "INTEGER", nullable: false)
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsDelivery = table.Column<bool>(type: "bit", nullable: false),
+                    DeliveryAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPaid = table.Column<bool>(type: "bit", nullable: false),
+                    PaymentTypeId = table.Column<int>(type: "int", nullable: false),
+                    OrderStatusId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,18 +93,18 @@ namespace FrizzApp.Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 120, nullable: true),
-                    Notes = table.Column<string>(type: "TEXT", maxLength: 150, nullable: true),
-                    Presentation = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    Price = table.Column<decimal>(type: "TEXT", precision: 7, scale: 2, nullable: false, defaultValue: 0m),
-                    OldPrice = table.Column<decimal>(type: "TEXT", precision: 7, scale: 2, nullable: true),
-                    IsPromo = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
-                    ProductStatusId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Presentation = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: false, defaultValue: 0m),
+                    OldPrice = table.Column<decimal>(type: "decimal(7,2)", precision: 7, scale: 2, nullable: true),
+                    IsPromo = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    ProductStatusId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -126,67 +126,43 @@ namespace FrizzApp.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "CategoryId", "CategoryName" },
-                values: new object[] { 100, "Panaderia" });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "CategoryId", "CategoryName" },
-                values: new object[] { 101, "Salado" });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "CategoryId", "CategoryName" },
-                values: new object[] { 102, "Dulce" });
+                values: new object[,]
+                {
+                    { 100, "Panaderia" },
+                    { 101, "Salado" },
+                    { 102, "Dulce" }
+                });
 
             migrationBuilder.InsertData(
                 table: "PaymentTypes",
                 columns: new[] { "PaymentTypeId", "PaymentTypeName" },
-                values: new object[] { 10, "Cash" });
-
-            migrationBuilder.InsertData(
-                table: "PaymentTypes",
-                columns: new[] { "PaymentTypeId", "PaymentTypeName" },
-                values: new object[] { 11, "MercadoPago" });
-
-            migrationBuilder.InsertData(
-                table: "PaymentTypes",
-                columns: new[] { "PaymentTypeId", "PaymentTypeName" },
-                values: new object[] { 13, "Debit" });
-
-            migrationBuilder.InsertData(
-                table: "PaymentTypes",
-                columns: new[] { "PaymentTypeId", "PaymentTypeName" },
-                values: new object[] { 14, "Credit" });
+                values: new object[,]
+                {
+                    { 10, "Cash" },
+                    { 11, "MercadoPago" },
+                    { 13, "Debit" },
+                    { 14, "Credit" }
+                });
 
             migrationBuilder.InsertData(
                 table: "ProductStates",
                 columns: new[] { "OrderStatusId", "StatusName" },
-                values: new object[] { 1, "Pending" });
-
-            migrationBuilder.InsertData(
-                table: "ProductStates",
-                columns: new[] { "OrderStatusId", "StatusName" },
-                values: new object[] { 2, "Done" });
-
-            migrationBuilder.InsertData(
-                table: "ProductStates",
-                columns: new[] { "OrderStatusId", "StatusName" },
-                values: new object[] { 3, "Canceled" });
+                values: new object[,]
+                {
+                    { 1, "Pending" },
+                    { 2, "Done" },
+                    { 3, "Canceled" }
+                });
 
             migrationBuilder.InsertData(
                 table: "ProductStatus",
                 columns: new[] { "ProductStatusId", "Name" },
-                values: new object[] { 1, "Avaiable" });
-
-            migrationBuilder.InsertData(
-                table: "ProductStatus",
-                columns: new[] { "ProductStatusId", "Name" },
-                values: new object[] { 2, "WithoutStock" });
-
-            migrationBuilder.InsertData(
-                table: "ProductStatus",
-                columns: new[] { "ProductStatusId", "Name" },
-                values: new object[] { 3, "Deleted" });
+                values: new object[,]
+                {
+                    { 1, "Avaiable" },
+                    { 2, "WithoutStock" },
+                    { 3, "Deleted" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_OrderStatusId",
