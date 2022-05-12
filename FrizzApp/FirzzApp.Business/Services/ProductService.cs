@@ -27,7 +27,7 @@ namespace FirzzApp.Business.Services
 
         public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
         {
-            var cacheKey = $"GetAllProducts";
+            var cacheKey = $"GetAll";
             var result = new List<Product>();
 
             if (_cache.TryGetValue(cacheKey, out result))
@@ -56,6 +56,8 @@ namespace FirzzApp.Business.Services
             var entity = _mapper.Map<Product>(dto);
 
             _repository.Create(entity);
+            
+            _cache.Remove("GetAll");
 
             return Result<Product>.Success($"{entity.Name} - ${entity.Price}");
         }
@@ -64,6 +66,8 @@ namespace FirzzApp.Business.Services
         public string Delete(int id)
         {
             var result = _repository.Delete(id);
+
+            _cache.Remove("GetAll");
 
             return result;
         }
