@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace FirzzApp.Business.Validators.CategoryValidators
 {
-   public class DeleteCategoryDtoValidator : AbstractValidator<DeleteCategoryDto>
+    public class DeleteCategoryDtoValidator : AbstractValidator<DeleteCategoryDto>
     {
         public DeleteCategoryDtoValidator()
         {

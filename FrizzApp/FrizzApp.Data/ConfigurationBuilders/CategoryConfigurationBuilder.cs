@@ -9,7 +9,7 @@ namespace FrizzApp.Data.ConfigurationBuilders
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(x => x.CategoryId);
-            
+
             builder.ToTable("Categories");
 
             builder.Property(b => b.CategoryName)

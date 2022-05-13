@@ -1,14 +1,6 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using FirzzApp.Business.Services;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace FrizzApp.Api.Controllers
 {

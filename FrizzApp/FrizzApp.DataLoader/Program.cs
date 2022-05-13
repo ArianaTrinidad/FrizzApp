@@ -97,7 +97,7 @@ namespace FrizzApp.DataLoader
         public static T GetRandomFrom<T>(List<T> data)
         {
             var random = new Random();
-            
+
             return data[random.Next(data.Count)];
         }
     }
