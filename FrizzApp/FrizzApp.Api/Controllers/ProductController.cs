@@ -19,7 +19,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpGet]
-        public ActionResult GetAll([FromQuery] GetAllProductDto dto, CacheTypeEnum cacheType)
+        public ActionResult GetAll([FromQuery] GetAllProductDto dto,[FromQuery] CacheTypeEnum cacheType)
         {
             var result = _service.GetAll(dto, cacheType);
 
