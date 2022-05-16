@@ -6,7 +6,9 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
+using static FirzzApp.Business.Interfaces.ICategoryService;
 
 namespace FirzzApp.Business.Services
 {
@@ -25,13 +27,42 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public List<GetCategoryResponseDto> GetAll()
+        public List<GetCategoryResponseDto> GetAll(CacheTypeEnum cacheType)
         {
-            var result = _repository.GetAll();
+            var cacheKey = $"GetAllCategory";
 
-            var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+            var result = new List<Category>();
 
-            return response;
+
+            if (cacheType == CacheTypeEnum.hascache && _cache.TryGetValue(cacheKey, out result))
+            {
+                var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+                Console.WriteLine("From cache");
+                return response;
+            }
+            else if (cacheType == CacheTypeEnum.hascache)
+            {
+                _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
+                {
+                    Size = 10000,
+                    SlidingExpiration = TimeSpan.FromSeconds(1000)
+                });
+                Console.WriteLine("From database");
+                var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+                return response;
+            }
+            else
+            {
+                Console.WriteLine("OptionalCache turn off");
+                var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+                return response;
+            }
+
+            //var result = _repository.GetAll();
+
+            //var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+
+            //return response;
         }
 
 

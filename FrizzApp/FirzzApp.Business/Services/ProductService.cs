@@ -33,32 +33,28 @@ namespace FirzzApp.Business.Services
             var result = new List<Product>();
 
 
-            if (cacheType == CacheTypeEnum.hascache)
+            if (cacheType == CacheTypeEnum.hascache && _cache.TryGetValue(cacheKey, out result))
             {
-                if (_cache.TryGetValue(cacheKey, out result))
-                {
-                    var response = _mapper.Map<List<GetProductResponseDto>>(result);
-                    Console.WriteLine("From cache");
-                    return response;
-                }
-                else
-                {
-                    result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
-                    _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
-                    {
-                        Size = 10000,
-                        SlidingExpiration = TimeSpan.FromSeconds(1000)
-                    });
-                    Console.WriteLine("From dataabse");
-                    var response = _mapper.Map<List<GetProductResponseDto>>(result);
-                    return response;
-                }
+                var response = _mapper.Map<List<GetProductResponseDto>>(result);
+                Console.WriteLine("From cache");
+                return response;
             }
-
+            else if(cacheType == CacheTypeEnum.hascache)
+            {
+                result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
+                _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
+                {
+                    Size = 10000,
+                    SlidingExpiration = TimeSpan.FromSeconds(1000)
+                });
+                Console.WriteLine("From database");
+                var response = _mapper.Map<List<GetProductResponseDto>>(result);
+                return response;
+            }
             else
             {
                 result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
-                Console.WriteLine("CacheTypeEnum.none");
+                Console.WriteLine("OptionalCache turn off");
                 var response = _mapper.Map<List<GetProductResponseDto>>(result);
                 return response;
             }
