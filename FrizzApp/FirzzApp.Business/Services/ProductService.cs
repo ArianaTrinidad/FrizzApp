@@ -62,14 +62,23 @@ namespace FirzzApp.Business.Services
             return Result<Product>.Success($"{entity.Name} - ${entity.Price}");
         }
 
-
-        public string Delete(DeleteProductDto dto)
+        public Result<Product> ChangeStatus(ChangeStockStatusDto dto)
         {
-            var result = _repository.Delete(dto.Id);
+            var result = _repository.ChangeStatus(dto.Id, dto.estado);
 
             _cache.Remove("GetAll");
 
-            return result;
+            return Result<Product>.Success();
+            
         }
+
+    public string Delete(DeleteProductDto dto)
+    {
+        var result = _repository.Delete(dto.Id);
+
+        _cache.Remove("GetAll");
+
+        return result;
     }
+}
 }
