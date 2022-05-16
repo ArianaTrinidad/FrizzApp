@@ -16,8 +16,23 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public virtual List<Product> GetAll(string search, int pageNumber, int pageSize)
+        public virtual List<Product> GetAll(string search, int pageNumber, int pageSize,
+            string palabraClave = default, decimal preciomin = default, decimal preciomax = default, string categoria = default)
         {
+            if (palabraClave != null || preciomin <= 0 || preciomax >= 10000 || categoria != null)
+            {
+                var filters = _context.Products
+                  .Where(x => x.Name.Contains(palabraClave)
+                           || x.Description.Contains(palabraClave))
+                  .Where(x => x.Price > preciomin
+                           || x.Price < preciomax)
+                  .Where(x => x.CategoryId.Equals(categoria));
+
+                var resultsearch = filters.ToList();
+
+                return resultsearch;
+            }
+
             // TODO: Mejora - la lógica del paginado no va acá
             int take = pageSize > 0
                 ? pageSize
