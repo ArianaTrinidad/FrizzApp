@@ -2,11 +2,6 @@
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FrizzApp.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Mappings
 {

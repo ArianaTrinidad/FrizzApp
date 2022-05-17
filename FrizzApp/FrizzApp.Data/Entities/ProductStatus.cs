@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace FrizzApp.Data.Entities
+﻿namespace FrizzApp.Data.Entities
 {
     public class ProductStatus
     {

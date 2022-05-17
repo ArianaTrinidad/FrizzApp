@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace FrizzApp.Data.Repositories
 {
-    public class PymentTypeRepository : IPaymentTypeRepository 
+    public class PymentTypeRepository : IPaymentTypeRepository
     {
         private readonly DataContext _context;
 
@@ -32,7 +32,7 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
-        public string Delete (PaymentTypeEnum id)
+        public string Delete(PaymentTypeEnum id)
         {
             var entity = _context.PaymentTypes.Where(x => x.PaymentTypeId == id).FirstOrDefault();
 

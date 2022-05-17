@@ -7,7 +7,7 @@ using FrizzApp.Data.Entities;
 
 namespace FirzzApp.Business.Mappings
 {
-    class PaymentTypeMapping : Profile 
+    class PaymentTypeMapping : Profile
     {
         public PaymentTypeMapping()
         {

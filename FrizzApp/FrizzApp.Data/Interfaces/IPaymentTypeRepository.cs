@@ -7,6 +7,6 @@ namespace FrizzApp.Data.Interfaces
     {
         void Create(PaymentType entity);
         List<PaymentType> GetAll();
-        string Delete(PaymentTypeEnum id); 
+        string Delete(PaymentTypeEnum id);
     }
 }
