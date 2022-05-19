@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
-using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Enums;
+using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
-using static FirzzApp.Business.Interfaces.IProductService;
 
 namespace FirzzApp.Business.Services
 {
@@ -18,6 +18,7 @@ namespace FirzzApp.Business.Services
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
 
+
         public ProductService(IProductRepository repository, IMapper mapper, IMemoryCache cache)
         {
             _repository = repository;
@@ -26,36 +27,32 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public List<GetProductResponseDto> GetAll(GetAllProductDto dto, CacheTypeEnum cacheType)
+        public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
         {
             var cacheKey = $"GetAll";
 
-            var result = new List<Product>();
+            var response = new List<GetProductResponseDto>();
 
-
-            if (cacheType == CacheTypeEnum.hascache && _cache.TryGetValue(cacheKey, out result))
+            if (dto.CacheType == CacheTypeEnum.UseCache && _cache.TryGetValue(cacheKey, out response))
             {
-                var response = _mapper.Map<List<GetProductResponseDto>>(result);
                 Console.WriteLine("From cache");
-                return response;
-            }
-            else if(cacheType == CacheTypeEnum.hascache)
-            {
-                result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
-                _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
-                {
-                    Size = 10000,
-                    SlidingExpiration = TimeSpan.FromSeconds(1000)
-                });
-                Console.WriteLine("From database");
-                var response = _mapper.Map<List<GetProductResponseDto>>(result);
                 return response;
             }
             else
             {
-                result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
-                Console.WriteLine("OptionalCache turn off");
-                var response = _mapper.Map<List<GetProductResponseDto>>(result);
+                var result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
+                response = _mapper.Map<List<GetProductResponseDto>>(result);
+
+                if (dto.CacheType == CacheTypeEnum.UseCache)
+                {
+                    _cache.Set(cacheKey, response, new MemoryCacheEntryOptions()
+                    {
+                        Size = 10000,
+                        SlidingExpiration = TimeSpan.FromSeconds(1000)
+                    });
+                }
+
+                Console.WriteLine("From database");
                 return response;
             }
         }

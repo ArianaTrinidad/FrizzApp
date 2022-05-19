@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
+using FirzzApp.Business.Enums;
 using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
-using static FirzzApp.Business.Interfaces.ICategoryService;
 
 namespace FirzzApp.Business.Services
 {
@@ -34,13 +35,13 @@ namespace FirzzApp.Business.Services
             var result = new List<Category>();
 
 
-            if (cacheType == CacheTypeEnum.hascache && _cache.TryGetValue(cacheKey, out result))
+            if (cacheType == CacheTypeEnum.UseCache && _cache.TryGetValue(cacheKey, out result))
             {
                 var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
                 Console.WriteLine("From cache");
                 return response;
             }
-            else if (cacheType == CacheTypeEnum.hascache)
+            else if (cacheType == CacheTypeEnum.UseCache)
             {
                 _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
                 {

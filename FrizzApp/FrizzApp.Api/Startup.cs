@@ -1,4 +1,5 @@
 using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Mappings;
 using FirzzApp.Business.Services;
 using FirzzApp.Business.Validators.ProductValidators;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace FrizzApp.Api
 {
@@ -30,7 +32,6 @@ namespace FrizzApp.Api
         {
             services.AddControllers();
 
-
             var useSqlLite = Configuration.GetValue<bool>("UseSqlLite");
 
             if (useSqlLite)
@@ -42,12 +43,12 @@ namespace FrizzApp.Api
             }
             else
             {
+                string connectionString = Environment.GetEnvironmentVariable("FrizzAppDB");
+
                 services
                     .AddDbContext<DataContext>(option =>
                         option.UseSqlServer(Configuration.GetConnectionString("FrizzAppDB")));
             }
-
-
 
             services.AddMemoryCache();
 
@@ -64,6 +65,8 @@ namespace FrizzApp.Api
             services.AddTransient<IOrderStatusRepository, OrderStatusRepository>();
             services.AddTransient<IPaymentTypeRepository, PymentTypeRepository>();
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
+            
+            services.AddTransient<ICacheService, CacheService>();
 
             services.AddFluentValidation(fv =>
                 fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
@@ -76,17 +79,12 @@ namespace FrizzApp.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var ctx = scope.ServiceProvider.GetRequiredService<DataContext>())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<DataContext>();
-                context.Database.Migrate();
+                ctx.Database.EnsureCreated();
+                ctx.Database.Migrate();
             }
-
-            //Console.WriteLine(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
-            //if (env.IsDevelopment())
-            //{
-            //    Console.WriteLine("hello dev");
-            //}
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FrizzApp.Api v1"));

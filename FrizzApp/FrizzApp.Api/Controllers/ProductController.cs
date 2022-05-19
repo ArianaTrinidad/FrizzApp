@@ -1,8 +1,7 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
-using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Interfaces.IServices;
 using FrizzApp.Api.ControllerSecurity;
 using Microsoft.AspNetCore.Mvc;
-using static FirzzApp.Business.Interfaces.IProductService;
 
 namespace FrizzApp.Api.Controllers
 {
@@ -19,9 +18,9 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpGet]
-        public ActionResult GetAll([FromQuery] GetAllProductDto dto,[FromQuery] CacheTypeEnum cacheType)
+        public ActionResult GetAll([FromQuery] GetAllProductDto dto)
         {
-            var result = _service.GetAll(dto, cacheType);
+            var result = _service.GetAll(dto);
 
             return Ok(result);
         }

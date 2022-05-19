@@ -1,5 +1,5 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
-using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrizzApp.Api.Controllers
@@ -19,7 +19,7 @@ namespace FrizzApp.Api.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            var result = _service.GetAll();
+            var result = _service.GetAll(default);
 
             return Ok(result);
         }

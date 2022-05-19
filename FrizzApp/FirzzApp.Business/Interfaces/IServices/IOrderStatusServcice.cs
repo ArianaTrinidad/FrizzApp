@@ -4,7 +4,7 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using System.Collections.Generic;
 
-namespace FirzzApp.Business.Interfaces
+namespace FirzzApp.Business.Interfaces.IServices
 {
     public interface IOrderStatusService
     {

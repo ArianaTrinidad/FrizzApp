@@ -1,5 +1,6 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Interfaces.IServices;
 using FrizzApp.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 
