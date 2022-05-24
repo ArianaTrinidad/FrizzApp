@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
-using FirzzApp.Business.Enums;
+using FirzzApp.Business.Interfaces;
 using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 
@@ -16,10 +15,10 @@ namespace FirzzApp.Business.Services
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _cache;
+        private readonly ICacheService _cache;
 
 
-        public ProductService(IProductRepository repository, IMapper mapper, IMemoryCache cache)
+        public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache)
         {
             _repository = repository;
             _mapper = mapper;
@@ -31,26 +30,26 @@ namespace FirzzApp.Business.Services
         {
             var cacheKey = $"GetAll";
 
-            var response = new List<GetProductResponseDto>();
+            var cachedResult = _cache.Get<List<GetProductResponseDto>, GetAllProductDto>(cacheKey, dto);
 
-            if (dto.CacheType == CacheTypeEnum.UseCache && _cache.TryGetValue(cacheKey, out response))
+            if (cachedResult != default)
             {
                 Console.WriteLine("From cache");
-                return response;
+                return cachedResult;
             }
             else
             {
-                var result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
-                response = _mapper.Map<List<GetProductResponseDto>>(result);
+                var result = _repository.GetAll(
+                    dto.NumeroPagina,
+                    dto.CantidadPagina,
+                    dto.Busqueda,
+                    dto.PrecioMinimo.HasValue ? dto.PrecioMinimo.Value : default,
+                    dto.PrecioMaximo.HasValue ? dto.PrecioMaximo.Value : default,
+                    dto.CategoriaId.HasValue ? dto.CategoriaId.Value : default);
 
-                if (dto.CacheType == CacheTypeEnum.UseCache)
-                {
-                    _cache.Set(cacheKey, response, new MemoryCacheEntryOptions()
-                    {
-                        Size = 10000,
-                        SlidingExpiration = TimeSpan.FromSeconds(1000)
-                    });
-                }
+                var response = _mapper.Map<List<GetProductResponseDto>>(result);
+                
+                _cache.Set(cacheKey, response);
 
                 Console.WriteLine("From database");
                 return response;
