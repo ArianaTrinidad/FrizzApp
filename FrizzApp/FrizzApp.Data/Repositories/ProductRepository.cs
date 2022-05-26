@@ -16,39 +16,52 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public virtual List<Product> GetAll(string search, int pageNumber, int pageSize,
-            string palabraClave = default, decimal preciomin = default, decimal preciomax = default, string categoria = default)
+        public List<Product> GetAll(int pageNumber, int pageSize, string palabraClave, decimal precioMin, decimal precioMax, int categoriaId)
         {
-            if (palabraClave != null || preciomin <= 0 || preciomax >= 10000 || categoria != null)
-            {
-                var filters = _context.Products
-                  .Where(x => x.Name.Contains(palabraClave)
-                           || x.Description.Contains(palabraClave))
-                  .Where(x => x.Price > preciomin
-                           || x.Price < preciomax)
-                  .Where(x => x.CategoryId.Equals(categoria));
+            int take = pageSize > 0 ? pageSize : 100;
+            int skip = pageNumber > 0 ? (pageNumber - 1) * take : 0;
 
-                var resultsearch = filters.ToList();
-
-                return resultsearch;
-            }
-
-            // TODO: Mejora - la lógica del paginado no va acá
-            int take = pageSize > 0
-                ? pageSize
-                : 100;
-
-            int skip = pageNumber > 0
-                ? (pageNumber - 1) * take
-                : 0;
 
             var partialResult = _context.Products
-                .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted);
+                .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted)
+                .ToList();
+
+
+            if (string.IsNullOrWhiteSpace(palabraClave) == false)
+            {
+                partialResult = partialResult
+                    .Where(x => x.Name.Contains(palabraClave)
+                             || x.Description.Contains(palabraClave))
+                    .ToList();
+            }
+
+            if (precioMin != default)
+            {
+                partialResult = partialResult
+                    .Where(x => x.Price >= precioMin)
+                    .ToList();
+            }
+
+            if (precioMax != default)
+            {
+                partialResult = partialResult
+                    .Where(x => x.Price <= precioMax)
+                    .ToList();
+            }
+
+            if (categoriaId != default)
+            {
+                partialResult = partialResult
+                    .Where(x => x.CategoryId != categoriaId)
+                    .ToList();
+            }
+
 
             var result = partialResult
                 .Skip(skip)
                 .Take(take)
                 .ToList();
+
 
             return result;
         }
