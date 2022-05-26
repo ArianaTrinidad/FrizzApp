@@ -16,23 +16,8 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public List<Product> GetAll(int pageNumber, int pageSize, string palabraClave, decimal preciomin, decimal preciomax, int categoria)
+        public List<Product> GetAll(int pageNumber, int pageSize, string palabraClave, decimal precioMin, decimal precioMax, int categoriaId)
         {
-            //if (palabraClave != null || preciomin <= 0 || preciomax >= 10000 || categoria != null)
-            //{
-            //    var filters = _context.Products
-            //      .Where(x => x.Name.Contains(palabraClave)
-            //               || x.Description.Contains(palabraClave))
-            //      .Where(x => x.Price > preciomin
-            //               || x.Price < preciomax)
-            //      .Where(x => x.CategoryId.Equals(categoria));
-
-            //    var resultsearch = filters.ToList();
-
-            //    return resultsearch;
-            //}
-
-            // TODO: Mejora - la lógica del paginado no va acá
             int take = pageSize > 0 ? pageSize : 100;
             int skip = pageNumber > 0 ? (pageNumber - 1) * take : 0;
 
@@ -41,7 +26,8 @@ namespace FrizzApp.Data.Repositories
                 .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted)
                 .ToList();
 
-            if (string.IsNullOrEmpty(palabraClave) == false)
+
+            if (string.IsNullOrWhiteSpace(palabraClave) == false)
             {
                 partialResult = partialResult
                     .Where(x => x.Name.Contains(palabraClave)
@@ -49,24 +35,24 @@ namespace FrizzApp.Data.Repositories
                     .ToList();
             }
 
-            if (preciomin != default)
+            if (precioMin != default)
             {
                 partialResult = partialResult
-                .Where(x => x.Price > preciomin) // mayor o IGUAL
-                .ToList();
+                    .Where(x => x.Price >= precioMin)
+                    .ToList();
             }
 
-            if (preciomax != default)
+            if (precioMax != default)
             {
                 partialResult = partialResult
-                .Where(x => x.Price < preciomax) // menor o IGUAL
-                .ToList();
+                    .Where(x => x.Price <= precioMax)
+                    .ToList();
             }
 
-            if (categoria != default)
+            if (categoriaId != default)
             {
                 partialResult = partialResult
-                    .Where(x => x.CategoryId != categoria)
+                    .Where(x => x.CategoryId != categoriaId)
                     .ToList();
             }
 

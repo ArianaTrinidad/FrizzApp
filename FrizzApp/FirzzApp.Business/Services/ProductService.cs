@@ -43,9 +43,9 @@ namespace FirzzApp.Business.Services
                     dto.NumeroPagina,
                     dto.CantidadPagina,
                     dto.Busqueda,
-                    dto.PrecioMinimo.HasValue ? dto.PrecioMinimo.Value : default,
-                    dto.PrecioMaximo.HasValue ? dto.PrecioMaximo.Value : default,
-                    dto.CategoriaId.HasValue ? dto.CategoriaId.Value : default);
+                    dto.PrecioMinimo ?? default,
+                    dto.PrecioMaximo ?? default,
+                    dto.CategoriaId ?? default);
 
                 var response = _mapper.Map<List<GetProductResponseDto>>(result);
                 
