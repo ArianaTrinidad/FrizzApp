@@ -62,9 +62,9 @@ namespace FirzzApp.Business.Services
             return Result<Product>.Success($"{entity.Name} - ${entity.Price}");
         }
 
-        public Result<Product> ChangeStatus(ChangeStockStatusDto dto)
+        public Result<Product> ChangeStatus(ChangeStockStatusProductDto dto)
         {
-            var result = _repository.ChangeStatus(dto.Id, dto.estado);
+            _repository.ChangeStatus(dto.Id);
 
             _cache.Remove("GetAll");
 

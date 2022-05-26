@@ -17,8 +17,8 @@ namespace FrizzApp.Data.Entities
 
     public enum ProductStatusEnum
     {
-        Avaiable = 1,
-        WithoutStock = 2,
-        Deleted = 3,
+        Avaiable = 0,
+        WithoutStock = 1,
+        Deleted = 2,
     }
 }

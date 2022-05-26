@@ -46,11 +46,11 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public Product ChangeStatus( int id, ProductStatusEnum estado) 
+        public Product ChangeStatus( int id) 
         {
-            var entity = _context.Products.Where(x => x.Id == id).FirstOrDefault();
+            var entity = _context.Products.Where(x => x.Id == id).First();
 
-            entity.ProductStatusId = estado;
+            entity.ProductStatusId = (ProductStatusEnum)1;
 
             _context.SaveChanges();
 

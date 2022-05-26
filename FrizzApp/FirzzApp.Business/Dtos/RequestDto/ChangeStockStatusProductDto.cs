@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Dtos.RequestDto
 {
-   public class ChangeStockStatusDto
+   public class ChangeStockStatusProductDto
     {
         public int Id { get; set; }
-        public ProductStatusEnum estado { get; set; }
     }
 }

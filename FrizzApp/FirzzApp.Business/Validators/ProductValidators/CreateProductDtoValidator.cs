@@ -17,7 +17,7 @@ namespace FirzzApp.Business.Validators.ProductValidators
 
             RuleFor(x => x.ImagenUrl).NotEmpty().NotNull();
 
-            RuleFor(x => x.Precio).NotEmpty().NotNull().NotEqual(0).LessThan(0);
+            RuleFor(x => x.Precio).NotEmpty().NotNull().NotEqual(0).GreaterThan(0);
 
             RuleFor(x => x.EsPromo).NotEmpty().NotNull();
 

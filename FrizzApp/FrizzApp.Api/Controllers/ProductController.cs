@@ -52,7 +52,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpPatch]
-        public ActionResult ChangeStockStatus([FromBody] ChangeStockStatusDto dto)
+        public ActionResult ChangeStockStatus([FromBody] ChangeStockStatusProductDto dto)
         {
             var result = _service.ChangeStatus(dto);
 

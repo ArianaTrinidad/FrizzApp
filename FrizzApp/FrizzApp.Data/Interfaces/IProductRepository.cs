@@ -7,7 +7,7 @@ namespace FrizzApp.Data.Interfaces
     {
         List<Product> GetAll(string search, int pageNumber, int pageSize);
         void Create(Product entity);
-        Product ChangeStatus(int dto, ProductStatusEnum estado);
+        Product ChangeStatus(int dto);
         string Delete(int id);
     }
 }
