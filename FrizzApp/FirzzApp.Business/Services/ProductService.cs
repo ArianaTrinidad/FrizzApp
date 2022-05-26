@@ -38,7 +38,12 @@ namespace FirzzApp.Business.Services
             }
             else
             {
-                result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
+                result = _repository.GetAll(dto.Busqueda,
+                                            dto.Categoria.HasValue ? dto.Categoria.Value : default,
+                                            dto.PrecioMinimo.HasValue ? dto.PrecioMinimo.Value : default,
+                                            dto.PrecioMaximo.HasValue ? dto.PrecioMaximo.Value : default,
+                                            dto.NumeroPagina,
+                                            dto.CantidadPagina);
                 _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
                 {
                     Size = 10000,
