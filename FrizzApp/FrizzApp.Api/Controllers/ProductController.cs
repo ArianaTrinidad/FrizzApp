@@ -1,9 +1,10 @@
-﻿using ClosedXML.Excel;
-using FirzzApp.Business.Dtos.RequestDto;
+﻿using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Interfaces.IServices;
 using FrizzApp.Api.ControllerSecurity;
 using Microsoft.AspNetCore.Mvc;
+using ClosedXML.Excel;
 using System.IO;
+using System.Collections.Generic;
 
 namespace FrizzApp.Api.Controllers
 {
@@ -22,51 +23,66 @@ namespace FrizzApp.Api.Controllers
         [HttpGet]
         public ActionResult GetAll([FromQuery] GetAllProductDto dto)
         {
-            var result = _service.GetAll(dto);
+            var ProductList = _service.GetAll(dto);
 
-            return Ok(result);
+            return Ok(ProductList);
         }
 
-
-
-        public IActionResult Index()
+        private List<CreateProductDto> ProductList = new List<CreateProductDto>
         {
-            return Excel();
-        }
+            new CreateProductDto{Nombre = "Brownie",
+                Descripcion = "De chocolate",
+                Nota = "Sacar del freezer 5hs antes de consumir",
+                Presentacion = "3 unidades",
+                ImagenUrl = "InsertarURL",
+                Precio = 500,
+                EsPromo = true,
+                Categoria= 0},
+        };
 
-        public IActionResult Excel()
+        private FileResult Excel()
         {
             using (var workbook = new XLWorkbook())
             {
-                var worksheet = workbook.Worksheets.Add("List<FrizzApp.Buisnes.Dtos.ResponseDto.GetProductResponseDto> result");
-                var currentRow = 1;
-                worksheet.Cell(currentRow, 1).Value = "Id";
-                worksheet.Cell(currentRow, 2).Value = "Nombre";
-                worksheet.Cell(currentRow, 3).Value = "Descripcion";
-                worksheet.Cell(currentRow, 4).Value = "Nota";
-                worksheet.Cell(currentRow, 5).Value = "Presentación";
-                worksheet.Cell(currentRow, 5).Value = "Precio";
 
-                foreach (var get in result)
+                var worksheet = workbook.Worksheets.Add("ProductList");
+                var currentRow = 1;
+                worksheet.Cell(currentRow, 1).Value = "Nombre";
+                worksheet.Cell(currentRow, 2).Value = "Descripcion";
+                worksheet.Cell(currentRow, 2).Value = "Nota";
+                worksheet.Cell(currentRow, 2).Value = "Presentación";
+                worksheet.Cell(currentRow, 2).Value = "Imagen";
+                worksheet.Cell(currentRow, 3).Value = "Precio";
+                worksheet.Cell(currentRow, 2).Value = "Promo";
+                worksheet.Cell(currentRow, 2).Value = "Categoría";
+
+                foreach (var get in ProductList)
                 {
                     currentRow++;
-                    worksheet.Cell(currentRow, 1).Value = get.Id;
                     worksheet.Cell(currentRow, 2).Value = get.Nombre;
                     worksheet.Cell(currentRow, 3).Value = get.Descripcion;
-                    worksheet.Cell(currentRow, 4).Value = get.Nota;
-                    worksheet.Cell(currentRow, 5).Value = get.Presentación;
+                    worksheet.Cell(currentRow, 5).Value = get.Nota;
+                    worksheet.Cell(currentRow, 5).Value = get.Presentacion;
+                    worksheet.Cell(currentRow, 5).Value = get.ImagenUrl;
                     worksheet.Cell(currentRow, 5).Value = get.Precio;
+                    worksheet.Cell(currentRow, 5).Value = get.EsPromo;
+                    worksheet.Cell(currentRow, 5).Value = get.Categoria;
                 }
 
                 using (var stream = new MemoryStream())
                 {
                     workbook.SaveAs(stream);
                     var content = stream.ToArray();
-                    return File(content, 
-                                "application/vnd/openxmlformats-officedocument.spreadsheetml.sheet", 
+                    return File(content,
+                                "application/vnd/openxmlformats-officedocument.spreadsheetml.sheet",
                                 "ProductList.xlsx");
                 }
             }
+        }
+
+        private IActionResult Index()
+        {
+            return Excel();
         }
 
 
