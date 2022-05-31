@@ -39,6 +39,7 @@ namespace FirzzApp.Business.Services
             }
             else
             {
+                var watch = System.Diagnostics.Stopwatch.StartNew();
                 var result = _repository.GetAll(
                     dto.NumeroPagina,
                     dto.CantidadPagina,
@@ -46,6 +47,10 @@ namespace FirzzApp.Business.Services
                     dto.PrecioMinimo ?? default,
                     dto.PrecioMaximo ?? default,
                     dto.CategoriaId ?? default);
+                watch.Stop();
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine($"ToList() approach =>  Execution Time: {watch.ElapsedMilliseconds} ms");
+                Console.ResetColor();
 
                 var response = _mapper.Map<List<GetProductResponseDto>>(result);
                 
