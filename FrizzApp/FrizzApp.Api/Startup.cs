@@ -76,10 +76,8 @@ namespace FrizzApp.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FrizzApp.Api", Version = "v1" });
+                c.OperationFilter<CommandHeaderAuth>();
             });
-
-            services.AddSwaggerGen( c =>
-                c.OperationFilter<CreateProductHeaderAuth>());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

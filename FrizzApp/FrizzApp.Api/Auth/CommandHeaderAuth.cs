@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 namespace FrizzApp.Api.Auth
 {
-    public class CreateProductHeaderAuth : IOperationFilter
+    public class CommandHeaderAuth : IOperationFilter
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
@@ -13,10 +13,10 @@ namespace FrizzApp.Api.Auth
 
             operation.Parameters.Add(new OpenApiParameter
             {
-                Name = "Password",
+                Name = "CreateProductKey",
                 In = ParameterLocation.Header,
                 Schema = new OpenApiSchema() { Type = "String" },
-                Required = true
+                Required = false
             });
         }
     }
