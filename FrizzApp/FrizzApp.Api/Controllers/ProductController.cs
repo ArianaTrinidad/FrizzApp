@@ -2,6 +2,7 @@
 using FirzzApp.Business.Interfaces.IServices;
 using FrizzApp.Api.ControllerSecurity;
 using Microsoft.AspNetCore.Mvc;
+using FrizzApp.Api.Auth;
 
 namespace FrizzApp.Api.Controllers
 {
