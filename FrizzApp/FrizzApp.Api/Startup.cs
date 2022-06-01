@@ -4,6 +4,8 @@ using FirzzApp.Business.Mappings;
 using FirzzApp.Business.Services;
 using FirzzApp.Business.Validators.ProductValidators;
 using FluentValidation.AspNetCore;
+using FrizzApp.Api.Auth;
+using FrizzApp.Api.Controllers;
 using FrizzApp.Api.Middlewares;
 using FrizzApp.Data;
 using FrizzApp.Data.Interfaces;
@@ -74,6 +76,7 @@ namespace FrizzApp.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FrizzApp.Api", Version = "v1" });
+                c.OperationFilter<CommandHeaderAuth>();
             });
         }
 
