@@ -1,0 +1,1047 @@
+{
+	"info": {
+		"_postman_id": "74386e54-eb12-4572-907e-8edba492327a",
+		"name": "FrizzApp.Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20354861"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "/api/Category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Category",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Category"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/Category",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Category"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/Category",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nombre\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Category",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Category"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"nombre\": \"anim amet velit\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/Category",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Category"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/Category/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/Category/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Category",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/Category/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Category",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "20526149",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "\"esse deserunt\""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Order Status",
+					"item": [
+						{
+							"name": "/api/OrderStatus",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/OrderStatus",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"OrderStatus"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/OrderStatus",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"OrderStatus"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/OrderStatus",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"estado\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/OrderStatus",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"OrderStatus"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"estado\": \"elit sint\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/OrderStatus",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"OrderStatus"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/OrderStatus/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/OrderStatus/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"OrderStatus",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/OrderStatus/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"OrderStatus",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "NaN",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "\"esse deserunt\""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Payment Type",
+					"item": [
+						{
+							"name": "/api/PaymentType",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/PaymentType",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"PaymentType"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/PaymentType",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"PaymentType"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/PaymentType",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/PaymentType",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"PaymentType"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/PaymentType",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"PaymentType"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/PaymentType/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/PaymentType/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"PaymentType",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/PaymentType/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"PaymentType",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "NaN",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "\"esse deserunt\""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "/api/Product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Product?Busqueda=&NumeroPagina=&CantidadPagina=&CategoriaId=&PrecioMinimo=&PrecioMaximo=&CacheType=",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Product"
+									],
+									"query": [
+										{
+											"key": "Busqueda",
+											"value": ""
+										},
+										{
+											"key": "NumeroPagina",
+											"value": ""
+										},
+										{
+											"key": "CantidadPagina",
+											"value": ""
+										},
+										{
+											"key": "CategoriaId",
+											"value": ""
+										},
+										{
+											"key": "PrecioMinimo",
+											"value": ""
+										},
+										{
+											"key": "PrecioMaximo",
+											"value": ""
+										},
+										{
+											"key": "CacheType",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/Product?Busqueda=do nostrud irure&NumeroPagina=20526149&CantidadPagina=20526149&CategoriaId=52138618&PrecioMinimo=63980119.71241969&PrecioMaximo=63980119.71241969&CacheType=<integer>",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Product"
+											],
+											"query": [
+												{
+													"key": "Busqueda",
+													"value": "do nostrud irure"
+												},
+												{
+													"key": "NumeroPagina",
+													"value": "20526149"
+												},
+												{
+													"key": "CantidadPagina",
+													"value": "20526149"
+												},
+												{
+													"key": "CategoriaId",
+													"value": "52138618"
+												},
+												{
+													"key": "PrecioMinimo",
+													"value": "63980119.71241969"
+												},
+												{
+													"key": "PrecioMaximo",
+													"value": "63980119.71241969"
+												},
+												{
+													"key": "CacheType",
+													"value": "<integer>"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/Product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nombre\": \"\",\n  \"descripcion\": \"\",\n  \"nota\": \"\",\n  \"presentacion\": \"\",\n  \"imagenUrl\": \"\",\n  \"precio\": 0,\n  \"esPromo\": false,\n  \"categoria\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Product",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Product"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"nombre\": \"tempor consequat\",\n  \"descripcion\": \"mollit commodo\",\n  \"nota\": \"ullamco sed eiusmod exercitation\",\n  \"presentacion\": \"sint dolore nulla et\",\n  \"imagenUrl\": \"aute aliqua dolor officia\",\n  \"precio\": -55939134.863070585,\n  \"esPromo\": false,\n  \"categoria\": 8914002\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/Product",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Product"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/Product/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Product/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "Id",
+											"value": "20526149",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/Product/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Product",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "Id",
+													"value": "20526149",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Product Status",
+					"item": [
+						{
+							"name": "/api/ProductStatus",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/ProductStatus",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"ProductStatus"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/ProductStatus",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"ProductStatus"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/ProductStatus",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/ProductStatus",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"ProductStatus"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/ProductStatus",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"ProductStatus"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/ProductStatus/:id",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/ProductStatus/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"ProductStatus",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/ProductStatus/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"ProductStatus",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "NaN",
+													"description": "(Required) "
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "\"esse deserunt\""
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:5001",
+			"type": "string"
+		}
+	]
+}
