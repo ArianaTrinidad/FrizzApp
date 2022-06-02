@@ -1,12 +1,10 @@
-﻿using FirzzApp.Business.Dtos.RequestDto;
+﻿using ClosedXML.Excel;
+using FirzzApp.Business.Dtos.RequestDto;
+using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Interfaces.IServices;
 using FrizzApp.Api.ControllerSecurity;
 using Microsoft.AspNetCore.Mvc;
-using ClosedXML.Excel;
 using System.IO;
-using System.Collections.Generic;
-using FirzzApp.Business.Dtos.ResponseDto;
-using FrizzApp.Api.Auth;
 
 namespace FrizzApp.Api.Controllers
 {

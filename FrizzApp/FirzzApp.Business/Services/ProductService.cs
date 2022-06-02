@@ -53,7 +53,7 @@ namespace FirzzApp.Business.Services
                 Console.ResetColor();
 
                 var response = _mapper.Map<List<GetProductResponseDto>>(result);
-                
+
                 _cache.Set(cacheKey, response);
 
                 Console.WriteLine("From database");

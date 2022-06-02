@@ -7,7 +7,7 @@ namespace FirzzApp.Business.Validators.OrderStatusValidators
     {
         public CreateOrderStatusDtoValidator()
         {
-            RuleFor(x => x.Estado).NotEmpty().NotNull().Length(20);
+            RuleFor(x => x.Estado).NotEmpty().NotNull().MaximumLength(20);
         }
     }
 }

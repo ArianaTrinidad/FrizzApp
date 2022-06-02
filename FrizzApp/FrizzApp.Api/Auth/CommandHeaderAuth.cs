@@ -1,6 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
 using System.Collections.Generic;
 namespace FrizzApp.Api.Auth
 {
@@ -8,7 +7,7 @@ namespace FrizzApp.Api.Auth
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            if(operation.Parameters == null)
+            if (operation.Parameters == null)
                 operation.Parameters = new List<OpenApiParameter>();
 
             operation.Parameters.Add(new OpenApiParameter
