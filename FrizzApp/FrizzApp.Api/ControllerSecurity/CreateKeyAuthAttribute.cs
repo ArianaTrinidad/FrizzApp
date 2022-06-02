@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FrizzApp.Api.ControllerSecurity
@@ -10,6 +13,7 @@ namespace FrizzApp.Api.ControllerSecurity
     public class CreateKeyAuthAttribute : Attribute, IAsyncActionFilter
     {
         private const string CreateKeyHeaderName = "CreateProductKey";
+
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             if (!context.HttpContext.Request.Headers.TryGetValue(CreateKeyHeaderName, out var potentialCreateKey))

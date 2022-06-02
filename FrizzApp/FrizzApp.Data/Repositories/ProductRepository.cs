@@ -1,4 +1,5 @@
 ﻿using FrizzApp.Data.Entities;
+using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,41 +20,35 @@ namespace FrizzApp.Data.Repositories
         public List<Product> GetAll(int pageNumber, int pageSize, string palabraClave, decimal precioMin, decimal precioMax, int categoriaId)
         {
             int take = pageSize > 0 ? pageSize : 100;
-            int skip = pageNumber > 0 ? (pageNumber - 1) * take : 0;
+            int skip = pageNumber > 0 ? (pageNumber - 1) * (pageSize > 0 ? pageSize : 100) : 0;
 
 
             var partialResult = _context.Products
-                .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted)
-                .ToList();
-
+                .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted);
 
             if (string.IsNullOrWhiteSpace(palabraClave) == false)
             {
                 partialResult = partialResult
                     .Where(x => x.Name.Contains(palabraClave)
-                             || x.Description.Contains(palabraClave))
-                    .ToList();
+                             || x.Description.Contains(palabraClave));
             }
 
             if (precioMin != default)
             {
                 partialResult = partialResult
-                    .Where(x => x.Price >= precioMin)
-                    .ToList();
+                    .Where(x => x.Price >= precioMin);
             }
 
             if (precioMax != default)
             {
                 partialResult = partialResult
-                    .Where(x => x.Price <= precioMax)
-                    .ToList();
+                    .Where(x => x.Price <= precioMax);
             }
 
             if (categoriaId != default)
             {
                 partialResult = partialResult
-                    .Where(x => x.CategoryId != categoriaId)
-                    .ToList();
+                    .Where(x => x.CategoryId != categoriaId);
             }
 
 
@@ -66,6 +61,23 @@ namespace FrizzApp.Data.Repositories
             return result;
         }
 
+
+        public List<Product> GetAllQueryableExtesion(int pageNumber, int pageSize, string palabraClave, decimal precioMin, decimal precioMax, int categoriaId)
+        {
+            int take = pageSize > 0 ? pageSize : 100;
+            int skip = pageNumber > 0 ? (pageNumber - 1) * (pageSize > 0 ? pageSize : 100) : 0;
+
+            return _context.Products
+                .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted)
+                //.WhereIf( condition: , func: lambda expression )
+                .WhereIf(string.IsNullOrWhiteSpace(palabraClave) == false, x => x.Name.Contains(palabraClave) || x.Description.Contains(palabraClave))
+                .WhereIf(precioMin != default, x => x.Price >= precioMin)
+                .WhereIf(precioMax != default, x => x.Price <= precioMax)
+                .WhereIf(categoriaId != default, x => x.CategoryId != categoriaId)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+        }
 
         public void Create(Product entity)
         {

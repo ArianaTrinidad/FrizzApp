@@ -7,7 +7,7 @@ namespace FirzzApp.Business.Validators.CategoryValidators
     {
         public CreateCategoryDtoValidator()
         {
-            RuleFor(x => x.Nombre).NotEmpty().NotNull().Length(20);
+            RuleFor(x => x.Nombre).NotEmpty().NotNull().MaximumLength(20);
         }
     }
 }

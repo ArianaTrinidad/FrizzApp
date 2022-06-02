@@ -6,6 +6,7 @@ using ClosedXML.Excel;
 using System.IO;
 using System.Collections.Generic;
 using FirzzApp.Business.Dtos.ResponseDto;
+using FrizzApp.Api.Auth;
 
 namespace FrizzApp.Api.Controllers
 {
