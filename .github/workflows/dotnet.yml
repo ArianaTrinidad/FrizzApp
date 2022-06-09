@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore "FrizzApp/FrizzApp.Api.csproj"
+      run: dotnet restore "FrizzApp.Api.csproj"
     - name: Build
-      run: dotnet build "FrizzApp/FrizzApp.Api.csproj" -c Release -o /app --no-restore
+      run: dotnet build "FrizzApp.Api.csproj" -c Release -o /app --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
