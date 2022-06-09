@@ -17,9 +17,5 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore "FrizzApp.Api.csproj"
     - name: Build
-      run: dotnet build "FrizzApp.Api.csproj" -c Release -o /app --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build
