@@ -17,5 +17,9 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ./FrizzApp
     - name: Build
-      run: dotnet build
+      run: dotnet build --no-restore
+      working-directory: ./FrizzApp
