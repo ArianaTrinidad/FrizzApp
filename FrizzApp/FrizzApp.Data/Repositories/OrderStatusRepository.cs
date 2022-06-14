@@ -32,7 +32,7 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public string DeleteOrderStatus(OrderStatusEnum statusId)
+        public string DeleteOrderStatus(int statusId)
         {
             var entity = _context.OrderStates.Where(x => x.OrderStatusId == statusId).FirstOrDefault();
 

@@ -11,6 +11,6 @@ namespace FirzzApp.Business.Interfaces.IServices
         List<GetProductStatusResponseDto> GetAll();
         Result<ProductStatus> Create(CreateProductStatusDto dto);
 
-        string Delete(ProductStatusEnum id);
+        string Delete(int id);
     }
 }

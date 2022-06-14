@@ -7,8 +7,6 @@ namespace FirzzApp.Business.Mappings
 {
     public class OrderStatusMapping : Profile
     {
-
-
         public OrderStatusMapping()
         {
             CreateMap<OrderStatus, GetOrderStatusResponseDto>()

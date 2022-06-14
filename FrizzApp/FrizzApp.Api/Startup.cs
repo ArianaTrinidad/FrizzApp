@@ -1,3 +1,4 @@
+using FirzzApp.Business.Auth;
 using FirzzApp.Business.Interfaces;
 using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Mappings;
@@ -7,15 +8,20 @@ using FluentValidation.AspNetCore;
 using FrizzApp.Api.Auth;
 using FrizzApp.Api.Middlewares;
 using FrizzApp.Data;
+using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using FrizzApp.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System;
+using System.Text;
 
 namespace FrizzApp.Api
 {
@@ -60,6 +66,7 @@ namespace FrizzApp.Api
             services.AddTransient<IOrderStatusService, OrderStatusService>();
             services.AddTransient<IPaymentTypeService, PaymentTypeService>();
             services.AddTransient<IProductStatusService, ProductStatusService>();
+            services.AddTransient<IIdentityService, IdentityService>();
 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
@@ -68,14 +75,54 @@ namespace FrizzApp.Api
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
 
             services.AddTransient<ICacheService, CacheService>();
+            
+            services.AddSingleton(Log.Logger);
 
             services.AddFluentValidation(fv =>
                 fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
+
+            services.AddDefaultIdentity<User>()
+                .AddEntityFrameworkStores<DataContext>();
+
+            var jwtSettings = new JwtSettings();
+            Configuration.Bind(nameof(jwtSettings), jwtSettings);
+            services.AddSingleton(jwtSettings);
+
+            services
+                .AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        RequireExpirationTime = false,
+                        ValidateLifetime = true
+                    };
+                });
+
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FrizzApp.Api", Version = "v1" });
                 c.OperationFilter<CommandHeaderAuth>();
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
             });
         }
 
@@ -88,6 +135,7 @@ namespace FrizzApp.Api
                 ctx.Database.Migrate();
             }
 
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FrizzApp.Api v1"));
 
@@ -97,6 +145,7 @@ namespace FrizzApp.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

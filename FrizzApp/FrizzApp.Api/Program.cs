@@ -9,13 +9,11 @@ namespace FrizzApp.Api
     {
         public static void Main(string[] args)
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
-
-            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+            ConfigureSerilog();
 
             CreateHostBuilder(args).Build().Run();
         }
+
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -24,5 +22,20 @@ namespace FrizzApp.Api
                     webBuilder.UseStartup<Startup>()
                     .UseSerilog();
                 });
+
+
+        private static void ConfigureSerilog()
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                            .AddJsonFile(
+                                "appsettings.json",
+                                optional: false,
+                                reloadOnChange: true).Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .WriteTo.Console()
+                .CreateLogger();
+        }
     }
 }

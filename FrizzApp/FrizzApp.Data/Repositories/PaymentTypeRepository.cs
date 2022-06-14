@@ -32,7 +32,7 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
-        public string Delete(PaymentTypeEnum id)
+        public string Delete(int id)
         {
             var entity = _context.PaymentTypes.Where(x => x.PaymentTypeId == id).FirstOrDefault();
 

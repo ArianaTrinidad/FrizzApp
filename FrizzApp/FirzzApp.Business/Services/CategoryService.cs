@@ -27,6 +27,7 @@ namespace FirzzApp.Business.Services
         }
 
 
+        // TODO: Esto no anda, luego de aquella implementación de cache en este método dejó de devolver información...
         public List<GetCategoryResponseDto> GetAll(CacheTypeEnum cacheType)
         {
             var cacheKey = $"GetAllCategory";

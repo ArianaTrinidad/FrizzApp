@@ -1,4 +1,5 @@
 ﻿using FrizzApp.Data.Entities;
+using FrizzApp.Data.Enums;
 using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace FrizzApp.Data.Repositories
 
 
             var partialResult = _context.Products
-                .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted);
+                .Where(x => x.ProductStatusId != (int)ProductStatusEnum.Deleted);
 
             if (string.IsNullOrWhiteSpace(palabraClave) == false)
             {
@@ -55,6 +56,7 @@ namespace FrizzApp.Data.Repositories
             var result = partialResult
                 .Skip(skip)
                 .Take(take)
+                .OrderBy(x => x.Id)
                 .ToList();
 
 
@@ -68,7 +70,7 @@ namespace FrizzApp.Data.Repositories
             int skip = pageNumber > 0 ? (pageNumber - 1) * (pageSize > 0 ? pageSize : 100) : 0;
 
             return _context.Products
-                .Where(x => x.ProductStatusId != ProductStatusEnum.Deleted)
+                .Where(x => x.ProductStatusId != (int)ProductStatusEnum.Deleted)
                 //.WhereIf( condition: , func: lambda expression )
                 .WhereIf(string.IsNullOrWhiteSpace(palabraClave) == false, x => x.Name.Contains(palabraClave) || x.Description.Contains(palabraClave))
                 .WhereIf(precioMin != default, x => x.Price >= precioMin)
@@ -76,6 +78,7 @@ namespace FrizzApp.Data.Repositories
                 .WhereIf(categoriaId != default, x => x.CategoryId != categoriaId)
                 .Skip(skip)
                 .Take(take)
+                .OrderBy(x => x.Id)
                 .ToList();
         }
 
@@ -91,7 +94,7 @@ namespace FrizzApp.Data.Repositories
 
             if (entity != null)
             {
-                entity.ProductStatusId = ProductStatusEnum.Deleted;
+                entity.ProductStatusId = (int)ProductStatusEnum.Deleted;
                 _context.Products.Update(entity);
                 _context.SaveChanges();
 

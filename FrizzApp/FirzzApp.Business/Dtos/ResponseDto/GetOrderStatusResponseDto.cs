@@ -2,7 +2,7 @@
 {
     public class GetOrderStatusResponseDto
     {
-        public string EstadoId { get; set; }
+        public int EstadoId { get; set; }
         public string Estado { get; set; }
     }
 }
