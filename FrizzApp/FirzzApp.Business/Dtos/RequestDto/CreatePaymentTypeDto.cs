@@ -2,6 +2,6 @@
 {
     public class CreatePaymentTypeDto
     {
-        public string Nombre;
+        public string Nombre { get; set; }
     }
 }

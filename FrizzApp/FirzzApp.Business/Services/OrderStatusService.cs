@@ -15,13 +15,11 @@ namespace FirzzApp.Business.Services
 
         private readonly IOrderStatusRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _cache;
 
-        public OrderStatusService(IOrderStatusRepository repository, IMapper mapper, IMemoryCache cache)
+        public OrderStatusService(IOrderStatusRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _cache = cache;
         }
 
 
@@ -46,7 +44,7 @@ namespace FirzzApp.Business.Services
             return Result<OrderStatus>.Success($"{entity.StatusName}");
         }
 
-        public string DeleteOrderStatus(OrderStatusEnum id)
+        public string DeleteOrderStatus(int id)
         {
             var result = _repository.DeleteOrderStatus(id);
 

@@ -14,13 +14,11 @@ namespace FirzzApp.Business.Services
     {
         private readonly IProductStatusRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _cache;
 
-        public ProductStatusService(IProductStatusRepository repository, IMapper mapper, IMemoryCache cache)
+        public ProductStatusService(IProductStatusRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _cache = cache;
         }
 
 
@@ -45,7 +43,7 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public string Delete(ProductStatusEnum id)
+        public string Delete(int id)
         {
             var result = _repository.Delete(id);
 

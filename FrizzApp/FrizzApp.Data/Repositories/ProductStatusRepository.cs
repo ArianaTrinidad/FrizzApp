@@ -32,7 +32,7 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
-        public string Delete(ProductStatusEnum id)
+        public string Delete(int id)
         {
             var entity = _context.ProductStatus.Where(x => x.ProductStatusId == id).FirstOrDefault();
 

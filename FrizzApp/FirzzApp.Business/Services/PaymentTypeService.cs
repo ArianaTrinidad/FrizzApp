@@ -14,20 +14,16 @@ namespace FirzzApp.Business.Services
     {
         private readonly IPaymentTypeRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _cache;
 
-        public PaymentTypeService(IPaymentTypeRepository repository, IMapper mapper, IMemoryCache cache)
+        public PaymentTypeService(IPaymentTypeRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _cache = cache;
         }
 
 
         public List<GetPaymentTypeResponseDto> GetAll()
         {
-            //No creimos necesario poner cache
-
             var result = _repository.GetAll();
 
             var response = _mapper.Map<List<GetPaymentTypeResponseDto>>(result);
@@ -46,7 +42,7 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public string Delete(PaymentTypeEnum id)
+        public string Delete(int id)
         {
             var result = _repository.Delete(id);
 

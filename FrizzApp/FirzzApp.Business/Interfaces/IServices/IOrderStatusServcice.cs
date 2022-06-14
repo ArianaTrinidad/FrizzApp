@@ -11,6 +11,6 @@ namespace FirzzApp.Business.Interfaces.IServices
         List<GetOrderStatusResponseDto> GetAll();
         Result<OrderStatus> CreateOrderStatus(CreateOrderStatusDto dto);
 
-        string DeleteOrderStatus(OrderStatusEnum id);
+        string DeleteOrderStatus(int id);
     }
 }

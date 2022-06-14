@@ -13,8 +13,8 @@ namespace FrizzApp.Data.Entities
         public string ClientPhone { get; set; }
         public bool IsPaid { get; set; }
 
-        public PaymentTypeEnum PaymentTypeId { get; set; }
-        public OrderStatusEnum OrderStatusId { get; set; }
+        public int PaymentTypeId { get; set; }
+        public int OrderStatusId { get; set; }
 
         public virtual PaymentType PaymentType { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }

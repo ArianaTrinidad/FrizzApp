@@ -8,6 +8,6 @@ namespace FrizzApp.Data.Interfaces
     {
         List<ProductStatus> GetAll();
         void Create(ProductStatus entity);
-        string Delete(ProductStatusEnum id);
+        string Delete(int id);
     }
 }

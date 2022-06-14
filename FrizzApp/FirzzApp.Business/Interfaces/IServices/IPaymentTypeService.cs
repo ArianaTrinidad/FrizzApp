@@ -11,6 +11,6 @@ namespace FirzzApp.Business.Interfaces.IServices
         List<GetPaymentTypeResponseDto> GetAll();
         Result<PaymentType> Create(CreatePaymentTypeDto dto);
 
-        string Delete(PaymentTypeEnum id);
+        string Delete(int id);
     }
 }

@@ -2,21 +2,8 @@
 {
     public class OrderStatus
     {
-        private string name;
+        public int OrderStatusId { get; set; }
 
-        public OrderStatusEnum OrderStatusId { get; set; }
-
-        public string StatusName
-        {
-            get { return OrderStatusId.ToString(); }
-            set { name = OrderStatusId.ToString(); }
-        }
-    }
-
-    public enum OrderStatusEnum
-    {
-        Pending = 1,
-        Done = 2,
-        Canceled = 3,
+        public string StatusName { get; set; }
     }
 }

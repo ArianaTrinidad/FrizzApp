@@ -2,23 +2,9 @@
 {
     public class PaymentType
     {
-        private string name;
+        public int PaymentTypeId { get; set; }
 
-        public PaymentTypeEnum PaymentTypeId { get; set; }
-
-        public string PaymentTypeName
-        {
-            get { return PaymentTypeId.ToString(); }
-            set { name = PaymentTypeId.ToString(); }
-        }
-    }
-
-    public enum PaymentTypeEnum
-    {
-        Cash = 10,
-        MercadoPago = 11,
-        Debit = 13,
-        Credit = 14,
+        public string PaymentTypeName { get; set; }
     }
 
 }
