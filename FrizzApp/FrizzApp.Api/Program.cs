@@ -10,7 +10,6 @@ namespace FrizzApp.Api
         public static void Main(string[] args)
         {
             ConfigureSerilog();
-
             CreateHostBuilder(args).Build().Run();
         }
 
