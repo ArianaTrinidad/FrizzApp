@@ -1,10 +1,7 @@
 ﻿using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FrizzApp.Data.Repositories
 {
@@ -35,7 +32,7 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public string DeleteOrderStatus(OrderStatusEnum statusId)
+        public string DeleteOrderStatus(int statusId)
         {
             var entity = _context.OrderStates.Where(x => x.OrderStatusId == statusId).FirstOrDefault();
 

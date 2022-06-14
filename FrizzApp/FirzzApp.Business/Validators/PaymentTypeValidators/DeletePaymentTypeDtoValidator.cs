@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace FirzzApp.Business.Validators.PaymentTypeValidators
 {
-   public class DeletePaymentTypeDtoValidator : AbstractValidator<DeletePaymentTypeDto>
+    public class DeletePaymentTypeDtoValidator : AbstractValidator<DeletePaymentTypeDto>
     {
         public DeletePaymentTypeDtoValidator()
         {

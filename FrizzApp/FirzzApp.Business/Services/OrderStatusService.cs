@@ -1,17 +1,12 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
-using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Services
 {
@@ -20,18 +15,18 @@ namespace FirzzApp.Business.Services
 
         private readonly IOrderStatusRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _cache;
 
-        public OrderStatusService(IOrderStatusRepository repository, IMapper mapper, IMemoryCache cache)
+        public OrderStatusService(IOrderStatusRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _cache = cache;
         }
 
 
         public List<GetOrderStatusResponseDto> GetAll()
         {
+            //No creimos necesario poner cache
+
             var result = _repository.GetAll();
 
             var response = _mapper.Map<List<GetOrderStatusResponseDto>>(result);
@@ -49,7 +44,7 @@ namespace FirzzApp.Business.Services
             return Result<OrderStatus>.Success($"{entity.StatusName}");
         }
 
-        public string DeleteOrderStatus(OrderStatusEnum id)
+        public string DeleteOrderStatus(int id)
         {
             var result = _repository.DeleteOrderStatus(id);
 

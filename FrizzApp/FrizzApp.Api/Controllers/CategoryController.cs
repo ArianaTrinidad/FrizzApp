@@ -1,14 +1,7 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
-using FirzzApp.Business.Interfaces;
-using Microsoft.AspNetCore.Http;
+using FirzzApp.Business.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using FirzzApp.Business.Services;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace FrizzApp.Api.Controllers
 {
@@ -25,14 +18,17 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult GetAll()
         {
-            var result = _service.GetAll();
+            var result = _service.GetAll(default);
 
             return Ok(result);
         }
 
+
         [HttpPost]
+        [Authorize]
         public ActionResult Create([FromBody] CreateCategoryDto dto)
         {
             var result = _service.CreateCategory(dto);
@@ -44,6 +40,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize]
         public string Delete([FromRoute] int id)
         {
             var result = _service.DeleteCategory(id);

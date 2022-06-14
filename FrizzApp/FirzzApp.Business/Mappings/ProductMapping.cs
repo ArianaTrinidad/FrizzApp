@@ -2,6 +2,7 @@
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FrizzApp.Data.Entities;
+using FrizzApp.Data.Enums;
 
 namespace FirzzApp.Business.Mappings
 {
@@ -30,7 +31,7 @@ namespace FirzzApp.Business.Mappings
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImagenUrl))
                 .ForMember(dest => dest.IsPromo, opt => opt.MapFrom(src => src.EsPromo))
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Categoria))
-                .ForMember(dest => dest.ProductStatusId, opt => opt.MapFrom(src => ProductStatusEnum.Avaiable))
+                .ForMember(dest => dest.ProductStatusId, opt => opt.MapFrom(src => (int)ProductStatusEnum.Avaiable))
                 ;
         }
     }

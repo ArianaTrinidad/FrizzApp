@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
-using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
@@ -14,18 +14,17 @@ namespace FirzzApp.Business.Services
     {
         private readonly IProductStatusRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _cache;
 
-        public ProductStatusService(IProductStatusRepository repository, IMapper mapper, IMemoryCache cache)
+        public ProductStatusService(IProductStatusRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _cache = cache;
         }
 
 
         public List<GetProductStatusResponseDto> GetAll()
         {
+            //No creimos necesario poner cache
             var result = _repository.GetAll();
 
             var response = _mapper.Map<List<GetProductStatusResponseDto>>(result);
@@ -44,7 +43,7 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public string Delete(ProductStatusEnum id)
+        public string Delete(int id)
         {
             var result = _repository.Delete(id);
 

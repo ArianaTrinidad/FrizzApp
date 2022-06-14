@@ -1,9 +1,5 @@
 ﻿using FrizzApp.Data.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FrizzApp.Data.Interfaces
 {
@@ -12,6 +8,6 @@ namespace FrizzApp.Data.Interfaces
         void CreateOrderStatus(OrderStatus entity);
         List<OrderStatus> GetAll();
 
-        string DeleteOrderStatus(OrderStatusEnum statusId);
+        string DeleteOrderStatus(int statusId);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
-using FirzzApp.Business.Interfaces;
-using FrizzApp.Api.ControllerSecurity;
+using FirzzApp.Business.Interfaces.IServices;
+using FrizzApp.Api.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrizzApp.Api.Controllers
@@ -18,6 +19,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult GetAll([FromQuery] GetAllProductDto dto)
         {
             var result = _service.GetAll(dto);
@@ -26,8 +28,18 @@ namespace FrizzApp.Api.Controllers
         }
 
 
+        [HttpGet("download")]
+        [Authorize]
+        public FileResult Excel([FromQuery] GetAllProductDto dto)
+        {
+            var response = _service.GetFileFromGetAll(dto);
+
+            return File(response, Common.XLSExtension, "ProductList.xlsx");
+        }
+
+
         [HttpPost]
-        [CreateKeyAuth]
+        [Authorize]
         public ActionResult Create([FromBody] CreateProductDto dto)
         {
             var result = _service.CreateProduct(dto);
@@ -39,7 +51,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpDelete("{id}")]
-        [CreateKeyAuth]
+        [Authorize]
         public ActionResult Delete([FromRoute] DeleteProductDto dto)
         {
             var result = _service.Delete(dto);
@@ -47,7 +59,5 @@ namespace FrizzApp.Api.Controllers
             return Ok(result);
         }
     }
-
-
 
 }

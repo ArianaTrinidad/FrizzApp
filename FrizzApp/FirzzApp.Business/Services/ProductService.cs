@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
+using ClosedXML.Excel;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace FirzzApp.Business.Services
 {
@@ -15,37 +18,44 @@ namespace FirzzApp.Business.Services
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _cache;
+        private readonly ICacheService _cache;
+        private readonly ILogger _logger;
 
-        public ProductService(IProductRepository repository, IMapper mapper, IMemoryCache cache)
+
+        public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache, ILogger logger)
         {
             _repository = repository;
             _mapper = mapper;
             _cache = cache;
+            _logger = logger;
         }
 
 
         public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
         {
             var cacheKey = $"GetAll";
-            var result = new List<Product>();
 
-            if (_cache.TryGetValue(cacheKey, out result))
+            var cachedResult = _cache.Get<List<GetProductResponseDto>, GetAllProductDto>(cacheKey, dto);
+
+            if (cachedResult != default)
             {
-                var response = _mapper.Map<List<GetProductResponseDto>>(result);
                 Console.WriteLine("From cache");
-                return response;
+                return cachedResult;
             }
             else
             {
-                result = _repository.GetAll(dto.Busqueda, dto.NumeroPagina, dto.CantidadPagina);
-                _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
-                {
-                    Size = 10000,
-                    SlidingExpiration = TimeSpan.FromSeconds(1000)
-                });
-                Console.WriteLine("From dataabse");
+                var result = _repository.GetAll(dto.NumeroPagina,
+                                                dto.CantidadPagina,
+                                                dto.Busqueda,
+                                                dto.PrecioMinimo ?? default,
+                                                dto.PrecioMaximo ?? default,
+                                                dto.CategoriaId ?? default);
+
                 var response = _mapper.Map<List<GetProductResponseDto>>(result);
+
+                _cache.Set(cacheKey, response);
+
+                Console.WriteLine("From database");
                 return response;
             }
         }
@@ -56,10 +66,13 @@ namespace FirzzApp.Business.Services
             var entity = _mapper.Map<Product>(dto);
 
             _repository.Create(entity);
-            
+
             _cache.Remove("GetAll");
 
-            return Result<Product>.Success($"{entity.Name} - ${entity.Price}");
+            var resultMessage = $"Product {entity.Name} - ${entity.Price} was created";
+            _logger.Information(resultMessage);
+
+            return Result<Product>.Success(resultMessage);
         }
 
 
@@ -69,7 +82,44 @@ namespace FirzzApp.Business.Services
 
             _cache.Remove("GetAll");
 
+            _logger.Information(result);
             return result;
+        }
+
+
+        public byte[] GetFileFromGetAll(GetAllProductDto dto)
+        {
+            var result = GetAll(dto);
+
+            using var workbook = new XLWorkbook();
+
+            var worksheet = workbook.Worksheets.Add("Lista de productos");
+            var currentRow = 1;
+            worksheet.Cell(currentRow, 1).Value = nameof(GetProductResponseDto.Nombre);
+            worksheet.Cell(currentRow, 2).Value = nameof(GetProductResponseDto.Descripcion);
+            worksheet.Cell(currentRow, 3).Value = nameof(GetProductResponseDto.Nota); //Nota";
+            worksheet.Cell(currentRow, 4).Value = nameof(GetProductResponseDto.Presentacion); //Presentación";
+            worksheet.Cell(currentRow, 5).Value = "Imagen";
+            worksheet.Cell(currentRow, 6).Value = nameof(GetProductResponseDto.Precio); //Precio";
+            worksheet.Cell(currentRow, 7).Value = "Promo";
+            // worksheet.Cell(currentRow, 8).Value = nameof(GetProductResponseDto.Descripcion); //"Categoría";
+
+
+            foreach (var item in result)
+            {
+                currentRow++;
+                worksheet.Cell(currentRow, 1).Value = item.Nombre;
+                worksheet.Cell(currentRow, 2).Value = item.Descripcion;
+                worksheet.Cell(currentRow, 3).Value = item.Nota;
+                worksheet.Cell(currentRow, 4).Value = item.Presentacion;
+                worksheet.Cell(currentRow, 5).Value = item.ImagenUrl;
+                worksheet.Cell(currentRow, 6).Value = item.Precio;
+                worksheet.Cell(currentRow, 7).Value = item.EsPromo == true ? "En promo" : "Precio regular";
+            }
+
+            using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+            return stream.ToArray();
         }
     }
 }

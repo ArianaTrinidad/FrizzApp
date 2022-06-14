@@ -1,6 +1,6 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
-using FirzzApp.Business.Interfaces;
-using FrizzApp.Data.Entities;
+using FirzzApp.Business.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -19,6 +19,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult GetAll()
         {
             var result = _service.GetAll();
@@ -28,6 +29,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create([FromBody] CreatePaymentTypeDto dto)
         {
             var result = _service.Create(dto);
@@ -39,7 +41,8 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpDelete("{id}")]
-        public string Delete([FromRoute] PaymentTypeEnum id)
+        [Authorize]
+        public string Delete([FromRoute] int id)
         {
             var result = _service.Delete(id);
 

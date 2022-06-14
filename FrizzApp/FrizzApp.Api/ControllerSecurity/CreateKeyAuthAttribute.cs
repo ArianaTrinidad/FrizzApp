@@ -10,6 +10,7 @@ namespace FrizzApp.Api.ControllerSecurity
     public class CreateKeyAuthAttribute : Attribute, IAsyncActionFilter
     {
         private const string CreateKeyHeaderName = "CreateProductKey";
+
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             if (!context.HttpContext.Request.Headers.TryGetValue(CreateKeyHeaderName, out var potentialCreateKey))

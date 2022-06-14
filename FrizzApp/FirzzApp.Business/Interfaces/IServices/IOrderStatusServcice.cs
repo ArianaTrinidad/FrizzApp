@@ -2,19 +2,15 @@
 using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FirzzApp.Business.Interfaces
+namespace FirzzApp.Business.Interfaces.IServices
 {
     public interface IOrderStatusService
     {
         List<GetOrderStatusResponseDto> GetAll();
         Result<OrderStatus> CreateOrderStatus(CreateOrderStatusDto dto);
 
-        string DeleteOrderStatus(OrderStatusEnum id);
+        string DeleteOrderStatus(int id);
     }
 }

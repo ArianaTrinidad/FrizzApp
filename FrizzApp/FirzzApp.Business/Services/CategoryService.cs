@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
-using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Enums;
+using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 
 namespace FirzzApp.Business.Services
@@ -25,13 +27,43 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public List<GetCategoryResponseDto> GetAll()
+        // TODO: Esto no anda, luego de aquella implementación de cache en este método dejó de devolver información...
+        public List<GetCategoryResponseDto> GetAll(CacheTypeEnum cacheType)
         {
-            var result = _repository.GetAll();
+            var cacheKey = $"GetAllCategory";
 
-            var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+            var result = new List<Category>();
 
-            return response;
+
+            if (cacheType == CacheTypeEnum.UseCache && _cache.TryGetValue(cacheKey, out result))
+            {
+                var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+                Console.WriteLine("From cache");
+                return response;
+            }
+            else if (cacheType == CacheTypeEnum.UseCache)
+            {
+                _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
+                {
+                    Size = 10000,
+                    SlidingExpiration = TimeSpan.FromSeconds(1000)
+                });
+                Console.WriteLine("From database");
+                var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+                return response;
+            }
+            else
+            {
+                Console.WriteLine("OptionalCache turn off");
+                var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+                return response;
+            }
+
+            //var result = _repository.GetAll();
+
+            //var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
+
+            //return response;
         }
 
 

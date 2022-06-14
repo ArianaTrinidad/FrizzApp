@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
-using FirzzApp.Business.Interfaces;
+using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
@@ -14,13 +14,11 @@ namespace FirzzApp.Business.Services
     {
         private readonly IPaymentTypeRepository _repository;
         private readonly IMapper _mapper;
-        private readonly IMemoryCache _cache;
 
-        public PaymentTypeService(IPaymentTypeRepository repository, IMapper mapper, IMemoryCache cache)
+        public PaymentTypeService(IPaymentTypeRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _cache = cache;
         }
 
 
@@ -44,7 +42,7 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public string Delete(PaymentTypeEnum id)
+        public string Delete(int id)
         {
             var result = _repository.Delete(id);
 

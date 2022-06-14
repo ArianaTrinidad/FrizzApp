@@ -5,7 +5,7 @@ namespace FrizzApp.Data.Interfaces
 {
     public interface IProductRepository
     {
-        List<Product> GetAll(string search, int pageNumber, int pageSize);
+        List<Product> GetAll(int pageNumber, int pageSize, string palabraClave, decimal preciomin, decimal preciomax, int categoria);
         void Create(Product entity);
         string Delete(int id);
     }

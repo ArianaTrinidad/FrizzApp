@@ -1,12 +1,7 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
-using FirzzApp.Business.Interfaces;
-using FrizzApp.Data.Entities;
-using Microsoft.AspNetCore.Http;
+using FirzzApp.Business.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FrizzApp.Api.Controllers
 {
@@ -23,6 +18,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public ActionResult GetAll()
         {
             var result = _service.GetAll();
@@ -30,7 +26,9 @@ namespace FrizzApp.Api.Controllers
             return Ok(result);
         }
 
+
         [HttpPost]
+        [Authorize]
         public ActionResult Create([FromBody] CreateOrderStatusDto dto)
         {
             var result = _service.CreateOrderStatus(dto);
@@ -42,7 +40,8 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpDelete("{id}")]
-        public string Delete([FromRoute] OrderStatusEnum id)
+        [Authorize]
+        public string Delete([FromRoute] int id)
         {
             var result = _service.DeleteOrderStatus(id);
 
