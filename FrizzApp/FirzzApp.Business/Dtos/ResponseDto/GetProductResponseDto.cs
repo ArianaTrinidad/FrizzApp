@@ -13,5 +13,6 @@ namespace FirzzApp.Business.Dtos.ResponseDto
         public decimal Precio { get; set; }
         public bool EsPromo { get; set; }
         public virtual Category Categoria { get; set; }
+        //  .Include(c => c.Category)
     }
 }
