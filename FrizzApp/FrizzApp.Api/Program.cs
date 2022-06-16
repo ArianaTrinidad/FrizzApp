@@ -30,7 +30,9 @@ namespace FrizzApp.Api
                                 "appsettings.json",
                                 optional: false,
                                 reloadOnChange: true).Build();
-
+            
+            System.Console.WriteLine(configuration.GetValue<string>("CreateProductKey")); 
+            
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
                 .WriteTo.Console()
