@@ -25,6 +25,14 @@ namespace FrizzApp.Data
 
 
         public DbSet<Product> Products { get; set; }
+
+        //using (var context = new ProductContext())
+        //{
+        //    var Products = context.Products
+        //                        .Include(c => c.Category)
+        //                        .ToList();
+        //}
+
         public DbSet<ProductStatus> ProductStatus { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
@@ -33,8 +41,7 @@ namespace FrizzApp.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
 
-
-        private static void SeedInitialData(ModelBuilder modelBuilder)
+private static void SeedInitialData(ModelBuilder modelBuilder)
         {
             var productsStatusInitialData = new List<ProductStatus>()
             {
@@ -70,5 +77,6 @@ namespace FrizzApp.Data
             modelBuilder.Entity<PaymentType>().HasData(paymentTypesInitialData);
             modelBuilder.Entity<Category>().HasData(categoriesInitialData);
         }
+
     }
 }
