@@ -88,6 +88,18 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
+
+        public Product ChangeStatus(int id) 
+        {
+            var entity = _context.Products.Where(x => x.Id == id).First();
+
+            entity.ProductStatusId = 2;
+
+            _context.SaveChanges();
+
+            return entity;
+        }
+
         public string Delete(int id)
         {
             var entity = _context.Products.Where(x => x.Id == id).FirstOrDefault();

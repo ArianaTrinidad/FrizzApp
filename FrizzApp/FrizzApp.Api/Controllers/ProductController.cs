@@ -19,7 +19,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public ActionResult GetAll([FromQuery] GetAllProductDto dto)
         {
             var result = _service.GetAll(dto);
@@ -55,6 +55,16 @@ namespace FrizzApp.Api.Controllers
         public ActionResult Delete([FromRoute] DeleteProductDto dto)
         {
             var result = _service.Delete(dto);
+
+            return Ok(result);
+        }
+
+
+        [HttpPatch]
+        //[Authorize]
+        public ActionResult ChangeStockStatus([FromBody] ChangeStockStatusProductDto dto)
+        {
+            var result = _service.ChangeStatus(dto);
 
             return Ok(result);
         }

@@ -13,5 +13,7 @@ namespace FirzzApp.Business.Interfaces.IServices
 
         Result<Product> CreateProduct(CreateProductDto dto);
         string Delete(DeleteProductDto dto);
+        Result<Product> ChangeStatus(ChangeStockStatusProductDto dto);
+
     }
 }
