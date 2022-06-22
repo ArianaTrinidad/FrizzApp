@@ -33,6 +33,18 @@ namespace FirzzApp.Business.Mappings
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Categoria))
                 .ForMember(dest => dest.ProductStatusId, opt => opt.MapFrom(src => (int)ProductStatusEnum.Avaiable))
                 ;
+
+            CreateMap<UpdateProductDto, Product>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Nombre))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Descripcion))
+                .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Nota))
+                .ForMember(dest => dest.Presentation, opt => opt.MapFrom(src => src.Presentacion))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Precio))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImagenUrl))
+                .ForMember(dest => dest.IsPromo, opt => opt.MapFrom(src => src.EsPromo))
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Categoria))
+                .ForMember(dest => dest.ProductStatusId, opt => opt.MapFrom(src => src.EstadoProductoId))
+                ;
         }
     }
 }

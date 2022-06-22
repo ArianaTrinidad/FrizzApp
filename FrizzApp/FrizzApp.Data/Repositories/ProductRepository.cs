@@ -88,6 +88,22 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
+        public void Update(Product entity) 
+        {
+            var entityDatabase = _context.Products.Where(x => x.Id == entity.Id).FirstOrDefault();
+
+            entityDatabase.Name = entity.Name;
+            entityDatabase.Description = entity.Description;
+            entityDatabase.Notes = entity.Notes;
+            entityDatabase.Presentation = entity.Presentation;
+            entityDatabase.ImageUrl = entity.ImageUrl;
+            entityDatabase.Price = entity.Price;
+            entityDatabase.IsPromo = entity.IsPromo;
+
+            _context.SaveChanges();
+        }
+
+
         public string Delete(int id)
         {
             var entity = _context.Products.Where(x => x.Id == id).FirstOrDefault();
