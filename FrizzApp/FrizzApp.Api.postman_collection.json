@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "74386e54-eb12-4572-907e-8edba492327a",
+		"_postman_id": "4ee357bd-cb50-4b03-a388-da467467ce06",
 		"name": "FrizzApp.Api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20354861"
@@ -14,9 +14,41 @@
 					"item": [
 						{
 							"name": "/api/Category",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/api/Category",
 									"host": [
@@ -33,7 +65,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/api/Category",
 											"host": [
@@ -61,9 +98,45 @@
 						},
 						{
 							"name": "/api/Category",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
 									{
 										"key": "Content-Type",
 										"value": "application/json"
@@ -71,7 +144,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"nombre\": \"\"\n}",
+									"raw": "{\n  \"nombre\": \"Dulce\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -94,10 +167,15 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"nombre\": \"anim amet velit\"\n}",
+											"raw": "{\n  \"nombre\": \"Lorem\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -131,9 +209,44 @@
 						},
 						{
 							"name": "/api/Category/:id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
 									{
 										"key": "Accept",
 										"value": "text/plain"
@@ -163,7 +276,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "DELETE",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/api/Category/:id",
 											"host": [
@@ -177,7 +295,7 @@
 											"variable": [
 												{
 													"key": "id",
-													"value": "20526149",
+													"value": "-30819473",
 													"description": "(Required) "
 												}
 											]
@@ -193,7 +311,194 @@
 										}
 									],
 									"cookie": [],
-									"body": "\"esse deserunt\""
+									"body": "\"Lorem aute veniam\""
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Identity",
+					"item": [
+						{
+							"name": "/api/Identity/register",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": ""
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"aute nulla incididunt ad\",\n  \"password\": \"et ullamco reprehenderit minim sed\",\n  \"adminKey\": \"exercitation magna\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Identity/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Identity",
+										"register"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"aute nulla incididunt ad\",\n  \"password\": \"et ullamco reprehenderit minim sed\",\n  \"adminKey\": \"exercitation magna\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/Identity/register",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Identity",
+												"register"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/Identity/login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"usuario@gmail.com\",\n  \"password\": \"Temporal1#\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Identity/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Identity",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"ullamco irure\",\n  \"password\": \"officia laboris\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/Identity/login",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Identity",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
 								}
 							]
 						}
@@ -204,9 +509,41 @@
 					"item": [
 						{
 							"name": "/api/OrderStatus",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/api/OrderStatus",
 									"host": [
@@ -223,7 +560,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/api/OrderStatus",
 											"host": [
@@ -251,9 +593,45 @@
 						},
 						{
 							"name": "/api/OrderStatus",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
 									{
 										"key": "Content-Type",
 										"value": "application/json"
@@ -284,10 +662,15 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"estado\": \"elit sint\"\n}",
+											"raw": "{\n  \"estado\": \"nostrud pariatur sit mollit\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -321,9 +704,44 @@
 						},
 						{
 							"name": "/api/OrderStatus/:id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
 									{
 										"key": "Accept",
 										"value": "text/plain"
@@ -353,7 +771,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "DELETE",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/api/OrderStatus/:id",
 											"host": [
@@ -367,7 +790,7 @@
 											"variable": [
 												{
 													"key": "id",
-													"value": "NaN",
+													"value": "-30819473",
 													"description": "(Required) "
 												}
 											]
@@ -383,7 +806,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "\"esse deserunt\""
+									"body": "\"Lorem aute veniam\""
 								}
 							]
 						}
@@ -394,9 +817,41 @@
 					"item": [
 						{
 							"name": "/api/PaymentType",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/api/PaymentType",
 									"host": [
@@ -413,7 +868,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/api/PaymentType",
 											"host": [
@@ -441,9 +901,45 @@
 						},
 						{
 							"name": "/api/PaymentType",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
 									{
 										"key": "Content-Type",
 										"value": "application/json"
@@ -451,7 +947,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{}",
+									"raw": "{\n  \"nombre\": \"\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -474,10 +970,15 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{}",
+											"raw": "{\n  \"nombre\": \"Lorem\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -511,9 +1012,44 @@
 						},
 						{
 							"name": "/api/PaymentType/:id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
 									{
 										"key": "Accept",
 										"value": "text/plain"
@@ -543,7 +1079,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "DELETE",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/api/PaymentType/:id",
 											"host": [
@@ -557,7 +1098,7 @@
 											"variable": [
 												{
 													"key": "id",
-													"value": "NaN",
+													"value": "-30819473",
 													"description": "(Required) "
 												}
 											]
@@ -573,7 +1114,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "\"esse deserunt\""
+									"body": "\"Lorem aute veniam\""
 								}
 							]
 						}
@@ -584,11 +1125,44 @@
 					"item": [
 						{
 							"name": "/api/Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									}
+								],
 								"url": {
-									"raw": "{{baseUrl}}/api/Product?Busqueda=&NumeroPagina=&CantidadPagina=&CategoriaId=&PrecioMinimo=&PrecioMaximo=&CacheType=",
+									"raw": "{{baseUrl}}/api/Product",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -599,31 +1173,38 @@
 									"query": [
 										{
 											"key": "Busqueda",
-											"value": ""
-										},
-										{
-											"key": "NumeroPagina",
-											"value": ""
-										},
-										{
-											"key": "CantidadPagina",
-											"value": ""
+											"value": "",
+											"disabled": true
 										},
 										{
 											"key": "CategoriaId",
-											"value": ""
+											"value": "",
+											"disabled": true
 										},
 										{
 											"key": "PrecioMinimo",
-											"value": ""
+											"value": "",
+											"disabled": true
 										},
 										{
 											"key": "PrecioMaximo",
-											"value": ""
+											"value": "",
+											"disabled": true
 										},
 										{
 											"key": "CacheType",
-											"value": ""
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "NumeroPagina",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "CantidadPagina",
+											"value": "",
+											"disabled": true
 										}
 									]
 								}
@@ -633,9 +1214,14 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
-											"raw": "{{baseUrl}}/api/Product?Busqueda=do nostrud irure&NumeroPagina=20526149&CantidadPagina=20526149&CategoriaId=52138618&PrecioMinimo=63980119.71241969&PrecioMaximo=63980119.71241969&CacheType=<integer>",
+											"raw": "{{baseUrl}}/api/Product?Busqueda=reprehenderit cillum&CategoriaId=-97840487&PrecioMinimo=85835165.82962143&PrecioMaximo=85835165.82962143&CacheType=<integer>&NumeroPagina=-30819473&CantidadPagina=-30819473",
 											"host": [
 												"{{baseUrl}}"
 											],
@@ -646,31 +1232,31 @@
 											"query": [
 												{
 													"key": "Busqueda",
-													"value": "do nostrud irure"
-												},
-												{
-													"key": "NumeroPagina",
-													"value": "20526149"
-												},
-												{
-													"key": "CantidadPagina",
-													"value": "20526149"
+													"value": "reprehenderit cillum"
 												},
 												{
 													"key": "CategoriaId",
-													"value": "52138618"
+													"value": "-97840487"
 												},
 												{
 													"key": "PrecioMinimo",
-													"value": "63980119.71241969"
+													"value": "85835165.82962143"
 												},
 												{
 													"key": "PrecioMaximo",
-													"value": "63980119.71241969"
+													"value": "85835165.82962143"
 												},
 												{
 													"key": "CacheType",
 													"value": "<integer>"
+												},
+												{
+													"key": "NumeroPagina",
+													"value": "-30819473"
+												},
+												{
+													"key": "CantidadPagina",
+													"value": "-30819473"
 												}
 											]
 										}
@@ -691,9 +1277,45 @@
 						},
 						{
 							"name": "/api/Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
 									{
 										"key": "Content-Type",
 										"value": "application/json"
@@ -701,7 +1323,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"nombre\": \"\",\n  \"descripcion\": \"\",\n  \"nota\": \"\",\n  \"presentacion\": \"\",\n  \"imagenUrl\": \"\",\n  \"precio\": 0,\n  \"esPromo\": false,\n  \"categoria\": 0\n}",
+									"raw": "{\n  \"nombre\": \"\",\n  \"descripcion\": \"\",\n  \"nota\": \"\",\n  \"presentacion\": \"\",\n  \"imagenUrl\": \"\",\n  \"precio\": ,\n  \"esPromo\": false,\n  \"categoria\": \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -724,10 +1346,15 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"nombre\": \"tempor consequat\",\n  \"descripcion\": \"mollit commodo\",\n  \"nota\": \"ullamco sed eiusmod exercitation\",\n  \"presentacion\": \"sint dolore nulla et\",\n  \"imagenUrl\": \"aute aliqua dolor officia\",\n  \"precio\": -55939134.863070585,\n  \"esPromo\": false,\n  \"categoria\": 8914002\n}",
+											"raw": "{\n  \"nombre\": \"ex nulla ut\",\n  \"descripcion\": \"Lorem reprehenderit\",\n  \"nota\": \"Lorem\",\n  \"presentacion\": \"ea eiusmod ipsum\",\n  \"imagenUrl\": \"est commodo\",\n  \"precio\": -46983166.83221679,\n  \"esPromo\": false,\n  \"categoria\": -42393363\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -760,10 +1387,199 @@
 							]
 						},
 						{
-							"name": "/api/Product/:id",
+							"name": "/api/Product/download",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/Product/download",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Product",
+										"download"
+									],
+									"query": [
+										{
+											"key": "Busqueda",
+											"value": "reprehenderit cillum",
+											"disabled": true
+										},
+										{
+											"key": "CategoriaId",
+											"value": "-97840487",
+											"disabled": true
+										},
+										{
+											"key": "PrecioMinimo",
+											"value": "85835165.82962143",
+											"disabled": true
+										},
+										{
+											"key": "PrecioMaximo",
+											"value": "85835165.82962143",
+											"disabled": true
+										},
+										{
+											"key": "CacheType",
+											"value": "<integer>",
+											"disabled": true
+										},
+										{
+											"key": "NumeroPagina",
+											"value": "-30819473",
+											"disabled": true
+										},
+										{
+											"key": "CantidadPagina",
+											"value": "-30819473",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Product/download?Busqueda=reprehenderit cillum&CategoriaId=-97840487&PrecioMinimo=85835165.82962143&PrecioMaximo=85835165.82962143&CacheType=<integer>&NumeroPagina=-30819473&CantidadPagina=-30819473",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Product",
+												"download"
+											],
+											"query": [
+												{
+													"key": "Busqueda",
+													"value": "reprehenderit cillum"
+												},
+												{
+													"key": "CategoriaId",
+													"value": "-97840487"
+												},
+												{
+													"key": "PrecioMinimo",
+													"value": "85835165.82962143"
+												},
+												{
+													"key": "PrecioMaximo",
+													"value": "85835165.82962143"
+												},
+												{
+													"key": "CacheType",
+													"value": "<integer>"
+												},
+												{
+													"key": "NumeroPagina",
+													"value": "-30819473"
+												},
+												{
+													"key": "CantidadPagina",
+													"value": "-30819473"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "/api/Product/:id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
-								"header": [],
+								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/api/Product/:id",
 									"host": [
@@ -776,9 +1592,8 @@
 									],
 									"variable": [
 										{
-											"key": "Id",
-											"value": "20526149",
-											"description": "(Required) "
+											"key": "id",
+											"value": ""
 										}
 									]
 								}
@@ -788,7 +1603,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "DELETE",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/api/Product/:id",
 											"host": [
@@ -802,7 +1622,7 @@
 											"variable": [
 												{
 													"key": "Id",
-													"value": "20526149",
+													"value": "-30819473",
 													"description": "(Required) "
 												}
 											]
@@ -829,9 +1649,41 @@
 					"item": [
 						{
 							"name": "/api/ProductStatus",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									}
+								],
 								"url": {
 									"raw": "{{baseUrl}}/api/ProductStatus",
 									"host": [
@@ -848,7 +1700,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/api/ProductStatus",
 											"host": [
@@ -876,9 +1733,45 @@
 						},
 						{
 							"name": "/api/ProductStatus",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
 									{
 										"key": "Content-Type",
 										"value": "application/json"
@@ -909,7 +1802,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"body": {
 											"mode": "raw",
 											"raw": "{}",
@@ -946,9 +1844,44 @@
 						},
 						{
 							"name": "/api/ProductStatus/:id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 500ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [
+									{
+										"key": "CreateProductKey",
+										"value": "AlgunDiaBitch"
+									},
 									{
 										"key": "Accept",
 										"value": "text/plain"
@@ -978,7 +1911,12 @@
 									"name": "Success",
 									"originalRequest": {
 										"method": "DELETE",
-										"header": [],
+										"header": [
+											{
+												"key": "CreateProductKey",
+												"value": ""
+											}
+										],
 										"url": {
 											"raw": "{{baseUrl}}/api/ProductStatus/:id",
 											"host": [
@@ -992,7 +1930,7 @@
 											"variable": [
 												{
 													"key": "id",
-													"value": "NaN",
+													"value": "-30819473",
 													"description": "(Required) "
 												}
 											]
@@ -1008,7 +1946,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "\"esse deserunt\""
+									"body": "\"Lorem aute veniam\""
 								}
 							]
 						}
@@ -1040,7 +1978,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "https://localhost:5001",
+			"value": "",
 			"type": "string"
 		}
 	]
