@@ -2,6 +2,7 @@
 using FrizzApp.Data.Enums;
 using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -54,6 +55,7 @@ namespace FrizzApp.Data.Repositories
 
 
             var result = partialResult
+                .Include(x=> x.Category)
                 .Skip(skip)
                 .Take(take)
                 .OrderBy(x => x.Id)
