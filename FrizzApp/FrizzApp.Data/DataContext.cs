@@ -1,4 +1,5 @@
-﻿using FrizzApp.Data.ConfigurationBuilders;
+﻿using DocumentFormat.OpenXml.InkML;
+using FrizzApp.Data.ConfigurationBuilders;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace FrizzApp.Data
 
 
         public DbSet<Product> Products { get; set; }
+
         public DbSet<ProductStatus> ProductStatus { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
@@ -32,7 +34,6 @@ namespace FrizzApp.Data
         public DbSet<OrderStatus> OrderStates { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
-
 
         private static void SeedInitialData(ModelBuilder modelBuilder)
         {
