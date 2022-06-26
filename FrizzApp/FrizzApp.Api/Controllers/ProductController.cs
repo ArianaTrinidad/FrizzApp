@@ -19,7 +19,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public ActionResult GetAll([FromQuery] GetAllProductDto dto)
         {
             var result = _service.GetAll(dto);
@@ -61,7 +61,7 @@ namespace FrizzApp.Api.Controllers
 
 
         [HttpPatch]
-        //[Authorize]
+        [Authorize]
         public ActionResult ChangeStockStatus([FromBody] ChangeStockStatusProductDto dto)
         {
             var result = _service.ChangeStatus(dto);
