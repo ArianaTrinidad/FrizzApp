@@ -56,6 +56,7 @@ namespace FirzzApp.Business.Services
                 _cache.Set(cacheKey, response);
 
                 Console.WriteLine("From database");
+                
                 return response;
             }
         }
