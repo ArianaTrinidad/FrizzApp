@@ -91,14 +91,32 @@ namespace FrizzApp.Data.Repositories
         public void Update(Product entity) 
         {
             var entityDatabase = _context.Products.Where(x => x.Id == entity.Id).FirstOrDefault();
+            if (entity.Name != "string")
+            {
+                entityDatabase.Name = entity.Name;
+            }
 
-            entityDatabase.Name = entity.Name;
-            entityDatabase.Description = entity.Description;
-            entityDatabase.Notes = entity.Notes;
-            entityDatabase.Presentation = entity.Presentation;
-            entityDatabase.ImageUrl = entity.ImageUrl;
-            entityDatabase.Price = entity.Price;
-            entityDatabase.IsPromo = entity.IsPromo;
+            if (entity.Description != "string")
+            {
+                entityDatabase.Description = entity.Description;
+            }
+
+            if (entity.Notes != "string")
+            {
+                entityDatabase.Notes = entity.Notes;
+            }
+            if (entity.Presentation != "string")
+            {
+                entityDatabase.Presentation = entity.Presentation;
+            }
+            if (entity.ImageUrl != "string")
+            {
+                entityDatabase.ImageUrl = entity.ImageUrl;
+            }
+            if (entity.Price != 0 )
+            {
+                entityDatabase.Price = entity.Price;
+            }
 
             _context.SaveChanges();
         }

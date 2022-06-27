@@ -28,7 +28,6 @@ namespace FrizzApp.Data
         public DbSet<ProductStatus> ProductStatus { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
-
         public DbSet<OrderStatus> OrderStates { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }

@@ -113,7 +113,7 @@ namespace FrizzApp.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FrizzApp.Api", Version = "v1" });
-                c.OperationFilter<CommandHeaderAuth>();
+                //c.OperationFilter<CommandHeaderAuth>();
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -128,12 +128,12 @@ namespace FrizzApp.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            using (var ctx = scope.ServiceProvider.GetRequiredService<DataContext>())
-            {
-                ctx.Database.EnsureCreated();
-                ctx.Database.Migrate();
-            }
+            //using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            //using (var ctx = scope.ServiceProvider.GetRequiredService<DataContext>())
+            //{
+            //    ctx.Database.EnsureCreated();
+            //    ctx.Database.Migrate();
+            //}
 
 
             app.UseSwagger();
