@@ -58,6 +58,16 @@ namespace FrizzApp.Api.Controllers
 
             return Ok(result);
         }
+
+
+        [HttpPatch]
+        [Authorize]
+        public ActionResult ChangeStockStatus([FromBody] ChangeStockStatusProductDto dto)
+        {
+            var result = _service.ChangeStatus(dto);
+
+            return Ok(result);
+        }
     }
 
 }
