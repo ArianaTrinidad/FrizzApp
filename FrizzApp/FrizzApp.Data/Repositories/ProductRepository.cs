@@ -89,15 +89,23 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public Product ChangeStatus(int id) 
+        public bool ChangeStatus(int id) 
         {
             var entity = _context.Products.Where(x => x.Id == id).FirstOrDefault();
+           
+            if (entity != null)
+            {
+                entity.ProductStatusId = (int)ProductStatusEnum.WithoutStock;
 
-            entity.ProductStatusId = (int)ProductStatusEnum.WithoutStock;
+                _context.Update(entity);
+                _context.SaveChanges();
 
-            _context.SaveChanges();
-
-            return entity;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public string Delete(int id)

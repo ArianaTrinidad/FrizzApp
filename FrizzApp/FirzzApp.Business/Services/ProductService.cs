@@ -86,13 +86,20 @@ namespace FirzzApp.Business.Services
             return result;
         }
 
-        public Result<Product> ChangeStatus(ChangeStockStatusProductDto dto) 
+        public Result<Product> ChangeStatus(ChangeStockStatusProductDto dto)
         {
-            _repository.ChangeStatus(dto.Id);
+            var result = _repository.ChangeStatus(dto.Id);
 
             _cache.Remove("GetAll");
 
-            return Result<Product>.Success();
+            if (result)
+            {
+                return Result<Product>.Success();
+            }
+            else
+            {
+                return Result<Product>.Fail($"The product wasn´t found");
+            }
         }
 
         public byte[] GetFileFromGetAll(GetAllProductDto dto)
