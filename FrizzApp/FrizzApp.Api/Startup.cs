@@ -128,12 +128,12 @@ namespace FrizzApp.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            //using (var ctx = scope.ServiceProvider.GetRequiredService<DataContext>())
-            //{
-            //    ctx.Database.EnsureCreated();
-            //    ctx.Database.Migrate();
-            //}
+            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            using (var ctx = scope.ServiceProvider.GetRequiredService<DataContext>())
+            {
+                ctx.Database.EnsureCreated();
+                ctx.Database.Migrate();
+            }
 
 
             app.UseSwagger();

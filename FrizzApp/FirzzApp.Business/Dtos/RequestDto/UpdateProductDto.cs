@@ -15,10 +15,10 @@ namespace FirzzApp.Business.Dtos.RequestDto
         public string Nota { get; set; }
         public string Presentacion { get; set; }
         public string ImagenUrl { get; set; }
-        public decimal Precio { get; set; }
-        public bool EsPromo { get; set; }
+        public decimal? Precio { get; set; }
+        public bool? EsPromo { get; set; }
         public int? Categoria { get; set; }
-        public ProductStatusEnum EstadoProductoId { get; set; }
+        public ProductStatusEnum? EstadoProductoId { get; set; }
 
     }
 }
