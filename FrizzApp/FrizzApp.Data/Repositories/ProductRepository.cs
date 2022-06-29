@@ -117,10 +117,10 @@ namespace FrizzApp.Data.Repositories
             {
                 entityDatabase.Price = entity.Price;
             }
-            //if (entity.IsPromo.Value)
-            //{
-            //    entityDatabase.IsPromo = entity.IsPromo;
-            //}
+            if (entity.IsPromo.HasValue)
+            {
+                entityDatabase.IsPromo = entity.IsPromo;
+            }
             if (entity.Category != default)
             {
                 entityDatabase.Category = entity.Category;
