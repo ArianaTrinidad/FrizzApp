@@ -12,8 +12,6 @@ namespace FrizzApp.Api
             ConfigureSerilog();
 
             CreateHostBuilder(args).Build().Run();
-
-            var pepe = RunAsync().GetAwaiter().GetResult();
         }
 
 

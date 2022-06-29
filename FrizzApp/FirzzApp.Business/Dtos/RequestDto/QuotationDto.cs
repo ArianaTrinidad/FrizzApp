@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Dtos.RequestDto
 {
-    public class DollarDto
+    public class QuotationDto
     {
-        public int Dollars { get; set; }
+        public int Price { get; set; }
     }
 }
