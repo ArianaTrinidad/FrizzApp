@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Vml.Office;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Enums;
 using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
+using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -71,6 +73,8 @@ namespace FirzzApp.Business.Services
         {
             var entity = _mapper.Map<Category>(dto);
 
+            entity.SetCreationAuditFields("pepe creador");
+
             _repository.CreateCategory(entity);
 
             return Result<Category>.Success($"{entity.CategoryName}");
@@ -80,7 +84,7 @@ namespace FirzzApp.Business.Services
         public string DeleteCategory(int id)
         {
             var result = _repository.DeleteCategory(id);
-
+            
             return result;
         }
 

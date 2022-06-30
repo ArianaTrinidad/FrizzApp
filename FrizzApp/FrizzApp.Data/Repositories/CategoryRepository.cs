@@ -1,5 +1,7 @@
 ﻿using FrizzApp.Data.Entities;
+using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,6 +39,8 @@ namespace FrizzApp.Data.Repositories
 
             if (entity != null)
             {
+                entity.SetDelationAuditFields("pepe borrador");
+
                 _context.Categories.Remove(entity);
                 _context.SaveChanges();
 

@@ -92,7 +92,7 @@ namespace FirzzApp.Business.Services
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                                                             SecurityAlgorithms.HmacSha256Signature)
             };
-
+            
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return new AuthenticationResult
@@ -102,7 +102,13 @@ namespace FirzzApp.Business.Services
             };
         }
 
-
+        
+        public static string PepeLeeToken(string tokencito)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var result = tokenHandler.ReadJwtToken(tokencito);
+            return result.Subject;
+        }
 
         private bool ValidateIsAdmin(UserRegisterDto request)
             => request.AdminKey != null

@@ -6,6 +6,7 @@ using FirzzApp.Business.Interfaces;
 using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
+using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
 using Serilog;
 using System;
@@ -65,6 +66,8 @@ namespace FirzzApp.Business.Services
         {
             var entity = _mapper.Map<Product>(dto);
 
+            entity.SetCreationAuditFields("pepe creador");
+
             _repository.Create(entity);
 
             _cache.Remove("GetAll");
@@ -74,7 +77,6 @@ namespace FirzzApp.Business.Services
 
             return Result<Product>.Success(resultMessage);
         }
-
 
         public string Delete(DeleteProductDto dto)
         {

@@ -3,6 +3,7 @@ using FrizzApp.Data.Enums;
 using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -96,7 +97,10 @@ namespace FrizzApp.Data.Repositories
 
             if (entity != null)
             {
+                entity.DeleteAt = DateTime.UtcNow.AddHours(-3);
+                entity.DeleteBy = "pepe borrador";
                 entity.ProductStatusId = (int)ProductStatusEnum.Deleted;
+                
                 _context.Products.Update(entity);
                 _context.SaveChanges();
 
