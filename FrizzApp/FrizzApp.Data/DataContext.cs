@@ -69,6 +69,10 @@ namespace FrizzApp.Data
             modelBuilder.Entity<OrderStatus>().HasData(orderStatusInitialData);
             modelBuilder.Entity<PaymentType>().HasData(paymentTypesInitialData);
             modelBuilder.Entity<Category>().HasData(categoriesInitialData);
+
+
+            modelBuilder.Entity<Product>()
+                .HasQueryFilter(x => x.ProductStatusId != (int)ProductStatusEnum.Deleted);
         }
     }
 }

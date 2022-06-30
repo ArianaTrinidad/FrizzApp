@@ -92,7 +92,7 @@ namespace FirzzApp.Business.Services
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                                                             SecurityAlgorithms.HmacSha256Signature)
             };
-
+            
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return new AuthenticationResult
@@ -101,7 +101,6 @@ namespace FirzzApp.Business.Services
                 Token = tokenHandler.WriteToken(token)
             };
         }
-
 
 
         private bool ValidateIsAdmin(UserRegisterDto request)

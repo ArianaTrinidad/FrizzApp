@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Vml.Office;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Enums;
 using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
+using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -70,6 +72,8 @@ namespace FirzzApp.Business.Services
         public Result<Category> CreateCategory(CreateCategoryDto dto)
         {
             var entity = _mapper.Map<Category>(dto);
+
+            entity.SetCreateAuditFields("pepe creador");
 
             _repository.CreateCategory(entity);
 
