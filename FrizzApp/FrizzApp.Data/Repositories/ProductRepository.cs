@@ -2,6 +2,7 @@
 using FrizzApp.Data.Enums;
 using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -54,6 +55,7 @@ namespace FrizzApp.Data.Repositories
 
 
             var result = partialResult
+                .Include(x=> x.Category)
                 .Skip(skip)
                 .Take(take)
                 .OrderBy(x => x.Id)
@@ -87,6 +89,7 @@ namespace FrizzApp.Data.Repositories
             _context.Products.Add(entity);
             _context.SaveChanges();
         }
+
 
         public void Update(Product entity) 
         {
@@ -135,6 +138,25 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
+
+        public bool ChangeStatus(int id) 
+        {
+            var entity = _context.Products.Where(x => x.Id == id).FirstOrDefault();
+           
+            if (entity != null)
+            {
+                entity.ProductStatusId = (int)ProductStatusEnum.WithoutStock;
+
+                _context.Update(entity);
+                _context.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public string Delete(int id)
         {

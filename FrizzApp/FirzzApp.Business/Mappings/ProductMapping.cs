@@ -19,6 +19,7 @@ namespace FirzzApp.Business.Mappings
                 .ForMember(dest => dest.Precio, opt => opt.MapFrom(src => src.Price))
                 .ForMember(dest => dest.ImagenUrl, opt => opt.MapFrom(src => src.ImageUrl))
                 .ForMember(dest => dest.EsPromo, opt => opt.MapFrom(src => src.IsPromo))
+                .ForMember(dest => dest.Categoria, opt => opt.MapFrom(src => src.Category))
                 ;
 
 

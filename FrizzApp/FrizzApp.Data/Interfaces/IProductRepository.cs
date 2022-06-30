@@ -9,5 +9,6 @@ namespace FrizzApp.Data.Interfaces
         void Create(Product entity);
         void Update(Product entity);
         string Delete(int id);
+        bool ChangeStatus(int dto);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace FirzzApp.Business.Dtos.ResponseDto
+﻿using FrizzApp.Data.Entities;
+
+namespace FirzzApp.Business.Dtos.ResponseDto
 {
     public class GetProductResponseDto
     {
@@ -10,5 +12,7 @@
         public string ImagenUrl { get; set; }
         public decimal Precio { get; set; }
         public bool EsPromo { get; set; }
+        public virtual Category Categoria { get; set; }
+       
     }
 }
