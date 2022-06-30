@@ -16,56 +16,24 @@ namespace FirzzApp.Business.Services
 {
     public class CategoryService : ICategoryService
     {
-
-        private readonly ICategoryRepository _repository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
         private readonly IMemoryCache _cache;
 
-        public CategoryService(ICategoryRepository repository, IMapper mapper, IMemoryCache cache)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
         {
-            _repository = repository;
+            _categoryRepository = categoryRepository;
             _mapper = mapper;
-            _cache = cache;
         }
 
 
-        // TODO: Esto no anda, luego de aquella implementación de cache en este método dejó de devolver información...
         public List<GetCategoryResponseDto> GetAll(CacheTypeEnum cacheType)
         {
-            var cacheKey = $"GetAllCategory";
+            var result = _categoryRepository.GetAll();
 
-            var result = new List<Category>();
+            var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
 
-
-            if (cacheType == CacheTypeEnum.UseCache && _cache.TryGetValue(cacheKey, out result))
-            {
-                var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
-                Console.WriteLine("From cache");
-                return response;
-            }
-            else if (cacheType == CacheTypeEnum.UseCache)
-            {
-                _cache.Set(cacheKey, result, new MemoryCacheEntryOptions()
-                {
-                    Size = 10000,
-                    SlidingExpiration = TimeSpan.FromSeconds(1000)
-                });
-                Console.WriteLine("From database");
-                var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
-                return response;
-            }
-            else
-            {
-                Console.WriteLine("OptionalCache turn off");
-                var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
-                return response;
-            }
-
-            //var result = _repository.GetAll();
-
-            //var response = _mapper.Map<List<GetCategoryResponseDto>>(result);
-
-            //return response;
+            return response;
         }
 
 
@@ -75,7 +43,7 @@ namespace FirzzApp.Business.Services
 
             entity.SetCreateAuditFields("pepe creador");
 
-            _repository.CreateCategory(entity);
+            _categoryRepository.CreateCategory(entity);
 
             return Result<Category>.Success($"{entity.CategoryName}");
         }
@@ -83,7 +51,7 @@ namespace FirzzApp.Business.Services
 
         public string DeleteCategory(int id)
         {
-            var result = _repository.DeleteCategory(id);
+            var result = _categoryRepository.DeleteCategory(id);
 
             return result;
         }

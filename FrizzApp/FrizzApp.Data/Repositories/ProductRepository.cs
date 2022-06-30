@@ -4,12 +4,8 @@ using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Http;
 
 namespace FrizzApp.Data.Repositories
 {
@@ -100,60 +96,72 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public void Update(Product entity) 
+        public void Update(Product entityFromDto)
         {
-            var entityDatabase = _context.Products.Where(x => x.Id == entity.Id).FirstOrDefault();
-            if (!string.IsNullOrWhiteSpace(entity.Name))
+            var entity = _context.Products.Where(x => x.Id == entityFromDto.Id).FirstOrDefault();
+
+            if (entity == null)
+                return;
+
+            if (!string.IsNullOrWhiteSpace(entityFromDto.Name))
             {
-                entityDatabase.Name = entity.Name;
+                entity.Name = entityFromDto.Name;
             }
 
-            if (!string.IsNullOrWhiteSpace(entity.Description))
+            if (!string.IsNullOrWhiteSpace(entityFromDto.Description))
             {
-                entityDatabase.Description = entity.Description;
+                entity.Description = entityFromDto.Description;
             }
 
-            if (!string.IsNullOrWhiteSpace(entity.Notes))
+            if (!string.IsNullOrWhiteSpace(entityFromDto.Notes))
             {
-                entityDatabase.Notes = entity.Notes;
-            }
-            if (!string.IsNullOrWhiteSpace(entity.Presentation))
-            {
-                entityDatabase.Presentation = entity.Presentation;
-            }
-            if (!string.IsNullOrWhiteSpace(entity.ImageUrl))
-            {
-                entityDatabase.ImageUrl = entity.ImageUrl;
-            }
-            if (entity.Price != default)
-            {
-                entityDatabase.Price = entity.Price;
-            }
-            if (entity.IsPromo.HasValue)
-            {
-                entityDatabase.IsPromo = entity.IsPromo;
-            }
-            if (entity.Category != default)
-            {
-                entityDatabase.Category = entity.Category;
-            }
-            if (entity.ProductStatusId != default)
-            {
-                entityDatabase.ProductStatusId = entity.ProductStatusId;
+                entity.Notes = entityFromDto.Notes;
             }
 
+            if (!string.IsNullOrWhiteSpace(entityFromDto.Presentation))
+            {
+                entity.Presentation = entityFromDto.Presentation;
+            }
 
-            _context.Products.Update(entityDatabase);
+            if (!string.IsNullOrWhiteSpace(entityFromDto.ImageUrl))
+            {
+                entity.ImageUrl = entityFromDto.ImageUrl;
+            }
+
+            if (entityFromDto.Price != default)
+            {
+                entity.Price = entityFromDto.Price;
+            }
+
+            if (entityFromDto.IsPromo.HasValue)
+            {
+                entity.IsPromo = entityFromDto.IsPromo;
+            }
+
+            if (entityFromDto.Category != default)
+            {
+                entity.Category = entityFromDto.Category;
+            }
+
+            if (entityFromDto.ProductStatusId != default)
+            {
+                entity.ProductStatusId = entityFromDto.ProductStatusId;
+            }
+
+            entity.SetUpdateAuditFields(_httpContextAccesor.GetUserFromToken());
+
+            _context.Products.Update(entity);
             _context.SaveChanges();
         }
 
 
-        public bool ChangeStatus(int id) 
+        public bool ChangeStatus(int id)
         {
             var entity = _context.Products.Where(x => x.Id == id).FirstOrDefault();
-           
+
             if (entity != null)
             {
+                entity.SetUpdateAuditFields(_httpContextAccesor.GetUserFromToken());
                 entity.ProductStatusId = (int)ProductStatusEnum.WithoutStock;
 
                 _context.Update(entity);

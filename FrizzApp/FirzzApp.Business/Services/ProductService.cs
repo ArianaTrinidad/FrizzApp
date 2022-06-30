@@ -8,7 +8,6 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -66,8 +65,6 @@ namespace FirzzApp.Business.Services
         {
             var entity = _mapper.Map<Product>(dto);
 
-            entity.SetCreateAuditFields("pepe creador");
-
             _repository.Create(entity);
 
             _cache.Remove("GetAll");
@@ -77,6 +74,7 @@ namespace FirzzApp.Business.Services
 
             return Result<Product>.Success(resultMessage);
         }
+
 
         public Result<Product> UpdateProduct(UpdateProductDto dto)
         {
@@ -91,6 +89,7 @@ namespace FirzzApp.Business.Services
             return Result<Product>.Success(resultMessage);
         }
 
+
         public string Delete(DeleteProductDto dto)
         {
             var result = _repository.Delete(dto.Id);
@@ -100,6 +99,7 @@ namespace FirzzApp.Business.Services
             _logger.Information(result);
             return result;
         }
+
 
         public Result<Product> ChangeStatus(ChangeStockStatusProductDto dto)
         {
@@ -116,6 +116,7 @@ namespace FirzzApp.Business.Services
                 return Result<Product>.Fail($"The product wasn´t found");
             }
         }
+
 
         public byte[] GetFileFromGetAll(GetAllProductDto dto)
         {
