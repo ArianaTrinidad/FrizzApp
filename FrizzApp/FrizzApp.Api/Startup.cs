@@ -29,7 +29,7 @@ namespace FrizzApp.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            
+
         }
 
         public IConfiguration Configuration { get; }
@@ -113,7 +113,6 @@ namespace FrizzApp.Api
             services.AddDefaultIdentity<User>()
                 .AddEntityFrameworkStores<DataContext>();
 
-            
 
             services.AddSwaggerGen(c =>
             {
@@ -162,7 +161,12 @@ namespace FrizzApp.Api
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FrizzApp.Api v1"));
+            app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiDemo v1");
+                    c.RoutePrefix = "swagger";
+                }
+            );
         }
     }
 }
