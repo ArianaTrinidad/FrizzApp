@@ -78,6 +78,19 @@ namespace FirzzApp.Business.Services
             return Result<Product>.Success(resultMessage);
         }
 
+        public Result<Product> UpdateProduct(UpdateProductDto dto)
+        {
+            var entity = _mapper.Map<Product>(dto);
+
+            _repository.Update(entity);
+
+            _cache.Remove("GetAll");
+
+            var resultMessage = $"Product {entity.Name} was modified";
+
+            return Result<Product>.Success(resultMessage);
+        }
+
         public string Delete(DeleteProductDto dto)
         {
             var result = _repository.Delete(dto.Id);
@@ -88,6 +101,21 @@ namespace FirzzApp.Business.Services
             return result;
         }
 
+        public Result<Product> ChangeStatus(ChangeStockStatusProductDto dto)
+        {
+            var result = _repository.ChangeStatus(dto.Id);
+
+            _cache.Remove("GetAll");
+
+            if (result)
+            {
+                return Result<Product>.Success();
+            }
+            else
+            {
+                return Result<Product>.Fail($"The product wasn´t found");
+            }
+        }
 
         public byte[] GetFileFromGetAll(GetAllProductDto dto)
         {
