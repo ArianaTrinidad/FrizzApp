@@ -73,7 +73,7 @@ namespace FirzzApp.Business.Services
         {
             var entity = _mapper.Map<Category>(dto);
 
-            entity.SetCreationAuditFields("pepe creador");
+            entity.SetCreateAuditFields("pepe creador");
 
             _repository.CreateCategory(entity);
 
@@ -84,7 +84,7 @@ namespace FirzzApp.Business.Services
         public string DeleteCategory(int id)
         {
             var result = _repository.DeleteCategory(id);
-            
+
             return result;
         }
 

@@ -5,6 +5,7 @@ using FrizzApp.Api.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace FrizzApp.Api.Controllers
@@ -45,10 +46,6 @@ namespace FrizzApp.Api.Controllers
         [Authorize]
         public ActionResult Create([FromBody] CreateProductDto dto)
         {
-            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", string.Empty);
-
-            var pepeUsuario =  IdentityService.PepeLeeToken(token);
-
             var result = _service.CreateProduct(dto);
 
             return result.IsSuccess

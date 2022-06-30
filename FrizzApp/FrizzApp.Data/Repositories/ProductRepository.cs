@@ -2,10 +2,14 @@
 using FrizzApp.Data.Enums;
 using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
 
 namespace FrizzApp.Data.Repositories
 {
@@ -13,10 +17,12 @@ namespace FrizzApp.Data.Repositories
     {
         private readonly DataContext _context;
 
+        private readonly IHttpContextAccessor _httpContextAccesor;
 
-        public ProductRepository(DataContext context)
+        public ProductRepository(DataContext context, IHttpContextAccessor httpContext)
         {
             _context = context;
+            _httpContextAccesor = httpContext;
         }
 
 
@@ -56,7 +62,7 @@ namespace FrizzApp.Data.Repositories
 
 
             var result = partialResult
-                .Include(x=> x.Category)
+                .Include(x => x.Category)
                 .Skip(skip)
                 .Take(take)
                 .OrderBy(x => x.Id)
@@ -87,9 +93,13 @@ namespace FrizzApp.Data.Repositories
 
         public void Create(Product entity)
         {
+            entity.SetCreateAuditFields(_httpContextAccesor.GetUserFromToken());
+
             _context.Products.Add(entity);
             _context.SaveChanges();
         }
+
+        
 
         public string Delete(int id)
         {
@@ -97,10 +107,9 @@ namespace FrizzApp.Data.Repositories
 
             if (entity != null)
             {
-                entity.DeleteAt = DateTime.UtcNow.AddHours(-3);
-                entity.DeleteBy = "pepe borrador";
+                entity.SetDeleteAuditFields(_httpContextAccesor.GetUserFromToken());
                 entity.ProductStatusId = (int)ProductStatusEnum.Deleted;
-                
+
                 _context.Products.Update(entity);
                 _context.SaveChanges();
 

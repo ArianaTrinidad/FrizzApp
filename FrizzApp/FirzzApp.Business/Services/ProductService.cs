@@ -8,6 +8,7 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ namespace FirzzApp.Business.Services
         private readonly IMapper _mapper;
         private readonly ICacheService _cache;
         private readonly ILogger _logger;
-
 
         public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache, ILogger logger)
         {
@@ -66,7 +66,7 @@ namespace FirzzApp.Business.Services
         {
             var entity = _mapper.Map<Product>(dto);
 
-            entity.SetCreationAuditFields("pepe creador");
+            entity.SetCreateAuditFields("pepe creador");
 
             _repository.Create(entity);
 

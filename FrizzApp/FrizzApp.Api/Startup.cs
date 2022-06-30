@@ -56,6 +56,8 @@ namespace FrizzApp.Api
                     .AddDbContext<DataContext>(option =>
                         option.UseSqlServer(Configuration.GetConnectionString("FrizzAppDB")));
             }
+            
+            services.AddHttpContextAccessor();
 
             services.AddMemoryCache();
 
