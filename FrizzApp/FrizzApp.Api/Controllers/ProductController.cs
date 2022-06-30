@@ -1,8 +1,12 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Interfaces.IServices;
+using FirzzApp.Business.Services;
 using FrizzApp.Api.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace FrizzApp.Api.Controllers
 {
@@ -49,12 +53,33 @@ namespace FrizzApp.Api.Controllers
                 : BadRequest(result);
         }
 
+        [HttpPut]
+        [Authorize]
+        public ActionResult Update([FromBody] UpdateProductDto dto)
+        {
+            var result = _service.UpdateProduct(dto);
+
+            return result.IsSuccess
+                ? Ok(result)
+                : BadRequest(result);
+        }
+
 
         [HttpDelete("{id}")]
         [Authorize]
         public ActionResult Delete([FromRoute] DeleteProductDto dto)
         {
             var result = _service.Delete(dto);
+
+            return Ok(result);
+        }
+
+
+        [HttpPatch]
+        [Authorize]
+        public ActionResult ChangeStockStatus([FromBody] ChangeStockStatusProductDto dto)
+        {
+            var result = _service.ChangeStatus(dto);
 
             return Ok(result);
         }

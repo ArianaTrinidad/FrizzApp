@@ -88,7 +88,7 @@ namespace FirzzApp.Business.Services
                     //new Claim(JwtRegisteredClaimNames.Email, newUser.Email),
                     new Claim("id", newUser.Id)
                 }),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddHours(4),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                                                             SecurityAlgorithms.HmacSha256Signature)
             };
@@ -101,7 +101,6 @@ namespace FirzzApp.Business.Services
                 Token = tokenHandler.WriteToken(token)
             };
         }
-
 
 
         private bool ValidateIsAdmin(UserRegisterDto request)

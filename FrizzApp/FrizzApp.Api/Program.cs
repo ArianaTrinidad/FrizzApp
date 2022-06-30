@@ -18,8 +18,8 @@ namespace FrizzApp.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>()
-                    .UseSerilog();
+                    webBuilder.UseStartup<Startup>();
+                    //.UseSerilog();
                 });
 
 
