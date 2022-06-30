@@ -49,6 +49,17 @@ namespace FrizzApp.Api.Controllers
                 : BadRequest(result);
         }
 
+        [HttpPut]
+        [Authorize]
+        public ActionResult Update([FromBody] UpdateProductDto dto)
+        {
+            var result = _service.UpdateProduct(dto);
+
+            return result.IsSuccess
+                ? Ok(result)
+                : BadRequest(result);
+        }
+
 
         [HttpDelete("{id}")]
         [Authorize]

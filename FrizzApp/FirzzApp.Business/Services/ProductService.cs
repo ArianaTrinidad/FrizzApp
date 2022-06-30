@@ -75,6 +75,18 @@ namespace FirzzApp.Business.Services
             return Result<Product>.Success(resultMessage);
         }
 
+        public Result<Product> UpdateProduct(UpdateProductDto dto)
+        {
+            var entity = _mapper.Map<Product>(dto);
+
+            _repository.Update(entity);
+
+            _cache.Remove("GetAll");
+
+            var resultMessage = $"Product {entity.Name} was modified";
+
+            return Result<Product>.Success(resultMessage);
+        }
 
         public string Delete(DeleteProductDto dto)
         {

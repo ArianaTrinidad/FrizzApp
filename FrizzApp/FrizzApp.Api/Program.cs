@@ -20,7 +20,7 @@ namespace FrizzApp.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                    .UseSerilog();
+                              .UseSerilog();
                 });
 
 

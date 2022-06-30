@@ -10,7 +10,7 @@
         public string ImageUrl { get; set; }
         public decimal Price { get; set; }
         public decimal? OldPrice { get; set; }
-        public bool IsPromo { get; set; }
+        public bool? IsPromo { get; set; }
         public int ProductStatusId { get; set; }
         public int? CategoryId { get; set; }
 
