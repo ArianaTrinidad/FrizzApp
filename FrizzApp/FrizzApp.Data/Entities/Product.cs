@@ -1,7 +1,14 @@
-﻿namespace FrizzApp.Data.Entities
+﻿using System.Collections.Generic;
+
+namespace FrizzApp.Data.Entities
 {
     public class Product : AuditableEntity
     {
+        public Product()
+        {
+            Orders = new List<Order>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -16,6 +23,8 @@
 
         public virtual ProductStatus ProductStatus { get; set; }
         public virtual Category Category { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
 
 
     }

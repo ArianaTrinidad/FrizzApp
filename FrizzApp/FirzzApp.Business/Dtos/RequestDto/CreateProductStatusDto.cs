@@ -2,6 +2,6 @@
 {
     public class CreateProductStatusDto
     {
-        public string Nombre;
+        public string Nombre { get; set; }
     }
 }

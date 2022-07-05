@@ -68,6 +68,12 @@ namespace FrizzApp.Data.Repositories
             return result;
         }
 
+        public Product GetById(int id)
+        {
+            var result = _context.Products.FirstOrDefault(x => x.Id == id);
+            return result;
+        }
+
 
         public List<Product> GetAllQueryableExtesion(int pageNumber, int pageSize, string palabraClave, decimal precioMin, decimal precioMax, int categoriaId)
         {

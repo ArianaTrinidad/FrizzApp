@@ -33,6 +33,7 @@ namespace FirzzApp.Business.Mappings
                 .ForMember(dest => dest.IsPromo, opt => opt.MapFrom(src => src.EsPromo))
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Categoria))
                 .ForMember(dest => dest.ProductStatusId, opt => opt.MapFrom(src => (int)ProductStatusEnum.Avaiable))
+                //.ForMember(dest => dest.Orders, opt => opt.MapFrom(src => (int)ProductStatusEnum.Avaiable))
                 ;
 
             CreateMap<UpdateProductDto, Product>()
