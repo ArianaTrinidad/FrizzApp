@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FrizzApp.Data.Entities
 {
-    public class Order
+    public class Order : AuditableEntity
     {
+        public Order()
+        {
+            Products = new List<Product>();
+        }
+
         public int OrderId { get; set; }
         public DateTime Date { get; set; }
         public decimal TotalPrice { get; set; }
@@ -19,8 +25,6 @@ namespace FrizzApp.Data.Entities
         public virtual PaymentType PaymentType { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
 
-
-        // public int UserId { get; set; }
-        //public virtual List<Product> Products { get; set; } Línea de la discordía...
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4ee357bd-cb50-4b03-a388-da467467ce06",
-		"name": "FrizzApp.Api",
+		"_postman_id": "c832773e-5310-4978-b446-9e4c3d09e1d5",
+		"name": "FrizzApp.Api Juli",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20354861"
+		"_exporter_id": "7932023"
 	},
 	"item": [
 		{
@@ -21,10 +21,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -32,16 +28,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -60,41 +46,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/Category",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"Category"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/Category",
@@ -107,11 +59,7 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Your test name\", function () {\r",
+											"pm.test(\"create product ok\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
 											"});"
@@ -121,16 +69,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -162,50 +100,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"nombre\": \"Lorem\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/Category",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"Category"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/Category/:id",
@@ -214,33 +109,13 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Body is correct\", function () {\r",
-											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
-											"});"
+											""
 										],
 										"type": "text/javascript"
 									}
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "DELETE",
 								"header": [
 									{
@@ -265,55 +140,13 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "",
+											"value": "103",
 											"description": "(Required) "
 										}
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/Category/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"Category",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id",
-													"value": "-30819473",
-													"description": "(Required) "
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "\"Lorem aute veniam\""
-								}
-							]
+							"response": []
 						}
 					]
 				},
@@ -322,6 +155,20 @@
 					"item": [
 						{
 							"name": "/api/Identity/register",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"console.log(pm.request.body)\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [
@@ -336,7 +183,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"email\": \"aute nulla incididunt ad\",\n  \"password\": \"et ullamco reprehenderit minim sed\",\n  \"adminKey\": \"exercitation magna\"\n}",
+									"raw": "{\n  \"email\": \"c.pedalino@gmail.com\",\n  \"password\": \"Temporal1#\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -355,51 +202,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"email\": \"aute nulla incididunt ad\",\n  \"password\": \"et ullamco reprehenderit minim sed\",\n  \"adminKey\": \"exercitation magna\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/Identity/register",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"Identity",
-												"register"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/Identity/login",
@@ -437,7 +240,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"email\": \"usuario@gmail.com\",\n  \"password\": \"Temporal1#\"\n}",
+									"raw": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjLnBlZGFsaW5vQGdtYWlsLmNvbSIsImp0aSI6Ijg4ZWRhY2RlLWFjNGItNGZkYS05MDQ3LTRkNjEyNmIxYTk0OCIsImF1dGhfdGltZSI6IjcvNS8yMDIyIiwiaWQiOiJlMDY1M2ZiMS1lNDlmLTRjODItODY5MC0zNGJiMWMxZGE2Y2MiLCJuYmYiOjE2NTY5ODk4MjQsImV4cCI6MTY1NzAwNDIyNCwiaWF0IjoxNjU2OTg5ODI0fQ.lUabceeLqFmFJI0ntqeEbKkWCTAQlWgp6gpdetvqlhU",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -456,51 +259,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"email\": \"ullamco irure\",\n  \"password\": \"officia laboris\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/Identity/login",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"Identity",
-												"login"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						}
 					]
 				},
@@ -516,10 +275,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -527,16 +282,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -555,41 +300,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/OrderStatus",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"OrderStatus"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/OrderStatus",
@@ -602,10 +313,6 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"\r",
 											"pm.test(\"Your test name\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
@@ -616,16 +323,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -639,7 +336,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"estado\": \"\"\n}",
+									"raw": "{\n  \"estado\": \"{{$randomLoremWord}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -657,50 +354,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"estado\": \"nostrud pariatur sit mollit\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/OrderStatus",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"OrderStatus"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/OrderStatus/:id",
@@ -709,33 +363,13 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Body is correct\", function () {\r",
-											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
-											"});"
+											""
 										],
 										"type": "text/javascript"
 									}
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "DELETE",
 								"header": [
 									{
@@ -766,49 +400,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/OrderStatus/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"OrderStatus",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id",
-													"value": "-30819473",
-													"description": "(Required) "
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "\"Lorem aute veniam\""
-								}
-							]
+							"response": []
 						}
 					]
 				},
@@ -824,10 +416,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -835,16 +423,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -863,41 +441,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/PaymentType",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"PaymentType"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/PaymentType",
@@ -910,10 +454,6 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"\r",
 											"pm.test(\"Your test name\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
@@ -924,16 +464,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -947,7 +477,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"nombre\": \"\"\n}",
+									"raw": "{\n  \"nombre\": \"{{$randomWord}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -965,50 +495,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"nombre\": \"Lorem\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/PaymentType",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"PaymentType"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/PaymentType/:id",
@@ -1017,33 +504,13 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Body is correct\", function () {\r",
-											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
-											"});"
+											""
 										],
 										"type": "text/javascript"
 									}
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "DELETE",
 								"header": [
 									{
@@ -1074,49 +541,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/PaymentType/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"PaymentType",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id",
-													"value": "-30819473",
-													"description": "(Required) "
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "\"Lorem aute veniam\""
-								}
-							]
+							"response": []
 						}
 					]
 				},
@@ -1134,8 +559,8 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"pm.test(\"Response time is less than the accepted time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(pm.environment.get(\"aceptedTime\"));\r",
 											"});\r",
 											""
 										],
@@ -1149,7 +574,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -1209,71 +634,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/Product?Busqueda=reprehenderit cillum&CategoriaId=-97840487&PrecioMinimo=85835165.82962143&PrecioMaximo=85835165.82962143&CacheType=<integer>&NumeroPagina=-30819473&CantidadPagina=-30819473",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"Product"
-											],
-											"query": [
-												{
-													"key": "Busqueda",
-													"value": "reprehenderit cillum"
-												},
-												{
-													"key": "CategoriaId",
-													"value": "-97840487"
-												},
-												{
-													"key": "PrecioMinimo",
-													"value": "85835165.82962143"
-												},
-												{
-													"key": "PrecioMaximo",
-													"value": "85835165.82962143"
-												},
-												{
-													"key": "CacheType",
-													"value": "<integer>"
-												},
-												{
-													"key": "NumeroPagina",
-													"value": "-30819473"
-												},
-												{
-													"key": "CantidadPagina",
-													"value": "-30819473"
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/Product",
@@ -1284,10 +645,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Your test name\", function () {\r",
@@ -1305,7 +662,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -1323,7 +680,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"nombre\": \"\",\n  \"descripcion\": \"\",\n  \"nota\": \"\",\n  \"presentacion\": \"\",\n  \"imagenUrl\": \"\",\n  \"precio\": ,\n  \"esPromo\": false,\n  \"categoria\": \n}",
+									"raw": "{\n  \"nombre\": \"{{$randomProductName}}\",\n  \"descripcion\": \"{{$randomProductAdjective}} {{$randomProductMaterial}}\",\n  \"nota\": \"{{$randomLoremWords}}\",\n  \"presentacion\": \"{{$randomWord}}\",\n  \"imagenUrl\": \"{{$randomImageUrl}}\",\n  \"precio\": {{$randomPrice}},\n  \"esPromo\": {{$randomBoolean}},\n  \"categoria\": 102\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1341,50 +698,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"nombre\": \"ex nulla ut\",\n  \"descripcion\": \"Lorem reprehenderit\",\n  \"nota\": \"Lorem\",\n  \"presentacion\": \"ea eiusmod ipsum\",\n  \"imagenUrl\": \"est commodo\",\n  \"precio\": -46983166.83221679,\n  \"esPromo\": false,\n  \"categoria\": -42393363\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/Product",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"Product"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/Product/download",
@@ -1395,10 +709,6 @@
 										"exec": [
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1411,7 +721,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -1472,72 +782,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/Product/download?Busqueda=reprehenderit cillum&CategoriaId=-97840487&PrecioMinimo=85835165.82962143&PrecioMaximo=85835165.82962143&CacheType=<integer>&NumeroPagina=-30819473&CantidadPagina=-30819473",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"Product",
-												"download"
-											],
-											"query": [
-												{
-													"key": "Busqueda",
-													"value": "reprehenderit cillum"
-												},
-												{
-													"key": "CategoriaId",
-													"value": "-97840487"
-												},
-												{
-													"key": "PrecioMinimo",
-													"value": "85835165.82962143"
-												},
-												{
-													"key": "PrecioMaximo",
-													"value": "85835165.82962143"
-												},
-												{
-													"key": "CacheType",
-													"value": "<integer>"
-												},
-												{
-													"key": "NumeroPagina",
-													"value": "-30819473"
-												},
-												{
-													"key": "CantidadPagina",
-													"value": "-30819473"
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/Product/:id",
@@ -1546,17 +791,7 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Body is correct\", function () {\r",
-											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
-											"});"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -1568,7 +803,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -1598,49 +833,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/Product/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"Product",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "Id",
-													"value": "-30819473",
-													"description": "(Required) "
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						}
 					]
 				},
@@ -1657,26 +850,13 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});"
+											""
 										],
 										"type": "text/javascript"
 									}
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -1695,41 +875,7 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/ProductStatus",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"ProductStatus"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						},
 						{
 							"name": "/api/ProductStatus",
@@ -1742,10 +888,6 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"\r",
 											"pm.test(\"Your test name\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.isSuccess).to.eql(true);\r",
@@ -1756,16 +898,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -1779,7 +911,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{}",
+									"raw": "{\r\n    \"Nombre\" : \"{{$randomLoremWord}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1797,164 +929,95 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/ProductStatus",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"ProductStatus"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
-						},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Orders",
+					"item": [
 						{
-							"name": "/api/ProductStatus/:id",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 500ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Body is correct\", function () {\r",
-											"    pm.response.to.have.body(\"Entity deleted correctly\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
+							"name": "/api/Order",
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c3VhcmlvQGdtYWlsLmNvbSIsImp0aSI6ImNhMzRjZjhkLWJhN2EtNGVkZi04OGQzLTY2Y2Q1NWRmNTFiYSIsImF1dGhfdGltZSI6IjA2LzIyLzIwMjIiLCJpZCI6IjVmOGIzZTM4LTcyNGEtNGI5Zi05MGI4LWE2YjEzOGI3ZjI3YyIsIm5iZiI6MTY1NTkzMjQwNCwiZXhwIjoxNjU1OTM2MDA0LCJpYXQiOjE2NTU5MzI0MDR9.Nhe3xgdIqS_FMPKSf_6RtcRPWzxTTYi_CICYl33EjHY",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "CreateProductKey",
-										"value": "AlgunDiaBitch"
-									},
-									{
-										"key": "Accept",
-										"value": "text/plain"
-									}
-								],
+								"method": "GET",
+								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/ProductStatus/:id",
+									"raw": "{{baseUrl}}/api/Order",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
 										"api",
-										"ProductStatus",
-										":id"
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "",
-											"description": "(Required) "
-										}
+										"Order"
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "CreateProductKey",
-												"value": ""
-											}
-										],
-										"url": {
-											"raw": "{{baseUrl}}/api/ProductStatus/:id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"ProductStatus",
-												":id"
-											],
-											"variable": [
-												{
-													"key": "id",
-													"value": "-30819473",
-													"description": "(Required) "
-												}
-											]
+							"response": []
+						},
+						{
+							"name": "/api/Order",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"precioTotal\": 100,\r\n  \"esDelivery\": true,\r\n  \"direccionDelivery\": \"Calle falsa 123\",\r\n  \"medioPagoId\": 10,\r\n  \"productosId\": [\r\n    3,4\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Order",
+									"host": [
+										"{{baseUrl}}"
 									],
-									"cookie": [],
-									"body": "\"Lorem aute veniam\""
+									"path": [
+										"api",
+										"Order"
+									]
 								}
-							]
+							},
+							"response": []
 						}
 					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response time is less than the accepted time\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1500);",
+							"});"
+						]
+					}
 				}
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -1978,7 +1041,17 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "",
+			"value": "https://localhost:5001",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjLnBlZGFsaW5vQGdtYWlsLmNvbSIsImp0aSI6Ijg4ZWRhY2RlLWFjNGItNGZkYS05MDQ3LTRkNjEyNmIxYTk0OCIsImF1dGhfdGltZSI6IjcvNS8yMDIyIiwiaWQiOiJlMDY1M2ZiMS1lNDlmLTRjODItODY5MC0zNGJiMWMxZGE2Y2MiLCJuYmYiOjE2NTY5ODk4MjQsImV4cCI6MTY1NzAwNDIyNCwiaWF0IjoxNjU2OTg5ODI0fQ.lUabceeLqFmFJI0ntqeEbKkWCTAQlWgp6gpdetvqlhU",
+			"type": "string"
+		},
+		{
+			"key": "aceptedTime",
+			"value": "1500",
 			"type": "string"
 		}
 	]

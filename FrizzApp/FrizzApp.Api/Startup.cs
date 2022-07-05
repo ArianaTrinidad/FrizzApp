@@ -96,12 +96,14 @@ namespace FrizzApp.Api
             services.AddTransient<IPaymentTypeService, PaymentTypeService>();
             services.AddTransient<IProductStatusService, ProductStatusService>();
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddTransient<IOrderService, OrderService>();
 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IOrderStatusRepository, OrderStatusRepository>();
             services.AddTransient<IPaymentTypeRepository, PymentTypeRepository>();
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
 
             services.AddTransient<ICacheService, CacheService>();
 
