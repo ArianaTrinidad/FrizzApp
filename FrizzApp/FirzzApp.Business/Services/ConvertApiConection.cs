@@ -38,8 +38,8 @@ namespace FirzzApp.Business.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string quotation = await response.Content.ReadAsStringAsync();
-                    ResponseConectionQuotationDto pepe = JsonConvert.DeserializeObject<ResponseConectionQuotationDto>(quotation);
-                    dollar = pepe.Precio;
+                    ResponseConectionQuotationDto quotationObject = JsonConvert.DeserializeObject<ResponseConectionQuotationDto>(quotation);
+                    dollar = quotationObject.Precio;
                 }
 
 

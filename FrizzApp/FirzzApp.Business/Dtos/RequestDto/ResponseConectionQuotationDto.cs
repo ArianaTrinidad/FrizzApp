@@ -9,7 +9,8 @@ namespace FirzzApp.Business.Dtos.RequestDto
     public class ResponseConectionQuotationDto
     {
         public int Id { get; set; }
-        public string Fecha { get; set; }
+        public string  Fecha { get; set; }
         public decimal Precio { get; set; }
+
     }
 }
