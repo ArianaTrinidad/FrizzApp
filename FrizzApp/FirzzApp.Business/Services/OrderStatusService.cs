@@ -25,8 +25,6 @@ namespace FirzzApp.Business.Services
 
         public List<GetOrderStatusResponseDto> GetAll()
         {
-            //No creimos necesario poner cache
-
             var result = _repository.GetAll();
 
             var response = _mapper.Map<List<GetOrderStatusResponseDto>>(result);

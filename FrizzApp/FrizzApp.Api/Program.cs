@@ -10,7 +10,6 @@ namespace FrizzApp.Api
         public static void Main(string[] args)
         {
             ConfigureSerilog();
-
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -19,8 +18,8 @@ namespace FrizzApp.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>()
-                    .UseSerilog();
+                    webBuilder.UseStartup<Startup>();
+                    //.UseSerilog();
                 });
 
 
@@ -31,7 +30,7 @@ namespace FrizzApp.Api
                                 "appsettings.json",
                                 optional: false,
                                 reloadOnChange: true).Build();
-
+            
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
                 .WriteTo.Console()

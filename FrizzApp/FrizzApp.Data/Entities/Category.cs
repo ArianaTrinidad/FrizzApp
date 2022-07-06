@@ -1,6 +1,6 @@
 ﻿namespace FrizzApp.Data.Entities
 {
-    public class Category
+    public class Category : AuditableEntity
     {
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }

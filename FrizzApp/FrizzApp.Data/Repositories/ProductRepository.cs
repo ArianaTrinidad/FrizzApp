@@ -2,6 +2,7 @@
 using FrizzApp.Data.Enums;
 using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace FrizzApp.Data.Repositories
     {
         private readonly DataContext _context;
 
+        private readonly IHttpContextAccessor _httpContextAccesor;
 
-        public ProductRepository(DataContext context)
+        public ProductRepository(DataContext context, IHttpContextAccessor httpContext)
         {
             _context = context;
+            _httpContextAccesor = httpContext;
         }
 
 
@@ -55,13 +58,19 @@ namespace FrizzApp.Data.Repositories
 
 
             var result = partialResult
-                .Include(x=> x.Category)
+                .Include(x => x.Category)
                 .Skip(skip)
                 .Take(take)
                 .OrderBy(x => x.Id)
                 .ToList();
 
 
+            return result;
+        }
+
+        public Product GetById(int id)
+        {
+            var result = _context.Products.FirstOrDefault(x => x.Id == id);
             return result;
         }
 
@@ -86,8 +95,90 @@ namespace FrizzApp.Data.Repositories
 
         public void Create(Product entity)
         {
+            entity.SetCreateAuditFields(_httpContextAccesor.GetUserFromToken());
+
             _context.Products.Add(entity);
             _context.SaveChanges();
+        }
+
+
+        public void Update(Product entityFromDto)
+        {
+            var entity = _context.Products.Where(x => x.Id == entityFromDto.Id).FirstOrDefault();
+
+            if (entity == null)
+                return;
+
+            if (!string.IsNullOrWhiteSpace(entityFromDto.Name))
+            {
+                entity.Name = entityFromDto.Name;
+            }
+
+            if (!string.IsNullOrWhiteSpace(entityFromDto.Description))
+            {
+                entity.Description = entityFromDto.Description;
+            }
+
+            if (!string.IsNullOrWhiteSpace(entityFromDto.Notes))
+            {
+                entity.Notes = entityFromDto.Notes;
+            }
+
+            if (!string.IsNullOrWhiteSpace(entityFromDto.Presentation))
+            {
+                entity.Presentation = entityFromDto.Presentation;
+            }
+
+            if (!string.IsNullOrWhiteSpace(entityFromDto.ImageUrl))
+            {
+                entity.ImageUrl = entityFromDto.ImageUrl;
+            }
+
+            if (entityFromDto.Price != default)
+            {
+                entity.Price = entityFromDto.Price;
+            }
+
+            if (entityFromDto.IsPromo.HasValue)
+            {
+                entity.IsPromo = entityFromDto.IsPromo;
+            }
+
+            if (entityFromDto.Category != default)
+            {
+                entity.Category = entityFromDto.Category;
+            }
+
+            if (entityFromDto.ProductStatusId != default)
+            {
+                entity.ProductStatusId = entityFromDto.ProductStatusId;
+            }
+
+            entity.SetUpdateAuditFields(_httpContextAccesor.GetUserFromToken());
+
+            _context.Products.Update(entity);
+            _context.SaveChanges();
+        }
+
+
+        public bool ChangeStatus(int id)
+        {
+            var entity = _context.Products.Where(x => x.Id == id).FirstOrDefault();
+
+            if (entity != null)
+            {
+                entity.SetUpdateAuditFields(_httpContextAccesor.GetUserFromToken());
+                entity.ProductStatusId = (int)ProductStatusEnum.WithoutStock;
+
+                _context.Update(entity);
+                _context.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public string Delete(int id)
@@ -96,7 +187,9 @@ namespace FrizzApp.Data.Repositories
 
             if (entity != null)
             {
+                entity.SetDeleteAuditFields(_httpContextAccesor.GetUserFromToken());
                 entity.ProductStatusId = (int)ProductStatusEnum.Deleted;
+
                 _context.Products.Update(entity);
                 _context.SaveChanges();
 

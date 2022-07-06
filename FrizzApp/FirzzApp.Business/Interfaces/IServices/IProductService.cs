@@ -12,6 +12,9 @@ namespace FirzzApp.Business.Interfaces.IServices
         byte[] GetFileFromGetAll(GetAllProductDto dto);
 
         Result<Product> CreateProduct(CreateProductDto dto);
+        Result<Product> UpdateProduct(UpdateProductDto dto);
         string Delete(DeleteProductDto dto);
+        Result<Product> ChangeStatus(ChangeStockStatusProductDto dto);
+
     }
 }

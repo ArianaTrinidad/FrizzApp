@@ -50,6 +50,17 @@ namespace FrizzApp.Api.Controllers
         public ActionResult Create([FromBody] CreateProductDto dto)
         {
             var result = _service.CreateProduct(dto);
+            
+            return result.IsSuccess
+                ? Ok(result)
+                : BadRequest(result);
+        }
+
+        [HttpPut]
+        [Authorize]
+        public ActionResult Update([FromBody] UpdateProductDto dto)
+        {
+            var result = _service.UpdateProduct(dto);
 
             return result.IsSuccess
                 ? Ok(result)
@@ -62,6 +73,16 @@ namespace FrizzApp.Api.Controllers
         public ActionResult Delete([FromRoute] DeleteProductDto dto)
         {
             var result = _service.Delete(dto);
+
+            return Ok(result);
+        }
+
+
+        [HttpPatch]
+        [Authorize]
+        public ActionResult ChangeStockStatus([FromBody] ChangeStockStatusProductDto dto)
+        {
+            var result = _service.ChangeStatus(dto);
 
             return Ok(result);
         }
