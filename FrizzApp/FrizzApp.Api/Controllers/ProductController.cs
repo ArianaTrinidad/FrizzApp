@@ -1,5 +1,6 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Interfaces.IServices;
+using FirzzApp.Business.Services;
 using FrizzApp.Api.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,12 @@ namespace FrizzApp.Api.Controllers
         [Authorize]
         public ActionResult GetAll([FromQuery] GetAllProductDto dto)
         {
+
+            var apiQuotation = new ConvertApiConection();
+            var priceDollar = apiQuotation.GetDollarAsync();
+
+            //Agregar dto el Pepe1.price * price
+
             var result = _service.GetAll(dto);
 
             return Ok(result);

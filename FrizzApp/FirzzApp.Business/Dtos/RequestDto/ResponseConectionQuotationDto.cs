@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Dtos.RequestDto
 {
-    public class QuotationDto
+    public class ResponseConectionQuotationDto
     {
-        public int Price { get; set; }
+        public int Id { get; set; }
+        public string Fecha { get; set; }
+        public decimal Precio { get; set; }
     }
 }

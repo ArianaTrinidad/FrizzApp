@@ -1,12 +1,15 @@
-﻿using FirzzApp.Business.Dtos.RequestDto;
+﻿using FirzzApp.Business.Dtos;
+using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Interfaces;
 using FrizzApp.Data.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Services
@@ -20,26 +23,25 @@ namespace FirzzApp.Business.Services
             _client = new HttpClient();
         }
 
-        public async Task<QuotationDto> GetDollarAsync()
+        public async Task<decimal> GetDollarAsync()
         {
             _client.BaseAddress = new Uri("https://dollar-conversor.herokuapp.com");
 
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            QuotationDto dollar = null;
-
-
-            HttpResponseMessage response = await _client.GetAsync("https://dollar-conversor.herokuapp.com/cotizacion/usd-ar/actual");
-
-
-            if (response.IsSuccessStatusCode)
-            {
-                var quotation = await response.Content.ReadAsStringAsync();
-                dollar.Price = Convert.ToInt32(quotation); ;
-            }
-           
+            decimal dollar = default;
             try
             {
+                HttpResponseMessage response = await _client.GetAsync("https://dollar-conversor.herokuapp.com/cotizacion/usd-ar/actual");
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string quotation = await response.Content.ReadAsStringAsync();
+                    ResponseConectionQuotationDto pepe = JsonConvert.DeserializeObject<ResponseConectionQuotationDto>(quotation);
+                    dollar = pepe.Precio;
+                }
+
 
             }
             catch (Exception e)
