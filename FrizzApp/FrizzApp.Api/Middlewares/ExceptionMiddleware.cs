@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Net;
 using System.Text.Json;
@@ -11,9 +11,9 @@ namespace FrizzApp.Api.Middlewares
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<ExceptionMiddleware> _logger;
+        private readonly ILogger _logger;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
+        public ExceptionMiddleware(RequestDelegate next, ILogger logger)
         {
             _logger = logger;
             _next = next;
@@ -27,7 +27,7 @@ namespace FrizzApp.Api.Middlewares
             }
             catch (Exception ex)
             {
-                _logger.LogError($"[Error]: {ex.Message}");
+                _logger.Error($"[Error]: {ex.Message}");
 
                 httpContext.Response.ContentType = "application/json";
                 httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
