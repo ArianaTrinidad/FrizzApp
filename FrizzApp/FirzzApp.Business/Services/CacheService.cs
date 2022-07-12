@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
+using System.Net.Http;
 
 namespace FirzzApp.Business.Services
 {
@@ -12,21 +13,21 @@ namespace FirzzApp.Business.Services
     {
         private readonly IDistributedCache _cache;
         private readonly IConfiguration _configuration;
-        private IDatabase _db;
+        private readonly IDatabase _db;
 
-        public CacheService(IDistributedCache cache, IConfiguration configuration)
+        //public CacheService(IDistributedCache cache, IConfiguration configuration)
+        //{
+        //    _cache = cache;
+        //    _configuration = configuration;
+        //}
+
+        public CacheService(IConfiguration configuration)
         {
-            _cache = cache;
             _configuration = configuration;
-        }
-
-        public CacheService()
-        {
-            ConfigureRedis();
-        }
-        private void ConfigureRedis()
-        {
-            _db = _configuration.GetConnectionString("Redis");  //("ConnectionStrings:Redis");
+            
+            var connectionString = _configuration.GetValue<string>("CacheConfiguration:ConnectionStrings:Redis");
+            var redis = ConnectionMultiplexer.Connect(connectionString);
+            _db = redis.GetDatabase();
         }
 
         public TEntry Get<TEntry, TCacheDtoConfiguration>(string key, TCacheDtoConfiguration dtoConfig)
@@ -52,7 +53,7 @@ namespace FirzzApp.Business.Services
             var options = new DistributedCacheEntryOptions();
             options.AbsoluteExpirationRelativeToNow = absoluteExpireTime ?? TimeSpan.FromSeconds(600);
 
-            var isSet = _db.StringSet(key, JsonConvert.SerializeObject(dataToCache, options));
+            var isSet = _db.StringSet(key, JsonConvert.SerializeObject(dataToCache));
             return isSet;
         }
 
