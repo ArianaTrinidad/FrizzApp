@@ -1,50 +1,59 @@
 ﻿using FirzzApp.Business.Enums;
 using FirzzApp.Business.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using StackExchange.Redis;
 using System;
 
 namespace FirzzApp.Business.Services
 {
     public class CacheService : ICacheService
     {
-        private readonly IMemoryCache _cache;
+        private readonly IDistributedCache _cache;
         private readonly IConfiguration _configuration;
+        private IDatabase _db;
 
-        public CacheService(IMemoryCache cache, IConfiguration configuration)
+        public CacheService(IDistributedCache cache, IConfiguration configuration)
         {
             _cache = cache;
             _configuration = configuration;
         }
 
+        public CacheService()
+        {
+            ConfigureRedis();
+        }
+        private void ConfigureRedis()
+        {
+            _db = _configuration.GetConnectionString("Redis");  //("ConnectionStrings:Redis");
+        }
+
         public TEntry Get<TEntry, TCacheDtoConfiguration>(string key, TCacheDtoConfiguration dtoConfig)
             where TCacheDtoConfiguration : ICacheable
         {
-            TEntry entry = default;
+            //TEntry entry = default;
+            var value = _db.StringGet(key);
 
             var cacheConfigStatus = _configuration.GetValue<bool>("CacheConfiguration:UseCache");
 
             if (dtoConfig.CacheType == CacheTypeEnum.UseCache && cacheConfigStatus == true)
             {
-                _cache.TryGetValue(key, out entry);
+                //_cache.TryGetValue(key, out entry);
+                return JsonConvert.DeserializeObject<TEntry>(value);
             }
 
-            return entry;
+            return default;
         }
 
 
-        public void Set<TValue>(string key, TValue dataToCache, MemoryCacheEntryOptions options = null)
+        public bool Set<TValue>(string key, TValue dataToCache, TimeSpan? absoluteExpireTime = null)
         {
-            var cacheConfigLifeTime = _configuration.GetValue<int>("CacheConfiguration:DefaultLifeTime");
-            var cacheConfigSize = _configuration.GetValue<int>("CacheConfiguration:DefaultSize");
+            var options = new DistributedCacheEntryOptions();
+            options.AbsoluteExpirationRelativeToNow = absoluteExpireTime ?? TimeSpan.FromSeconds(600);
 
-            var defaultOptions = new MemoryCacheEntryOptions()
-            {
-                Size = cacheConfigSize,
-                SlidingExpiration = TimeSpan.FromSeconds(cacheConfigLifeTime)
-            };
-
-            _cache.Set(key, dataToCache, options ?? defaultOptions);
+            var isSet = _db.StringSet(key, JsonConvert.SerializeObject(dataToCache, options));
+            return isSet;
         }
 
         public void Remove(string key)

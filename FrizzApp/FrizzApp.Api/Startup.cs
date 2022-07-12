@@ -43,17 +43,8 @@ namespace FrizzApp.Api
             services
                 .AddSecurity(Configuration)
                 .AddDatabase(Configuration)
-                .AddLibraries();
-
-            /// servicios
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<IOrderStatusService, OrderStatusService>();
-            services.AddTransient<IPaymentTypeService, PaymentTypeService>();
-            services.AddTransient<IProductStatusService, ProductStatusService>();
-            services.AddTransient<IIdentityService, IdentityService>();
-            services.AddTransient<IOrderService, OrderService>();
-            services.AddTransient<ICacheService, CacheService>();
+                .AddLibraries()
+                .AddServicios();
 
             /// repositorios
             services.AddTransient<IProductRepository, ProductRepository>();
@@ -62,6 +53,14 @@ namespace FrizzApp.Api
             services.AddTransient<IPaymentTypeRepository, PymentTypeRepository>();
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+
+            //// cache
+            //services.AddDistributedRedisCache(options =>
+            //{
+            //    options.Configuration = Configuration.GetConnectionString("Redis");
+            //    //"redis-19789.c251.east-us-mz.azure.cloud.redislabs.com:19789,password=893w5zg9sBLLj6NDohb961ONe14FRQbY";
+            //    options.InstanceName = "RedisCache";
+            //});
 
             /// logger
             services.AddSingleton(Log.Logger);
@@ -96,7 +95,6 @@ namespace FrizzApp.Api
                 });
             });
         }
-
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

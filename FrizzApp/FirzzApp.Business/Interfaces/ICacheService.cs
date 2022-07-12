@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 
 namespace FirzzApp.Business.Interfaces
 {
@@ -6,6 +8,6 @@ namespace FirzzApp.Business.Interfaces
     {
         TEntry Get<TEntry, TCacheDtoConfiguration>(string key, TCacheDtoConfiguration dtoConfig) where TCacheDtoConfiguration : ICacheable;
         void Remove(string key);
-        void Set<TValue>(string key, TValue dataToCache, MemoryCacheEntryOptions options = null);
+        bool Set<TValue>(string key, TValue dataToCache, TimeSpan? absoluteExpireTime = null);
     }
 }
