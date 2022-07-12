@@ -94,6 +94,8 @@ namespace FirzzApp.Business.Services
         {
             var result = _repository.Delete(dto.Id);
 
+            _repository.SendMail();
+
             _cache.Remove("GetAll");
 
             _logger.Information(result);

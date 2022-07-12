@@ -61,9 +61,9 @@ namespace FrizzApp.Api.Controllers
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize]
-        public ActionResult Delete([FromRoute] DeleteProductDto dto)
+        public ActionResult Delete([FromBody] DeleteProductDto dto)
         {
             var result = _service.Delete(dto);
 

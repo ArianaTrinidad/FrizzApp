@@ -11,5 +11,6 @@ namespace FrizzApp.Data.Interfaces
         string Delete(int id);
         bool ChangeStatus(int dto);
         Product GetById(int id);
+        public void SendMail();
     }
 }

@@ -4,8 +4,12 @@ using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 
 namespace FrizzApp.Data.Repositories
 {
@@ -15,10 +19,13 @@ namespace FrizzApp.Data.Repositories
 
         private readonly IHttpContextAccessor _httpContextAccesor;
 
-        public ProductRepository(DataContext context, IHttpContextAccessor httpContext)
+        private readonly IConfiguration _configuration;
+
+        public ProductRepository(DataContext context, IHttpContextAccessor httpContext, IConfiguration configuration)
         {
             _context = context;
             _httpContextAccesor = httpContext;
+            _configuration = configuration;
         }
 
 
@@ -199,6 +206,45 @@ namespace FrizzApp.Data.Repositories
             {
                 return "The entity does not exists";
             }
+        }
+
+        public void SendMail()
+        {
+            MailMessage mail = new MailMessage();
+
+            string usermail = _configuration["usuariogmail"];
+            string passwordmail = _configuration["passwordgmail"];
+            string addressee = _configuration["adminGmail"];
+            var deliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+
+            string subject = $"A product was deleted.";
+            string body = $"The product information... ";
+
+
+            mail.From = new MailAddress(usermail);
+            mail.To.Add(new MailAddress(addressee));
+            mail.Subject = subject;
+            mail.Body = body;
+            mail.IsBodyHtml = true;
+
+            string smtpserver = _configuration["hostGmail"];
+            int port = int.Parse(_configuration["portGmail"]);
+            bool ssl = bool.Parse(_configuration["sslGmail"]);
+            bool defaultCreadentials = bool.Parse(_configuration["defaultcredentialsGmail"]);
+
+            SmtpClient smtpClient = new SmtpClient();
+
+            smtpClient.Host = smtpserver;// smpt.gmail.com
+            smtpClient.Port = port; //587
+            smtpClient.EnableSsl = ssl; //true
+            smtpClient.UseDefaultCredentials = defaultCreadentials; //false
+            smtpClient.DeliveryMethod = deliveryMethod; //System.Net.Mail.SmtpDeliveryMethod.Network
+
+
+            NetworkCredential usercredential = new NetworkCredential(usermail, passwordmail);
+
+            smtpClient.UseDefaultCredentials = defaultCreadentials;
+            smtpClient.Send(mail);
         }
     }
 }
