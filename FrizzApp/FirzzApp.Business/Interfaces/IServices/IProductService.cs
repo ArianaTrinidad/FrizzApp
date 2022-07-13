@@ -19,7 +19,7 @@ namespace FirzzApp.Business.Interfaces.IServices
         string Delete(DeleteProductDto dto);
         Result<Product> ChangeStatus(ChangeStockStatusProductDto dto);
 
-        Result<Product> AddBulk(HttpRequest request, FileUploadViewModel file);
+        Result<Product> AddBulk( FileUploadViewModel file);
 
     }
 }

@@ -61,9 +61,7 @@ namespace FrizzApp.Api.Controllers
         [HttpPost]
         public ActionResult AddBulkOperation([FromForm] FileUploadViewModel file)
         {
-            var request = HttpContext.Request;
-
-            var result = _service.AddBulk(request, file);
+            var result = _service.AddBulk(file);
             
             return result.IsSuccess
               ? Ok(result)
