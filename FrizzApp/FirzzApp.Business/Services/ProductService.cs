@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ClosedXML.Excel;
+using ExcelDataReader;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Interfaces;
@@ -8,10 +9,15 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Net.Http.Headers;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Services
 {
@@ -21,6 +27,8 @@ namespace FirzzApp.Business.Services
         private readonly IMapper _mapper;
         private readonly ICacheService _cache;
         private readonly ILogger _logger;
+        private DateTime Start;
+        private TimeSpan TimeSpan;
 
         public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache, ILogger logger)
         {
@@ -59,6 +67,117 @@ namespace FirzzApp.Business.Services
                 return response;
             }
         }
+
+        public Result<Product> AddBulk(HttpRequest request, FileUploadViewModel file)
+        {
+            try
+            {
+                DataSet excelRecords = new DataSet();
+                IExcelDataReader reader = null;
+                Stream FileStream = file.Excel.OpenReadStream();
+
+
+                if (file.Excel.FileName.EndsWith(".xls"))
+                {
+                    reader = ExcelReaderFactory.CreateBinaryReader(FileStream);
+                    excelRecords = reader.AsDataSet();
+                    reader.Close();
+
+                    List<Product> listProducts = new();
+                    DataTable products = excelRecords.Tables[0];
+                    for (int i = 0; i < products.Rows.Count; i++)
+                    {
+                        Product objProduct = new Product();
+                        //Ato el formato del excel a este codigo, cambiar
+                        objProduct.Name = Convert.ToString(products.Rows[i][1]);
+                        objProduct.Description = Convert.ToString(products.Rows[i][2]);
+                        objProduct.Notes = Convert.ToString(products.Rows[i][3]);
+                        objProduct.Presentation = Convert.ToString(products.Rows[i][4]);
+                        objProduct.ImageUrl = Convert.ToString(products.Rows[i][5]);
+                        objProduct.Price = Convert.ToInt32(products.Rows[i][6]);
+                        objProduct.CategoryId = Convert.ToInt32(products.Rows[i][7]);
+                        objProduct.OldPrice = Convert.ToInt32(products.Rows[i][8]);
+                        objProduct.IsPromo = Convert.ToBoolean(products.Rows[i][9]);
+                        objProduct.ProductStatusId = Convert.ToInt32(products.Rows[i][10]);
+
+                        listProducts.Add(objProduct);
+                    }
+
+                    if (listProducts.Count > 0) Console.WriteLine("The Excel file has been successfully uploaded.");
+
+
+                    var index = 0;
+                    foreach (var i in listProducts)
+                    {
+                        var entity = _mapper.Map<Product>(listProducts[index]);
+                        _repository.Create(entity);
+                        var resultMessage = $"Product {entity.Name} - ${entity.Price} was created";
+                        _logger.Information(resultMessage);
+                        index++;
+
+                    }
+                    _cache.Remove("GetAll");
+
+                    //cambiar por si no funciona y no es Success
+                    return Result<Product>.Success();
+                }
+
+                else if (file.Excel.FileName.EndsWith(".xlsx"))
+                {
+                    reader = ExcelReaderFactory.CreateOpenXmlReader(FileStream);
+                    excelRecords = reader.AsDataSet();
+                    reader.Close();
+
+                    List<Product> listProducts = new();
+                    DataTable products = excelRecords.Tables[0];
+                    for (int i = 1; i < products.Rows.Count; i++)
+                    {
+                        Product objProduct = new Product();
+                        objProduct.Name = Convert.ToString(products.Rows[i][1]);
+                        objProduct.Description = Convert.ToString(products.Rows[i][2]);
+                        objProduct.Notes = Convert.ToString(products.Rows[i][3]);
+                        objProduct.Presentation = Convert.ToString(products.Rows[i][4]);
+                        objProduct.ImageUrl = Convert.ToString(products.Rows[i][5]);
+                        objProduct.Price = Convert.ToInt32(products.Rows[i][6]);
+                        objProduct.CategoryId = Convert.ToInt32(products.Rows[i][7]);
+                        objProduct.OldPrice = Convert.ToInt32(products.Rows[i][8]);
+                        objProduct.IsPromo = Convert.ToBoolean(products.Rows[i][9]);
+                        objProduct.ProductStatusId = Convert.ToInt32(products.Rows[i][10]);
+
+                        listProducts.Add(objProduct);
+                    }
+
+                    if (listProducts.Count > 0) Console.WriteLine("The Excel file has been successfully uploaded.");
+
+
+                    var index = 0;
+                    foreach (var i in listProducts)
+                    {
+                        var entity = _mapper.Map<Product>(listProducts[index]);
+                        _repository.Create(entity);
+                        var resultMessage = $"Product {entity.Name} - ${entity.Price} was created";
+                        _logger.Information(resultMessage);
+                        index++;
+
+                    }
+                    _cache.Remove("GetAll");
+
+                    //cambiar por si no funciona y no es Success
+                    return Result<Product>.Success();
+                }
+
+                else
+                {
+                    Console.WriteLine("The file format is not supported.");
+                    return Result<Product>.Success();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
 
         public Result<Product> CreateProduct(CreateProductDto dto)
