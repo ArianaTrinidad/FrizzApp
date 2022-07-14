@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace FrizzApp.Api.Extensions
 {
-    public static class SeviciosExtensions
+    public static class ServicesExtensions
     {
-        public static void AddServicios(this IServiceCollection services)
+        public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
@@ -21,6 +21,8 @@ namespace FrizzApp.Api.Extensions
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICacheService, CacheService>();
+
+            return services;
         }
     }
 }
