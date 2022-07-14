@@ -45,6 +45,18 @@ namespace FrizzApp.Api
                 .AddDatabase(Configuration)
                 .AddLibraries()
                 .AddServicios();
+                .AddLog()
+                .AddSwagger();
+
+            /// servicios
+            //services.AddTransient<IProductService, ProductService>();
+            //services.AddTransient<ICategoryService, CategoryService>();
+            //services.AddTransient<IOrderStatusService, OrderStatusService>();
+            //services.AddTransient<IPaymentTypeService, PaymentTypeService>();
+            //services.AddTransient<IProductStatusService, ProductStatusService>();
+            //services.AddTransient<IIdentityService, IdentityService>();
+            //services.AddTransient<IOrderService, OrderService>();
+            //services.AddTransient<ICacheService, CacheService>();
 
             /// repositorios
             services.AddTransient<IProductRepository, ProductRepository>();
@@ -53,7 +65,6 @@ namespace FrizzApp.Api
             services.AddTransient<IPaymentTypeRepository, PymentTypeRepository>();
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
-
 
             /// logger
             services.AddSingleton(Log.Logger);
