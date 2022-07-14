@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-using System;
-
-namespace FirzzApp.Business.Interfaces
+﻿namespace FirzzApp.Business.Interfaces
 {
     public interface ICacheService
     {

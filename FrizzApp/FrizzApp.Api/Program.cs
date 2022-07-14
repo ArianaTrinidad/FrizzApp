@@ -30,7 +30,7 @@ namespace FrizzApp.Api
                                 "appsettings.json",
                                 optional: false,
                                 reloadOnChange: true).Build();
-            
+
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(configuration)
                 .WriteTo.Console()
