@@ -54,13 +54,6 @@ namespace FrizzApp.Api
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
 
-            //// cache
-            //services.AddDistributedRedisCache(options =>
-            //{
-            //    options.Configuration = Configuration.GetConnectionString("Redis");
-            //    //"redis-19789.c251.east-us-mz.azure.cloud.redislabs.com:19789,password=893w5zg9sBLLj6NDohb961ONe14FRQbY";
-            //    options.InstanceName = "RedisCache";
-            //});
 
             /// logger
             services.AddSingleton(Log.Logger);
