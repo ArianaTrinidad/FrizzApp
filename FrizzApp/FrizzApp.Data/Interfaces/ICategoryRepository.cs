@@ -5,9 +5,9 @@ namespace FrizzApp.Data.Interfaces
 {
     public interface ICategoryRepository
     {
-        void CreateCategory(Category entity);
         List<Category> GetAll();
+        void CreateCategory(Category entity);
 
-        string DeleteCategory(int Id);
+        bool DeleteCategory(int Id);
     }
 }

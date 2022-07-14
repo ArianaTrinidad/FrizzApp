@@ -32,21 +32,23 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public Result<PaymentType> Create(CreatePaymentTypeDto dto)
+        public Result<string> Create(CreatePaymentTypeDto dto)
         {
             var entity = _mapper.Map<PaymentType>(dto);
 
             _repository.Create(entity);
 
-            return Result<PaymentType>.Success($"{entity.PaymentTypeName}");
+            return Result<string>.Success($"{entity.PaymentTypeName}");
         }
 
 
-        public string Delete(int id)
+        public Result Delete(int id)
         {
             var result = _repository.Delete(id);
 
-            return result;
+            return result
+                ? Result.Success()
+                : Result.Fail(default);
         }
     }
 }

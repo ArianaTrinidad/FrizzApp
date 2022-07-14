@@ -42,11 +42,13 @@ namespace FrizzApp.Api.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
-        public string Delete([FromRoute] int id)
+        public ActionResult Delete([FromRoute] int id)
         {
             var result = _service.Delete(id);
 
-            return result;
+            return result.IsSuccess
+                ? Ok(result)
+                : BadRequest(result);
         }
     }
 }

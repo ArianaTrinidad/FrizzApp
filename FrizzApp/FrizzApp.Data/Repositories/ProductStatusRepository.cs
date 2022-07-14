@@ -32,7 +32,7 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
-        public string Delete(int id)
+        public bool Delete(int id)
         {
             var entity = _context.ProductStatus.Where(x => x.ProductStatusId == id).FirstOrDefault();
 
@@ -41,11 +41,11 @@ namespace FrizzApp.Data.Repositories
                 _context.ProductStatus.Remove(entity);
                 _context.SaveChanges();
 
-                return "Entity deleted correctly";
+                return true;
             }
             else
             {
-                return "The entity does not exists";
+                return false;
             }
         }
     }

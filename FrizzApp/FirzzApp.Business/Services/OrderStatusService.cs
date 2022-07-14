@@ -33,20 +33,22 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public Result<OrderStatus> CreateOrderStatus(CreateOrderStatusDto dto)
+        public Result<string> CreateOrderStatus(CreateOrderStatusDto dto)
         {
             var entity = _mapper.Map<OrderStatus>(dto);
 
             _repository.CreateOrderStatus(entity);
 
-            return Result<OrderStatus>.Success($"{entity.StatusName}");
+            return Result<string>.Success($"{entity.StatusName} was created succesfully");
         }
 
-        public string DeleteOrderStatus(int id)
+        public Result DeleteOrderStatus(int id)
         {
             var result = _repository.DeleteOrderStatus(id);
 
-            return result;
+            return result
+                ? Result.Success()
+                : Result.Fail(default);
         }
 
     }

@@ -36,7 +36,7 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
-        public string DeleteCategory(int id)
+        public bool DeleteCategory(int id)
         {
             var entity = _context.Categories.Where(x => x.CategoryId == id).FirstOrDefault();
 
@@ -47,11 +47,11 @@ namespace FrizzApp.Data.Repositories
                 _context.Categories.Remove(entity);
                 _context.SaveChanges();
 
-                return "Entity deleted correctly";
+                return true;
             }
             else
             {
-                return "The entity does not exists";
+                return false;
             }
         }
     }

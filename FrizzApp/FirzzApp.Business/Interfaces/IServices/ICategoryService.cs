@@ -10,7 +10,7 @@ namespace FirzzApp.Business.Interfaces.IServices
     public interface ICategoryService
     {
         List<GetCategoryResponseDto> GetAll(CacheTypeEnum cacheType);
-        Result<Category> CreateCategory(CreateCategoryDto dto);
-        string DeleteCategory(int id);
+        Result<string> CreateCategory(CreateCategoryDto dto);
+        Result DeleteCategory(int id);
     }
 }

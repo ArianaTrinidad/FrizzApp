@@ -16,23 +16,30 @@ namespace FrizzApp.Data
         {
             SeedInitialData(modelBuilder);
 
+
             modelBuilder.ApplyConfiguration(new CategoryConfigurationBuilder());
             modelBuilder.ApplyConfiguration(new ProductConfigurationBuilder());
             modelBuilder.ApplyConfiguration(new OrderStatusConfigurationBuilder());
             modelBuilder.ApplyConfiguration(new PaymentTypeConfigurationBuilder());
             modelBuilder.ApplyConfiguration(new ProductStatusConfigurationBuilder());
+
+
+            modelBuilder.Entity<Product>()
+                .HasQueryFilter(x => x.ProductStatusId != (int)ProductStatusEnum.Deleted);
         }
 
 
 
         public DbSet<Product> Products { get; set; }
-
         public DbSet<ProductStatus> ProductStatus { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<OrderStatus> OrderStates { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<User> Users { get; set; }
+
+
+
 
         private static void SeedInitialData(ModelBuilder modelBuilder)
         {
@@ -58,21 +65,9 @@ namespace FrizzApp.Data
                 new PaymentType(){ PaymentTypeId = (int)PaymentTypeEnum.Credit, PaymentTypeName= nameof(PaymentTypeEnum.Credit)}
             };
 
-            var categoriesInitialData = new List<Category>()
-            {
-                new Category(){ CategoryId = 100, CategoryName= "Panaderia"},
-                new Category(){ CategoryId = 101, CategoryName= "Salado"},
-                new Category(){ CategoryId = 102, CategoryName= "Dulce"}
-            };
-
             modelBuilder.Entity<ProductStatus>().HasData(productsStatusInitialData);
             modelBuilder.Entity<OrderStatus>().HasData(orderStatusInitialData);
             modelBuilder.Entity<PaymentType>().HasData(paymentTypesInitialData);
-            modelBuilder.Entity<Category>().HasData(categoriesInitialData);
-
-
-            modelBuilder.Entity<Product>()
-                .HasQueryFilter(x => x.ProductStatusId != (int)ProductStatusEnum.Deleted);
         }
     }
 }

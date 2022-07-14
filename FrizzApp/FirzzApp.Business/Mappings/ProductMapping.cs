@@ -19,7 +19,8 @@ namespace FirzzApp.Business.Mappings
                 .ForMember(dest => dest.Precio, opt => opt.MapFrom(src => src.Price))
                 .ForMember(dest => dest.ImagenUrl, opt => opt.MapFrom(src => src.ImageUrl))
                 .ForMember(dest => dest.EsPromo, opt => opt.MapFrom(src => src.IsPromo))
-                .ForMember(dest => dest.Categoria, opt => opt.MapFrom(src => src.Category))
+                .ForMember(dest => dest.CategoriaId, opt => opt.MapFrom(src => src.Category.CategoryId))
+                .ForMember(dest => dest.Categoria, opt => opt.MapFrom(src => src.Category.CategoryName))
                 ;
 
 
@@ -33,7 +34,6 @@ namespace FirzzApp.Business.Mappings
                 .ForMember(dest => dest.IsPromo, opt => opt.MapFrom(src => src.EsPromo))
                 .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Categoria))
                 .ForMember(dest => dest.ProductStatusId, opt => opt.MapFrom(src => (int)ProductStatusEnum.Avaiable))
-                //.ForMember(dest => dest.Orders, opt => opt.MapFrom(src => (int)ProductStatusEnum.Avaiable))
                 ;
 
             CreateMap<UpdateProductDto, Product>()

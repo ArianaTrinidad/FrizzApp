@@ -9,8 +9,8 @@ namespace FirzzApp.Business.Interfaces.IServices
     public interface IPaymentTypeService
     {
         List<GetPaymentTypeResponseDto> GetAll();
-        Result<PaymentType> Create(CreatePaymentTypeDto dto);
+        Result<string> Create(CreatePaymentTypeDto dto);
 
-        string Delete(int id);
+        Result Delete(int id);
     }
 }

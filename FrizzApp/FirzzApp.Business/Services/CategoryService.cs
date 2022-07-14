@@ -37,23 +37,23 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public Result<Category> CreateCategory(CreateCategoryDto dto)
+        public Result<string> CreateCategory(CreateCategoryDto dto)
         {
             var entity = _mapper.Map<Category>(dto);
 
-            entity.SetCreateAuditFields("pepe creador");
-
             _categoryRepository.CreateCategory(entity);
 
-            return Result<Category>.Success($"{entity.CategoryName}");
+            return Result<string>.Success($"{entity.CategoryName} was created succesfully");
         }
 
 
-        public string DeleteCategory(int id)
+        public Result DeleteCategory(int id)
         {
             var result = _categoryRepository.DeleteCategory(id);
 
-            return result;
+            return result 
+                ? Result.Success() 
+                : Result.Fail(default);
         }
 
     }

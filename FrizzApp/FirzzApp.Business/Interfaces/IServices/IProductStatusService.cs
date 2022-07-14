@@ -9,8 +9,8 @@ namespace FirzzApp.Business.Interfaces.IServices
     public interface IProductStatusService
     {
         List<GetProductStatusResponseDto> GetAll();
-        Result<ProductStatus> Create(CreateProductStatusDto dto);
+        Result<string> Create(CreateProductStatusDto dto);
 
-        string Delete(int id);
+        Result Delete(int id);
     }
 }
