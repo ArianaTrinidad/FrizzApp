@@ -59,10 +59,14 @@ namespace FirzzApp.Business.Services
             }
         }
 
+
         public GetProductResponseDto GetById(int id)
         {
+            var result = _repository.GetById(id);
 
-            return default;
+            var response = _mapper.Map<GetProductResponseDto>(result);
+
+            return response;
         }
 
 
@@ -92,6 +96,8 @@ namespace FirzzApp.Business.Services
                 _cache.Remove("GetAll");
                 var resultMessage = $"Product {entity.Name} was modified";
 
+                _logger.Information(resultMessage);
+
                 return Result.Success(resultMessage);
             }
             else
@@ -108,7 +114,7 @@ namespace FirzzApp.Business.Services
 
             _cache.Remove("GetAll");
 
-            //_logger.Information(result);
+            _logger.Information("Product deleted succesfully");
 
             return result
                 ? Result.Success()
@@ -124,6 +130,7 @@ namespace FirzzApp.Business.Services
 
             if (result)
             {
+                _logger.Information("Product status updated succesfully");
                 return Result.Success();
             }
             else
