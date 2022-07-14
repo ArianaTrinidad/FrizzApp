@@ -44,18 +44,19 @@ namespace FrizzApp.Api
                 .AddSecurity(Configuration)
                 .AddDatabase(Configuration)
                 .AddLibraries()
+                .AddServicios();
                 .AddLog()
                 .AddSwagger();
 
             /// servicios
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<IOrderStatusService, OrderStatusService>();
-            services.AddTransient<IPaymentTypeService, PaymentTypeService>();
-            services.AddTransient<IProductStatusService, ProductStatusService>();
-            services.AddTransient<IIdentityService, IdentityService>();
-            services.AddTransient<IOrderService, OrderService>();
-            services.AddTransient<ICacheService, CacheService>();
+            //services.AddTransient<IProductService, ProductService>();
+            //services.AddTransient<ICategoryService, CategoryService>();
+            //services.AddTransient<IOrderStatusService, OrderStatusService>();
+            //services.AddTransient<IPaymentTypeService, PaymentTypeService>();
+            //services.AddTransient<IProductStatusService, ProductStatusService>();
+            //services.AddTransient<IIdentityService, IdentityService>();
+            //services.AddTransient<IOrderService, OrderService>();
+            //services.AddTransient<ICacheService, CacheService>();
 
             /// repositorios
             services.AddTransient<IProductRepository, ProductRepository>();
@@ -65,10 +66,39 @@ namespace FrizzApp.Api
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
 
+            /// logger
+            services.AddSingleton(Log.Logger);
+
+            /// swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FrizzApp.Api", Version = "v1" });
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                c.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        jwtSecurityScheme, Array.Empty<string>()
+                    }
+                });
+            });
         }
-
-      
-
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

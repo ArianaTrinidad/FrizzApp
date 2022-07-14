@@ -1,56 +1,62 @@
 ﻿using FirzzApp.Business.Enums;
 using FirzzApp.Business.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using StackExchange.Redis;
 using System;
+using System.Net.Http;
 
 namespace FirzzApp.Business.Services
 {
     public class CacheService : ICacheService
     {
-        private readonly IMemoryCache _cache;
         private readonly IConfiguration _configuration;
+        private readonly IDatabase _db;
 
-        public CacheService(IMemoryCache cache, IConfiguration configuration)
+
+        public CacheService(IConfiguration configuration)
         {
-            _cache = cache;
             _configuration = configuration;
+
+            var connectionString = _configuration.GetValue<string>("CacheConfiguration:ConnectionStrings:Redis");
+            var redis = ConnectionMultiplexer.Connect(connectionString);
+            _db = redis.GetDatabase();
         }
 
         public TEntry Get<TEntry, TCacheDtoConfiguration>(string key, TCacheDtoConfiguration dtoConfig)
             where TCacheDtoConfiguration : ICacheable
         {
-            TEntry entry = default;
+            var value = _db.StringGet(key);
 
             var cacheConfigStatus = _configuration.GetValue<bool>("CacheConfiguration:UseCache");
 
-            if (dtoConfig.CacheType == CacheTypeEnum.UseCache && cacheConfigStatus == true)
+            if (dtoConfig.CacheType == CacheTypeEnum.UseCache && cacheConfigStatus == true && value.HasValue)
             {
-                _cache.TryGetValue(key, out entry);
+                return JsonConvert.DeserializeObject<TEntry>(value);
             }
 
-            return entry;
+            return default;
         }
 
 
-        public void Set<TValue>(string key, TValue dataToCache, MemoryCacheEntryOptions options = null)
+        public bool Set<TValue>(string key, TValue dataToCache) //DateTimeOffset expirationTime
         {
-            var cacheConfigLifeTime = _configuration.GetValue<int>("CacheConfiguration:DefaultLifeTime");
-            var cacheConfigSize = _configuration.GetValue<int>("CacheConfiguration:DefaultSize");
+            //TimeSpan expiryTime = expirationTime.TimeSpan.FromSeconds(600);
 
-            var defaultOptions = new MemoryCacheEntryOptions()
+            var isSet = _db.StringSet(key, JsonConvert.SerializeObject(dataToCache));
+            return isSet;
+        }
+
+        public bool Remove(string key)
+        {
+            bool _isKeyExist = _db.KeyExists(key);
+            if (_isKeyExist == true)
             {
-                Size = cacheConfigSize,
-                SlidingExpiration = TimeSpan.FromSeconds(cacheConfigLifeTime)
-            };
+                return _db.KeyDelete(key);
+            }
+            return false;
 
-            _cache.Set(key, dataToCache, options ?? defaultOptions);
         }
-
-        public void Remove(string key)
-        {
-            _cache.Remove(key);
-        }
-
     }
 }
