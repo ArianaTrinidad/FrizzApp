@@ -5,7 +5,6 @@ using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
-using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
 
 namespace FirzzApp.Business.Services

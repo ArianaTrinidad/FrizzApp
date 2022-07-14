@@ -1,11 +1,8 @@
 ﻿using FirzzApp.Business.Enums;
 using FirzzApp.Business.Interfaces;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using System;
-using System.Net.Http;
 
 namespace FirzzApp.Business.Services
 {

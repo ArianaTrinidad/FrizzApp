@@ -14,7 +14,7 @@ namespace FrizzApp.Api.Extensions
             services.AddTransient<IPaymentTypeRepository, PymentTypeRepository>();
             services.AddTransient<IProductStatusRepository, ProductStatusRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
-            
+
             return services;
         }
     }
