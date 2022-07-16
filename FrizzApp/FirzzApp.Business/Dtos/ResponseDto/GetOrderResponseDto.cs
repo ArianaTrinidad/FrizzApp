@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FirzzApp.Business.Dtos.ResponseDto
+﻿namespace FirzzApp.Business.Dtos.ResponseDto
 {
     public class GetOrderResponseDto
     {

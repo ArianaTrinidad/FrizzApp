@@ -102,12 +102,12 @@ namespace FrizzApp.Data.Repositories
         }
 
 
-        public void Update(Product entityFromDto)
+        public bool Update(Product entityFromDto)
         {
             var entity = _context.Products.Where(x => x.Id == entityFromDto.Id).FirstOrDefault();
 
             if (entity == null)
-                return;
+                return false;
 
             if (!string.IsNullOrWhiteSpace(entityFromDto.Name))
             {
@@ -158,6 +158,8 @@ namespace FrizzApp.Data.Repositories
 
             _context.Products.Update(entity);
             _context.SaveChanges();
+
+            return true;
         }
 
 
@@ -181,7 +183,7 @@ namespace FrizzApp.Data.Repositories
             }
         }
 
-        public string Delete(int id)
+        public bool Delete(int id)
         {
             var entity = _context.Products.Where(x => x.Id == id).FirstOrDefault();
 
@@ -193,11 +195,11 @@ namespace FrizzApp.Data.Repositories
                 _context.Products.Update(entity);
                 _context.SaveChanges();
 
-                return "Entity deleted correctly";
+                return true;
             }
             else
             {
-                return "The entity does not exists";
+                return false;
             }
         }
     }

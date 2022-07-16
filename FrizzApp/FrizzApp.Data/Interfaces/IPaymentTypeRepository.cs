@@ -5,8 +5,8 @@ namespace FrizzApp.Data.Interfaces
 {
     public interface IPaymentTypeRepository
     {
-        void Create(PaymentType entity);
         List<PaymentType> GetAll();
-        string Delete(int id);
+        void Create(PaymentType entity);
+        bool Delete(int id);
     }
 }

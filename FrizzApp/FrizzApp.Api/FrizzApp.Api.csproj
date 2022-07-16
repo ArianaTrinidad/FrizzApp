@@ -7,6 +7,8 @@
 	<ItemGroup>
 		<PackageReference Include="ClosedXML" Version="0.95.4" />
 		<PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
 		<PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
 		<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.7.0" />

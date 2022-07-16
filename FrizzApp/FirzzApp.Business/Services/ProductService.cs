@@ -104,7 +104,17 @@ namespace FirzzApp.Business.Services
 
 
 
-        public Result<Product> CreateProduct(CreateProductDto dto)
+        public GetProductResponseDto GetById(int id)
+        {
+            var result = _repository.GetById(id);
+
+            var response = _mapper.Map<GetProductResponseDto>(result);
+
+            return response;
+        }
+
+
+        public Result<string> CreateProduct(CreateProductDto dto)
         {
             var entity = _mapper.Map<Product>(dto);
 
@@ -115,36 +125,48 @@ namespace FirzzApp.Business.Services
             var resultMessage = $"Product {entity.Name} - ${entity.Price} was created";
             _logger.Information(resultMessage);
 
-            return Result<Product>.Success(resultMessage);
+            return Result<string>.Success(resultMessage);
         }
 
 
-        public Result<Product> UpdateProduct(UpdateProductDto dto)
+        public Result UpdateProduct(UpdateProductDto dto)
         {
             var entity = _mapper.Map<Product>(dto);
 
-            _repository.Update(entity);
+            var result = _repository.Update(entity);
 
-            _cache.Remove("GetAll");
+            if (result)
+            {
+                _cache.Remove("GetAll");
+                var resultMessage = $"Product {entity.Name} was modified";
 
-            var resultMessage = $"Product {entity.Name} was modified";
+                _logger.Information(resultMessage);
 
-            return Result<Product>.Success(resultMessage);
+                return Result.Success(resultMessage);
+            }
+            else
+            {
+                return Result.Fail("The product wasn´t found");
+            }
+
+
         }
 
-
-        public string Delete(DeleteProductDto dto)
+        public Result Delete(DeleteProductDto dto)
         {
             var result = _repository.Delete(dto.Id);
 
             _cache.Remove("GetAll");
 
-            _logger.Information(result);
-            return result;
+            _logger.Information("Product deleted succesfully");
+
+            return result
+                ? Result.Success()
+                : Result.Fail(default);
         }
 
 
-        public Result<Product> ChangeStatus(ChangeStockStatusProductDto dto)
+        public Result ChangeStatus(ChangeStockStatusProductDto dto)
         {
             var result = _repository.ChangeStatus(dto.Id);
 
@@ -152,11 +174,12 @@ namespace FirzzApp.Business.Services
 
             if (result)
             {
-                return Result<Product>.Success();
+                _logger.Information("Product status updated succesfully");
+                return Result.Success();
             }
             else
             {
-                return Result<Product>.Fail($"The product wasn´t found");
+                return Result.Fail($"The product wasn´t found");
             }
         }
 
