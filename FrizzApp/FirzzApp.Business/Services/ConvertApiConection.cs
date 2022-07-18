@@ -32,17 +32,15 @@ namespace FirzzApp.Business.Services
             decimal dollar = default;
             try
             {
-                HttpResponseMessage response = await _client.GetAsync("https://dollar-conversor.herokuapp.com/cotizacion/usd-ar/actual");
+                HttpResponseMessage responseApi = await _client.GetAsync("https://dollar-conversor.herokuapp.com/cotizacion/usd-ar/actual");
 
 
-                if (response.IsSuccessStatusCode)
+                if (responseApi.IsSuccessStatusCode)
                 {
-                    string quotation = await response.Content.ReadAsStringAsync();
+                    string quotation = await responseApi.Content.ReadAsStringAsync();
                     ResponseConectionQuotationDto quotationObject = JsonConvert.DeserializeObject<ResponseConectionQuotationDto>(quotation);
                     dollar = quotationObject.Precio;
                 }
-
-
             }
             catch (Exception e)
             {

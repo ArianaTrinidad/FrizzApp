@@ -37,6 +37,14 @@ namespace FirzzApp.Business.Services
 
             var cachedResult = _cache.Get<List<GetProductResponseDto>, GetAllProductDto>(cacheKey, dto);
 
+
+            var apiQuotation = new ConvertApiConection();
+            //No llega el precio que se obtiene en el metodo
+            var priceDollar = apiQuotation.GetDollarAsync();
+            //Prueba para pasar dato de task a decimal
+            var pepe = priceDollar.Id;
+            decimal pepe2 = Convert.ToDecimal(pepe);
+
             if (cachedResult != default)
             {
                 Console.WriteLine("From cache");
@@ -52,6 +60,13 @@ namespace FirzzApp.Business.Services
                                                 dto.CategoriaId ?? default);
 
                 var response = _mapper.Map<List<GetProductResponseDto>>(result);
+
+                var o = 0;
+                foreach (var i in response)
+                {
+                    response[o].PrecioDolares = response[o].Precio * pepe2;
+                    o++;
+                }
 
                 _cache.Set(cacheKey, response);
 
