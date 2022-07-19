@@ -22,15 +22,17 @@ namespace FirzzApp.Business.Services
         private readonly IMapper _mapper;
         private readonly ICacheService _cache;
         private readonly ILogger _logger;
+        //private readonly IConvertApiConection _conection;
 
-        public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache, ILogger logger)
+        public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache, ILogger logger)//, IConvertApiConection conection)
         {
             _repository = repository;
             _mapper = mapper;
             _cache = cache;
             _logger = logger;
+            //_conection = default; conection;
         }
-
+        //No usa la interface
 
         public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
         {
@@ -38,6 +40,14 @@ namespace FirzzApp.Business.Services
 
             var cachedResult = _cache.Get<List<GetProductResponseDto>, GetAllProductDto>(cacheKey, dto);
 
+
+            //var priceDollar = _conection.GetDollarAsync();
+
+            var apiQuotation = new ConvertApiConection();
+            var apiPrice = apiQuotation.GetDollarAsync();
+            decimal dollarPrice = Convert.ToDecimal(apiPrice.Result);
+
+            //Nunca usa cache
             if (cachedResult != default)
             {
                 Console.WriteLine("From cache");
@@ -55,6 +65,13 @@ namespace FirzzApp.Business.Services
                 var response = _mapper.Map<List<GetProductResponseDto>>(result);
 
                 _cache.Set(cacheKey, response);
+
+                var index = 0;
+                foreach (var i in response)
+                {
+                    response[index].PrecioDolares = response[index].Precio * dollarPrice;
+                    index++;
+                }
 
                 Console.WriteLine("From database");
                 return response;

@@ -1,6 +1,7 @@
 ﻿using ExcelDataReader;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Interfaces.IServices;
+using FirzzApp.Business.Services;
 using FrizzApp.Api.Constants;
 using FrizzApp.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -29,6 +30,7 @@ namespace FrizzApp.Api.Controllers
         [Authorize]
         public ActionResult GetAll([FromQuery] GetAllProductDto dto)
         {
+
             var result = _service.GetAll(dto);
 
             return Ok(result);
