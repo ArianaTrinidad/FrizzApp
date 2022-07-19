@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Services
 {
-    public class ConvertApiConection
+    public class ConvertApiConection : IConvertApiConection
     {
         private HttpClient _client;
 
@@ -25,13 +25,10 @@ namespace FirzzApp.Business.Services
 
         public async Task<decimal> GetDollarAsync()
         {
-            _client.BaseAddress = new Uri("https://dollar-conversor.herokuapp.com");
-
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
             decimal dollar = default;
             try
             {
+                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage responseApi = await _client.GetAsync("https://dollar-conversor.herokuapp.com/cotizacion/usd-ar/actual");
 
 

@@ -21,15 +21,17 @@ namespace FirzzApp.Business.Services
         private readonly IMapper _mapper;
         private readonly ICacheService _cache;
         private readonly ILogger _logger;
+        //private readonly IConvertApiConection _conection;
 
-        public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache, ILogger logger)
+        public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache, ILogger logger)//, IConvertApiConection conection)
         {
             _repository = repository;
             _mapper = mapper;
             _cache = cache;
             _logger = logger;
+            //_conection = default; conection;
         }
-
+        //No usa la interface
 
         public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
         {
@@ -38,13 +40,13 @@ namespace FirzzApp.Business.Services
             var cachedResult = _cache.Get<List<GetProductResponseDto>, GetAllProductDto>(cacheKey, dto);
 
 
-            var apiQuotation = new ConvertApiConection();
-            //No llega el precio que se obtiene en el metodo
-            var priceDollar = apiQuotation.GetDollarAsync();
-            //Prueba para pasar dato de task a decimal
-            var pepe = priceDollar.Id;
-            decimal pepe2 = Convert.ToDecimal(pepe);
+            //var priceDollar = _conection.GetDollarAsync();
 
+            var apiQuotation = new ConvertApiConection();
+            var apiPrice = apiQuotation.GetDollarAsync();
+            decimal dollarPrice = Convert.ToDecimal(apiPrice.Result);
+
+            //Nunca usa cache
             if (cachedResult != default)
             {
                 Console.WriteLine("From cache");
@@ -61,17 +63,16 @@ namespace FirzzApp.Business.Services
 
                 var response = _mapper.Map<List<GetProductResponseDto>>(result);
 
-                var o = 0;
-                foreach (var i in response)
-                {
-                    response[o].PrecioDolares = response[o].Precio * pepe2;
-                    o++;
-                }
-
                 _cache.Set(cacheKey, response);
 
+                var index = 0;
+                foreach (var i in response)
+                {
+                    response[index].PrecioDolares = response[index].Precio * dollarPrice;
+                    index++;
+                }
+
                 Console.WriteLine("From database");
-                
                 return response;
             }
         }
