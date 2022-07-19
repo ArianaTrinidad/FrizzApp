@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ClosedXML.Excel;
+using ExcelDataReader;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Interfaces;
@@ -10,6 +11,7 @@ using FrizzApp.Data.Interfaces;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 
 namespace FirzzApp.Business.Services
@@ -58,6 +60,48 @@ namespace FirzzApp.Business.Services
                 return response;
             }
         }
+
+        public Result<Product> AddBulk(FileUploadViewModel file)
+        {
+            try
+            {
+                //Inicializo variables que voy a usar en distitas rutas
+                DataSet excelRecords = new DataSet();
+                IExcelDataReader reader = null;
+                Stream FileStream = file.Excel.OpenReadStream();
+
+                //Analizo si es un archivo valido
+                if (file.Excel.FileName.EndsWith(".xls") || file.Excel.FileName.EndsWith(".xlsx"))
+                {
+                    //Me fijo como termina para leerlo
+                    if (file.Excel.FileName.EndsWith(".xls"))
+                    {
+                        reader = ExcelReaderFactory.CreateBinaryReader(FileStream);
+                    }
+                    else
+                    {
+                        reader = ExcelReaderFactory.CreateOpenXmlReader(FileStream);
+                    }
+
+                    //Lee el archivo
+                    excelRecords = reader.AsDataSet();
+                    reader.Close();
+
+                    //Hago el bulk a DB
+                    return BulkOperation(excelRecords);
+                }
+                else
+                {
+                    Console.WriteLine("The file format is not supported.");
+                    return Result<Product>.Success();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
 
         public GetProductResponseDto GetById(int id)
@@ -173,6 +217,53 @@ namespace FirzzApp.Business.Services
             using var stream = new MemoryStream();
             workbook.SaveAs(stream);
             return stream.ToArray();
+        }
+
+
+
+        //Mover metodo
+        private Result<Product> BulkOperation(DataSet excelRecords)
+        {
+            //Genero lista donde guardar los datos
+            List<Product> listProducts = new();
+            DataTable products = excelRecords.Tables[0];
+
+            //Paso a la lista producto por producto
+            for (int i = 1; i < products.Rows.Count; i++)
+            {
+                Product objProduct = new Product();
+                //Ato el formato del archivo a un solo tipo, no varìa
+                objProduct.Name = Convert.ToString(products.Rows[i][1]);
+                objProduct.Description = Convert.ToString(products.Rows[i][2]);
+                objProduct.Notes = Convert.ToString(products.Rows[i][3]);
+                objProduct.Presentation = Convert.ToString(products.Rows[i][4]);
+                objProduct.ImageUrl = Convert.ToString(products.Rows[i][5]);
+                objProduct.Price = Convert.ToInt32(products.Rows[i][6]);
+                objProduct.CategoryId = Convert.ToInt32(products.Rows[i][7]);
+                objProduct.OldPrice = Convert.ToInt32(products.Rows[i][8]);
+                objProduct.IsPromo = Convert.ToBoolean(products.Rows[i][9]);
+                objProduct.ProductStatusId = Convert.ToInt32(products.Rows[i][10]);
+
+                listProducts.Add(objProduct);
+            }
+
+            //Voy con cada producto a la base de datos
+            var index = 0;
+            foreach (var i in listProducts)
+            {
+                //Lo mismo que el create
+                var entity = _mapper.Map<Product>(listProducts[index]);
+                _repository.Create(entity);
+                var resultMessage = $"Product {entity.Name} - ${entity.Price} was created";
+                _logger.Information(resultMessage);
+                index++;
+
+            }
+
+            _cache.Remove("GetAll");
+
+            //cambiar por si no funciona y no es Success
+            return Result<Product>.Success();
         }
     }
 }
