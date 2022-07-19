@@ -3,6 +3,7 @@ using FirzzApp.Business.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
+using System;
 
 namespace FirzzApp.Business.Services
 {
@@ -37,12 +38,10 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public bool Set<TValue>(string key, TValue dataToCache) //DateTimeOffset expirationTime
+        public bool Set<TValue>(string key, TValue dataToCache)
         {
-            //TimeSpan expiryTime = expirationTime.TimeSpan.FromSeconds(600);
-
-            var isSet = _db.StringSet(key, JsonConvert.SerializeObject(dataToCache));
-            return isSet;
+            var defaultExpiration = _configuration.GetValue<int>("CacheConfiguration:DefaultExpirationInSeconds");
+            return _db.StringSet(key, JsonConvert.SerializeObject(dataToCache), TimeSpan.FromSeconds(defaultExpiration));
         }
 
         public bool Remove(string key)
