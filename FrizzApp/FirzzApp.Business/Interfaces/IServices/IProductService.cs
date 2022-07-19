@@ -1,7 +1,11 @@
 ﻿using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Wrappers;
+using FrizzApp.Data.Entities;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Interfaces.IServices
 {
@@ -15,6 +19,8 @@ namespace FirzzApp.Business.Interfaces.IServices
         Result UpdateProduct(UpdateProductDto dto);
         Result Delete(DeleteProductDto dto);
         Result ChangeStatus(ChangeStockStatusProductDto dto);
+
+        Result<Product> AddBulk( FileUploadViewModel file);
 
     }
 }
