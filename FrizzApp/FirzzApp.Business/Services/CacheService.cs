@@ -17,8 +17,14 @@ namespace FirzzApp.Business.Services
         {
             _configuration = configuration;
 
-            var connectionString = _configuration.GetValue<string>("CacheConfiguration:ConnectionStrings:Redis");
-            var redis = ConnectionMultiplexer.Connect(connectionString);
+            var redisConfig = new ConfigurationOptions
+            {
+                EndPoints = { _configuration.GetValue<string>("RedisConfiguration:Url") },
+                Ssl = false,
+                Password = _configuration.GetValue<string>("RedisConfiguration:Password")
+            };
+
+            var redis = ConnectionMultiplexer.Connect(redisConfig);
             _db = redis.GetDatabase();
         }
 
@@ -27,7 +33,7 @@ namespace FirzzApp.Business.Services
         {
             var value = _db.StringGet(key);
 
-            var cacheConfigStatus = _configuration.GetValue<bool>("CacheConfiguration:UseCache");
+            var cacheConfigStatus = _configuration.GetValue<bool>("RedisConfiguration:UseCache");
 
             if (dtoConfig.CacheType == CacheTypeEnum.UseCache && cacheConfigStatus == true && value.HasValue)
             {
@@ -40,7 +46,7 @@ namespace FirzzApp.Business.Services
 
         public bool Set<TValue>(string key, TValue dataToCache)
         {
-            var defaultExpiration = _configuration.GetValue<int>("CacheConfiguration:DefaultExpirationInSeconds");
+            var defaultExpiration = _configuration.GetValue<int>("RedisConfiguration:DefaultExpirationInSeconds");
             return _db.StringSet(key, JsonConvert.SerializeObject(dataToCache), TimeSpan.FromSeconds(defaultExpiration));
         }
 
