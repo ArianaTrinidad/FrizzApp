@@ -5,9 +5,9 @@ namespace FrizzApp.Data.Interfaces
 {
     public interface IOrderStatusRepository
     {
-        void CreateOrderStatus(OrderStatus entity);
         List<OrderStatus> GetAll();
+        void CreateOrderStatus(OrderStatus entity);
 
-        string DeleteOrderStatus(int statusId);
+        bool DeleteOrderStatus(int statusId);
     }
 }

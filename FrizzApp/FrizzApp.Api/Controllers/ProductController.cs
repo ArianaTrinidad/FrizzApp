@@ -45,7 +45,7 @@ namespace FrizzApp.Api.Controllers
         public ActionResult Create([FromBody] CreateProductDto dto)
         {
             var result = _service.CreateProduct(dto);
-            
+
             return result.IsSuccess
                 ? Ok(result)
                 : BadRequest(result);
