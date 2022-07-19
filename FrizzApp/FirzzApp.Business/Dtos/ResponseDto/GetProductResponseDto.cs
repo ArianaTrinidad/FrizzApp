@@ -12,6 +12,7 @@
         public bool EsPromo { get; set; }
         public virtual string Categoria { get; set; }
         public virtual int CategoriaId { get; set; }
+        public virtual decimal PrecioDolares { get; set; }
 
     }
 }
