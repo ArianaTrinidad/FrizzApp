@@ -49,12 +49,7 @@ namespace FrizzApp.Api
             });
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiDemo v1");
-                    c.RoutePrefix = "swagger";
-                }
-            );
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FrizzApp.Api v1"));
         }
     }
 }
