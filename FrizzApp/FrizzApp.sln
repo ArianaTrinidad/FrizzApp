@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirzzApp.Business", "FirzzA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrizzApp.Data", "FrizzApp.Data\FrizzApp.Data.csproj", "{12FA6B6D-4C0A-4BE0-9248-80897D26D02D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrizzApp.DataLoader", "FrizzApp.DataLoader\FrizzApp.DataLoader.csproj", "{E7714307-609A-44F5-892B-3CA18E6A03D5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{12FA6B6D-4C0A-4BE0-9248-80897D26D02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12FA6B6D-4C0A-4BE0-9248-80897D26D02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12FA6B6D-4C0A-4BE0-9248-80897D26D02D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7714307-609A-44F5-892B-3CA18E6A03D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7714307-609A-44F5-892B-3CA18E6A03D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7714307-609A-44F5-892B-3CA18E6A03D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7714307-609A-44F5-892B-3CA18E6A03D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
