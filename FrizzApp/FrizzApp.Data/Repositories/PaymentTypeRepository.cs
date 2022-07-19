@@ -32,7 +32,7 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
-        public string Delete(int id)
+        public bool Delete(int id)
         {
             var entity = _context.PaymentTypes.Where(x => x.PaymentTypeId == id).FirstOrDefault();
 
@@ -41,11 +41,11 @@ namespace FrizzApp.Data.Repositories
                 _context.PaymentTypes.Remove(entity);
                 _context.SaveChanges();
 
-                return "Entity deleted correctly";
+                return true;
             }
             else
             {
-                return "The entity does not exists";
+                return false;
             }
         }
     }

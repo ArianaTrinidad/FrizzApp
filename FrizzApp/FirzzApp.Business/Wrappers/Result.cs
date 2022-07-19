@@ -1,26 +1,55 @@
 ﻿namespace FirzzApp.Business.Wrappers
 {
-    public sealed class Result<T>
+    public sealed class Result<T> : Result
     {
-        public bool IsSuccess { get; private set; }
+        public override bool IsSuccess { get; set; }
 
-        public string Message { get; private set; }
+        public override string Message { get; set; }
 
 
 
-        public static Result<T> Success(string message = "")
+        new public static Result<T> Success(string message = "")
         {
             return new Result<T>()
             {
                 IsSuccess = true,
-                Message = $"{typeof(T).Name} {message} was created succesfully"
+                Message = message
             };
         }
 
 
-        public static Result<T> Fail(string message)
+        new public static Result<T> Fail(string message)
         {
             return new Result<T>()
+            {
+                IsSuccess = false,
+                Message = message
+            };
+        }
+    }
+
+
+    public class Result
+    {
+        public virtual bool IsSuccess { get; set; }
+
+        public virtual string Message { get; set; }
+
+
+
+        public static Result Success(string message = "")
+        {
+            return new Result()
+            {
+                IsSuccess = true,
+                Message = message
+            };
+        }
+
+
+        public static Result Fail(string message)
+        {
+            return new Result()
             {
                 IsSuccess = false,
                 Message = message

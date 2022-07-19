@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using ClosedXML.Excel;
+using ExcelDataReader;
 using FirzzApp.Business.Dtos.RequestDto;
 using FirzzApp.Business.Dtos.ResponseDto;
 using FirzzApp.Business.Interfaces;
 using FirzzApp.Business.Interfaces.IServices;
 using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
-using FrizzApp.Data.Extensions;
 using FrizzApp.Data.Interfaces;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 
 namespace FirzzApp.Business.Services
@@ -21,15 +22,17 @@ namespace FirzzApp.Business.Services
         private readonly IMapper _mapper;
         private readonly ICacheService _cache;
         private readonly ILogger _logger;
+        //private readonly IConvertApiConection _conection;
 
-        public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache, ILogger logger)
+        public ProductService(IProductRepository repository, IMapper mapper, ICacheService cache, ILogger logger)//, IConvertApiConection conection)
         {
             _repository = repository;
             _mapper = mapper;
             _cache = cache;
             _logger = logger;
+            //_conection = default; conection;
         }
-
+        //No usa la interface
 
         public List<GetProductResponseDto> GetAll(GetAllProductDto dto)
         {
@@ -37,6 +40,14 @@ namespace FirzzApp.Business.Services
 
             var cachedResult = _cache.Get<List<GetProductResponseDto>, GetAllProductDto>(cacheKey, dto);
 
+
+            //var priceDollar = _conection.GetDollarAsync();
+
+            var apiQuotation = new ConvertApiConection();
+            var apiPrice = apiQuotation.GetDollarAsync();
+            decimal dollarPrice = Convert.ToDecimal(apiPrice.Result);
+
+            //Nunca usa cache
             if (cachedResult != default)
             {
                 Console.WriteLine("From cache");
@@ -55,13 +66,72 @@ namespace FirzzApp.Business.Services
 
                 _cache.Set(cacheKey, response);
 
+                var index = 0;
+                foreach (var i in response)
+                {
+                    response[index].PrecioDolares = response[index].Precio * dollarPrice;
+                    index++;
+                }
+
                 Console.WriteLine("From database");
                 return response;
             }
         }
 
+        public Result<Product> AddBulk(FileUploadViewModel file)
+        {
+            try
+            {
+                //Inicializo variables que voy a usar en distitas rutas
+                DataSet excelRecords = new DataSet();
+                IExcelDataReader reader = null;
+                Stream FileStream = file.Excel.OpenReadStream();
 
-        public Result<Product> CreateProduct(CreateProductDto dto)
+                //Analizo si es un archivo valido
+                if (file.Excel.FileName.EndsWith(".xls") || file.Excel.FileName.EndsWith(".xlsx"))
+                {
+                    //Me fijo como termina para leerlo
+                    if (file.Excel.FileName.EndsWith(".xls"))
+                    {
+                        reader = ExcelReaderFactory.CreateBinaryReader(FileStream);
+                    }
+                    else
+                    {
+                        reader = ExcelReaderFactory.CreateOpenXmlReader(FileStream);
+                    }
+
+                    //Lee el archivo
+                    excelRecords = reader.AsDataSet();
+                    reader.Close();
+
+                    //Hago el bulk a DB
+                    return BulkOperation(excelRecords);
+                }
+                else
+                {
+                    Console.WriteLine("The file format is not supported.");
+                    return Result<Product>.Success();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
+        public GetProductResponseDto GetById(int id)
+        {
+            var result = _repository.GetById(id);
+
+            var response = _mapper.Map<GetProductResponseDto>(result);
+
+            return response;
+        }
+
+
+        public Result<string> CreateProduct(CreateProductDto dto)
         {
             var entity = _mapper.Map<Product>(dto);
 
@@ -72,36 +142,48 @@ namespace FirzzApp.Business.Services
             var resultMessage = $"Product {entity.Name} - ${entity.Price} was created";
             _logger.Information(resultMessage);
 
-            return Result<Product>.Success(resultMessage);
+            return Result<string>.Success(resultMessage);
         }
 
 
-        public Result<Product> UpdateProduct(UpdateProductDto dto)
+        public Result UpdateProduct(UpdateProductDto dto)
         {
             var entity = _mapper.Map<Product>(dto);
 
-            _repository.Update(entity);
+            var result = _repository.Update(entity);
 
-            _cache.Remove("GetAll");
+            if (result)
+            {
+                _cache.Remove("GetAll");
+                var resultMessage = $"Product {entity.Name} was modified";
 
-            var resultMessage = $"Product {entity.Name} was modified";
+                _logger.Information(resultMessage);
 
-            return Result<Product>.Success(resultMessage);
+                return Result.Success(resultMessage);
+            }
+            else
+            {
+                return Result.Fail("The product wasn´t found");
+            }
+
+
         }
 
-
-        public string Delete(DeleteProductDto dto)
+        public Result Delete(DeleteProductDto dto)
         {
             var result = _repository.Delete(dto.Id);
 
             _cache.Remove("GetAll");
 
-            _logger.Information(result);
-            return result;
+            _logger.Information("Product deleted succesfully");
+
+            return result
+                ? Result.Success()
+                : Result.Fail(default);
         }
 
 
-        public Result<Product> ChangeStatus(ChangeStockStatusProductDto dto)
+        public Result ChangeStatus(ChangeStockStatusProductDto dto)
         {
             var result = _repository.ChangeStatus(dto.Id);
 
@@ -109,11 +191,12 @@ namespace FirzzApp.Business.Services
 
             if (result)
             {
-                return Result<Product>.Success();
+                _logger.Information("Product status updated succesfully");
+                return Result.Success();
             }
             else
             {
-                return Result<Product>.Fail($"The product wasn´t found");
+                return Result.Fail($"The product wasn´t found");
             }
         }
 
@@ -151,6 +234,53 @@ namespace FirzzApp.Business.Services
             using var stream = new MemoryStream();
             workbook.SaveAs(stream);
             return stream.ToArray();
+        }
+
+
+
+        //Mover metodo
+        private Result<Product> BulkOperation(DataSet excelRecords)
+        {
+            //Genero lista donde guardar los datos
+            List<Product> listProducts = new();
+            DataTable products = excelRecords.Tables[0];
+
+            //Paso a la lista producto por producto
+            for (int i = 1; i < products.Rows.Count; i++)
+            {
+                Product objProduct = new Product();
+                //Ato el formato del archivo a un solo tipo, no varìa
+                objProduct.Name = Convert.ToString(products.Rows[i][1]);
+                objProduct.Description = Convert.ToString(products.Rows[i][2]);
+                objProduct.Notes = Convert.ToString(products.Rows[i][3]);
+                objProduct.Presentation = Convert.ToString(products.Rows[i][4]);
+                objProduct.ImageUrl = Convert.ToString(products.Rows[i][5]);
+                objProduct.Price = Convert.ToInt32(products.Rows[i][6]);
+                objProduct.CategoryId = Convert.ToInt32(products.Rows[i][7]);
+                objProduct.OldPrice = Convert.ToInt32(products.Rows[i][8]);
+                objProduct.IsPromo = Convert.ToBoolean(products.Rows[i][9]);
+                objProduct.ProductStatusId = Convert.ToInt32(products.Rows[i][10]);
+
+                listProducts.Add(objProduct);
+            }
+
+            //Voy con cada producto a la base de datos
+            var index = 0;
+            foreach (var i in listProducts)
+            {
+                //Lo mismo que el create
+                var entity = _mapper.Map<Product>(listProducts[index]);
+                _repository.Create(entity);
+                var resultMessage = $"Product {entity.Name} - ${entity.Price} was created";
+                _logger.Information(resultMessage);
+                index++;
+
+            }
+
+            _cache.Remove("GetAll");
+
+            //cambiar por si no funciona y no es Success
+            return Result<Product>.Success();
         }
     }
 }
