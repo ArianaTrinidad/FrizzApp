@@ -19,8 +19,9 @@ namespace FirzzApp.Business.Services
 
             var redisConfig = new ConfigurationOptions
             {
-                EndPoints = { _configuration.GetValue<string>("RedisConfiguration:Url") },
-                Ssl = false,
+                EndPoints = { _configuration.GetValue<string>("RedisConfiguration:Url")},
+                Ssl = true,
+                AllowAdmin = true,
                 Password = _configuration.GetValue<string>("RedisConfiguration:Password")
             };
 
