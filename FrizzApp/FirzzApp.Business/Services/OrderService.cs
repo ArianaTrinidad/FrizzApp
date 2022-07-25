@@ -48,7 +48,7 @@ namespace FirzzApp.Business.Services
             foreach (var item in dto.ProductosId)
             {
                 var product = _productRepository.GetById(item);
-                if (product is not null)
+                if (product is not null && product.ProductStatusId != 3 && product.ProductStatusId != 2)
                     entity.Products.Add(product);
             }
 
@@ -58,11 +58,14 @@ namespace FirzzApp.Business.Services
                 var product = _productRepository.GetById(item);
                 priceResult += product.Price;
             }
-            if (priceResult != dto.PrecioTotal) ;
-            //notificar, mal calculado por el cliente
+
+            if (priceResult != dto.PrecioTotal)
+                Console.WriteLine("Esta mal")
+                //notificar, mal calculado por el cliente
+                ;
 
 
-            _repository.Create(entity);
+                _repository.Create(entity);
 
             var resultMessage = $"Order {entity.OrderId} with total amount: ${entity.TotalPrice} was created";
 
