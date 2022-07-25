@@ -69,7 +69,7 @@ namespace FirzzApp.Business.Services
                 var index = 0;
                 foreach (var i in response)
                 {
-                    response[index].PrecioDolares = response[index].Precio * dollarPrice;
+                    response[index].PrecioDolares = decimal.Round(response[index].Precio / dollarPrice, 2);
                     index++;
                 }
 
