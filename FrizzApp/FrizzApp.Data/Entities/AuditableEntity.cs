@@ -10,5 +10,7 @@ namespace FrizzApp.Data.Entities
         public string? UpdateBy { get; set; }
         public DateTime? DeleteAt { get; set; }
         public string? DeleteBy { get; set; }
+        public DateTime? ActualizedAt { get; set; }
+        public string? ActualizedBy { get; set; }
     }
 }

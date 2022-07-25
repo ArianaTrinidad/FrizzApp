@@ -82,6 +82,18 @@ namespace FrizzApp.Api.Controllers
         }
 
 
+        [HttpPut]
+        [Authorize]
+        public ActionResult ActualizePrice([FromBody] ActualizePriceDto dto)
+        {
+            var result = _service.ActualizePrice(dto);
+
+            return result.IsSuccess
+                ? Ok(result)
+                : BadRequest(result);
+        }
+
+
         [HttpDelete("{id}")]
         [Authorize]
         public ActionResult Delete([FromRoute] DeleteProductDto dto)

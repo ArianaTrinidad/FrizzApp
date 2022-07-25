@@ -169,6 +169,24 @@ namespace FirzzApp.Business.Services
 
         }
 
+        public Result ActualizePrice(ActualizePriceDto dto)
+        {
+            var result = _repository.ActualizePrice(dto.Percentage);
+
+            _cache.Remove("GetAll");
+
+            if (result)
+            {
+                _logger.Information("Prices were modified");
+                return Result.Success();
+            }
+            else
+            {
+                return Result.Fail($"no entities found");
+            }
+        }
+
+
         public Result Delete(DeleteProductDto dto)
         {
             var result = _repository.Delete(dto.Id);

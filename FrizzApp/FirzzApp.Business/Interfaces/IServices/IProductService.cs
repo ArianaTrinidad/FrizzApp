@@ -17,9 +17,9 @@ namespace FirzzApp.Business.Interfaces.IServices
 
         Result<string> CreateProduct(CreateProductDto dto);
         Result UpdateProduct(UpdateProductDto dto);
+        Result ActualizePrice(ActualizePriceDto dto);
         Result Delete(DeleteProductDto dto);
         Result ChangeStatus(ChangeStockStatusProductDto dto);
-
         Result<Product> AddBulk( FileUploadViewModel file);
 
     }

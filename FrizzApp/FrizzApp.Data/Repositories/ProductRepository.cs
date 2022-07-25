@@ -101,6 +101,24 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
+        public List<Product> ActualizePrice(int? Percentage)
+        {
+            var entity = _context.Products;
+
+
+            if (Percentage != default)
+            {
+                entity.Price = entity.Price * (Percentage / 100);
+            }
+
+            var result = entity
+                .OrderBy(x => x.Id)
+                .ToList();
+
+            return result;
+        }
+
+
 
         public bool Update(Product entityFromDto)
         {
