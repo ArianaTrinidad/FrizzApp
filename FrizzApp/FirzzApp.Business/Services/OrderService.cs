@@ -7,6 +7,7 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Serilog;
+using System;
 using System.Collections.Generic;
 
 namespace FirzzApp.Business.Services
@@ -41,6 +42,7 @@ namespace FirzzApp.Business.Services
 
         public Result<string> Create(CreateOrderDto dto)
         {
+            
             var entity = _mapper.Map<Order>(dto);
 
             foreach (var item in dto.ProductosId)
@@ -49,6 +51,16 @@ namespace FirzzApp.Business.Services
                 if (product is not null)
                     entity.Products.Add(product);
             }
+
+            decimal priceResult = 0;
+            foreach (var item in dto.ProductosId)
+            {
+                var product = _productRepository.GetById(item);
+                priceResult += product.Price;
+            }
+            if (priceResult != dto.PrecioTotal) ;
+            //notificar, mal calculado por el cliente
+
 
             _repository.Create(entity);
 
