@@ -42,32 +42,44 @@ namespace FirzzApp.Business.Services
 
         public Result<string> Create(CreateOrderDto dto)
         {
-            
+
             var entity = _mapper.Map<Order>(dto);
+
+
+            decimal priceResult = 0;
+            List<bool> loads = new List<bool>{};
 
             foreach (var item in dto.ProductosId)
             {
                 var product = _productRepository.GetById(item);
                 if (product is not null && product.ProductStatusId != 3 && product.ProductStatusId != 2)
+                {
                     entity.Products.Add(product);
-            }
-
-            decimal priceResult = 0;
-            foreach (var item in dto.ProductosId)
-            {
-                var product = _productRepository.GetById(item);
-                priceResult += product.Price;
+                    priceResult += product.Price;
+                }
+                else
+                {
+                    loads.Add(false);
+                }
             }
 
             if (priceResult != dto.PrecioTotal)
-                Console.WriteLine("Esta mal")
-                //notificar, mal calculado por el cliente
-                ;
+            {
+                entity.TotalPrice = priceResult;
+            }
 
+            
 
+            string resultMessage;
+            if (loads.Contains(false))
+            {
+                resultMessage = $"Order {entity.OrderId} can´t be created, something couldn't be loaded";
+            }
+            else
+            {
                 _repository.Create(entity);
-
-            var resultMessage = $"Order {entity.OrderId} with total amount: ${entity.TotalPrice} was created";
+                resultMessage = $"Order {entity.OrderId} with total amount: ${entity.TotalPrice} was created";
+            }
 
             _logger.Information(resultMessage);
 
