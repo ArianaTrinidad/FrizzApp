@@ -49,6 +49,8 @@ namespace FrizzApp.Api
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FrizzApp.Api v1"));
+
+            app.UseHealthChecks("/healthcheck");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FirzzApp.Business.Mappings;
 using FirzzApp.Business.Validators.ProductValidators;
 using FluentValidation.AspNetCore;
+using FrizzApp.Api.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FrizzApp.Api.Extensions
@@ -14,6 +15,8 @@ namespace FrizzApp.Api.Extensions
             services.AddAutoMapper(typeof(CategoryMapping).Assembly);
             services.AddFluentValidation(fv =>
                 fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
+            services.AddHealthChecks()
+                    .AddCheck<DataBaseHealthCheck>("Data Base health check is running");
 
             return services;
         }
