@@ -20,12 +20,6 @@ namespace FrizzApp.Data.Extensions
             entity.DeleteBy = deleteBy;
         }
 
-        public static void SetActualizedAuditFields<T>(this T entity, string updateBy)
-   where T : AuditableEntity
-        {
-            entity.ActualizedAt = DateTime.UtcNow.AddHours(-3);
-            entity.ActualizedBy = updateBy;
-        }
 
         public static void SetUpdateAuditFields<T>(this T entity, string updateBy)
            where T : AuditableEntity

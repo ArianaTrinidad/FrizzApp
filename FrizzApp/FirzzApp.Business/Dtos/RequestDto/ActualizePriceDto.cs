@@ -8,6 +8,6 @@ namespace FirzzApp.Business.Dtos.RequestDto
 {
     public class ActualizePriceDto
     {
-        public int? Percentage { get; set; }
+        public int Percentage { get; set; }
     }
 }
