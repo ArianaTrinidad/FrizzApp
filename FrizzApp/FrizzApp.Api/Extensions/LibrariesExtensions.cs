@@ -18,7 +18,8 @@ namespace FrizzApp.Api.Extensions
             services.AddFluentValidation(fv =>
                 fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
             services.AddHealthChecks()
-                    .AddSqlServer(configuration["ConnectionStrings:FrizzAppDB"]);
+                    .AddSqlServer(configuration["ConnectionStrings:FrizzAppDB"])
+                    .AddRedis(configuration["CacheConfiguration:ConnectionStrings:Redis"]);
 
             return services;
         }
