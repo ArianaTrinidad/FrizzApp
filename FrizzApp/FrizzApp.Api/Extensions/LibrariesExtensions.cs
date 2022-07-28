@@ -1,14 +1,16 @@
 ﻿using FirzzApp.Business.Mappings;
 using FirzzApp.Business.Validators.ProductValidators;
 using FluentValidation.AspNetCore;
-using FrizzApp.Api.HealthChecks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FrizzApp.Api.Extensions
 {
     public static class LibrariesExtensions
     {
-        public static IServiceCollection AddLibraries(this IServiceCollection services)
+        public static IServiceCollection AddLibraries(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddHttpContextAccessor();
             services.AddMemoryCache();
@@ -16,7 +18,7 @@ namespace FrizzApp.Api.Extensions
             services.AddFluentValidation(fv =>
                 fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
             services.AddHealthChecks()
-                    .AddCheck<DataBaseHealthCheck>("Data Base health check is running");
+                    .AddSqlServer(configuration["ConnectionStrings:FrizzAppDB"]);
 
             return services;
         }
