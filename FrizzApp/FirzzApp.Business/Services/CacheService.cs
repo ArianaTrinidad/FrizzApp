@@ -3,6 +3,7 @@ using FirzzApp.Business.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
+using System;
 
 namespace FirzzApp.Business.Services
 {
@@ -16,8 +17,21 @@ namespace FirzzApp.Business.Services
         {
             _configuration = configuration;
 
-            var connectionString = _configuration.GetValue<string>("CacheConfiguration:ConnectionStrings:Redis");
-            var redis = ConnectionMultiplexer.Connect(connectionString);
+            var redisConfig = new ConfigurationOptions
+            {
+                EndPoints =
+                {
+                    {
+                        _configuration.GetValue<string>("RedisConfiguration:Url"), _configuration.GetValue<int>("RedisConfiguration:Port")
+                    }
+                },
+                Ssl = false,
+                AllowAdmin = true,
+                AbortOnConnectFail = false,
+                Password = _configuration.GetValue<string>("RedisConfiguration:Password")
+            };
+
+            var redis = ConnectionMultiplexer.Connect(redisConfig);
             _db = redis.GetDatabase();
         }
 
@@ -26,7 +40,7 @@ namespace FirzzApp.Business.Services
         {
             var value = _db.StringGet(key);
 
-            var cacheConfigStatus = _configuration.GetValue<bool>("CacheConfiguration:UseCache");
+            var cacheConfigStatus = _configuration.GetValue<bool>("RedisConfiguration:UseCache");
 
             if (dtoConfig.CacheType == CacheTypeEnum.UseCache && cacheConfigStatus == true && value.HasValue)
             {
@@ -37,12 +51,10 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public bool Set<TValue>(string key, TValue dataToCache) //DateTimeOffset expirationTime
+        public bool Set<TValue>(string key, TValue dataToCache)
         {
-            //TimeSpan expiryTime = expirationTime.TimeSpan.FromSeconds(600);
-
-            var isSet = _db.StringSet(key, JsonConvert.SerializeObject(dataToCache));
-            return isSet;
+            var defaultExpiration = _configuration.GetValue<int>("RedisConfiguration:DefaultExpirationInSeconds");
+            return _db.StringSet(key, JsonConvert.SerializeObject(dataToCache), TimeSpan.FromSeconds(defaultExpiration));
         }
 
         public bool Remove(string key)
