@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace FrizzApp.Api.Extensions
 {
@@ -19,7 +20,8 @@ namespace FrizzApp.Api.Extensions
                 fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
             services.AddHealthChecks()
                     .AddSqlServer(configuration["ConnectionStrings:FrizzAppDB"])
-                    .AddRedis(configuration["CacheConfiguration:ConnectionStrings:Redis"]);
+                    .AddRedis(configuration["RedisConfiguration:Url"])
+                    .AddUrlGroup(new Uri ("https://dollar-conversor.herokuapp.com/cotizacion/usd-ar/actual"));
 
             return services;
         }
