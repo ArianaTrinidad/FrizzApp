@@ -1,19 +1,27 @@
 ﻿using FirzzApp.Business.Mappings;
 using FirzzApp.Business.Validators.ProductValidators;
 using FluentValidation.AspNetCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace FrizzApp.Api.Extensions
 {
     public static class LibrariesExtensions
     {
-        public static IServiceCollection AddLibraries(this IServiceCollection services)
+        public static IServiceCollection AddLibraries(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddHttpContextAccessor();
             services.AddMemoryCache();
             services.AddAutoMapper(typeof(CategoryMapping).Assembly);
             services.AddFluentValidation(fv =>
                 fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
+            services.AddHealthChecks()
+                    .AddSqlServer(configuration["ConnectionStrings:FrizzAppDB"])
+                    .AddRedis(configuration["RedisConfiguration:Url"])
+                    .AddUrlGroup(new Uri ("https://dollar-conversor.herokuapp.com/cotizacion/usd-ar/actual"));
 
             return services;
         }
