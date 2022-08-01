@@ -1,16 +1,19 @@
 using FrizzApp.Api.Extensions;
 using FrizzApp.Api.Middlewares;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using System.Text.Json;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace FrizzApp.Api
 {
@@ -28,16 +31,19 @@ namespace FrizzApp.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            
             services
                 .AddSecurity(Configuration)
                 .AddDatabase(Configuration)
                 .AddLog()
                 .AddLibraries(Configuration)
+                .AddHealthChecks(Configuration)
                 .AddServices()
                 .AddRepositories()
                 .AddSwagger();
         }
+
+        
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -52,19 +58,27 @@ namespace FrizzApp.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-
-                endpoints.MapHealthChecks("/health", new HealthCheckOptions()
+                endpoints.MapHealthChecks("/health", new HealthCheckOptions
                 {
-                    ResponseWriter = WriteResponse
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
+
+                endpoints.MapHealthChecksUI();
+
+                endpoints.MapControllers();
             });
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FrizzApp.Api v1"));
 
-            
+
         }
+
+
+        /// Este super mega método,, ya no sirve :D 
+        /// #Sad
+        /// #FporEsteMétodo
         private static Task WriteResponse(HttpContext context, HealthReport result)
         {
             context.Response.ContentType = "application/json; charset=utf-8";
