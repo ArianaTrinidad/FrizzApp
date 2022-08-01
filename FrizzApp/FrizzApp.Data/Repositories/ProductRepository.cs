@@ -101,22 +101,17 @@ namespace FrizzApp.Data.Repositories
             _context.SaveChanges();
         }
 
-       public bool ActualizePrice(int Percentage)
+       public void ActualizePrice(int Percentage)
         {
             var entities = _context.Products;
-
-            if (entities == null)
-                return false;
 
             foreach (Product variable in entities)
             {
                 variable.Price = variable.Price * (1 + (Percentage / 100));
             }
 
+            _context.Products.UpdateRange(entities);
             _context.SaveChanges();
-
-            return true;
-
         }
 
 

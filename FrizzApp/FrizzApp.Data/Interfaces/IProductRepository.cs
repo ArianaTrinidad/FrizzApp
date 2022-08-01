@@ -8,7 +8,7 @@ namespace FrizzApp.Data.Interfaces
         List<Product> GetAll(int pageNumber, int pageSize, string palabraClave, decimal preciomin, decimal preciomax, int categoria);
         Product GetById(int id);
         void Create(Product entity);
-        bool ActualizePrice(int Percentage);
+        void ActualizePrice(int Percentage);
         bool Update(Product entity);
         bool ChangeStatus(int dto);
         bool Delete(int id);

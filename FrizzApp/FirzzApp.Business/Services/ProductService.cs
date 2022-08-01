@@ -169,21 +169,16 @@ namespace FirzzApp.Business.Services
 
         }
 
-        public Result ActualizePrice(ActualizePriceDto dto)
+        public Result<string> ActualizePrice(ActualizePriceDto dto)
         {
-            var result = _repository.ActualizePrice(dto.Percentage);
+            _repository.ActualizePrice(dto.Percentage);
 
             _cache.Remove("GetAll");
 
-            if (result)
-            {
-                _logger.Information("Prices were modified");
-                return Result.Success();
-            }
-            else
-            {
-                return Result.Fail($"no entities found");
-            }
+            var resultMessage = $"Prices were increased by {dto.Percentage}%";
+            _logger.Information(resultMessage);
+
+            return Result<string>.Success(resultMessage);
         }
 
 

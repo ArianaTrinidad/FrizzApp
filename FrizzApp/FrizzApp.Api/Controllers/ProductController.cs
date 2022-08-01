@@ -70,7 +70,7 @@ namespace FrizzApp.Api.Controllers
               : BadRequest(result);
         }
 
-        [HttpPut]
+        [HttpPut("Modificar Producto")]
         [Authorize]
         public ActionResult Update([FromBody] UpdateProductDto dto)
         {
@@ -82,7 +82,7 @@ namespace FrizzApp.Api.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPut("Actualizar Precios")]
         [Authorize]
         public ActionResult ActualizePrice([FromBody] ActualizePriceDto dto)
         {
