@@ -7,6 +7,7 @@ using FirzzApp.Business.Wrappers;
 using FrizzApp.Data.Entities;
 using FrizzApp.Data.Interfaces;
 using Serilog;
+using System;
 using System.Collections.Generic;
 
 namespace FirzzApp.Business.Services
@@ -41,18 +42,44 @@ namespace FirzzApp.Business.Services
 
         public Result<string> Create(CreateOrderDto dto)
         {
+
             var entity = _mapper.Map<Order>(dto);
+
+
+            decimal priceResult = 0;
+            List<bool> loads = new List<bool>{};
 
             foreach (var item in dto.ProductosId)
             {
                 var product = _productRepository.GetById(item);
-                if (product is not null)
+                if (product is not null && product.ProductStatusId != 3 && product.ProductStatusId != 2)
+                {
                     entity.Products.Add(product);
+                    priceResult += product.Price;
+                }
+                else
+                {
+                    loads.Add(false);
+                }
             }
 
-            _repository.Create(entity);
+            if (priceResult != dto.PrecioTotal)
+            {
+                entity.TotalPrice = priceResult;
+            }
 
-            var resultMessage = $"Order {entity.OrderId} with total amount: ${entity.TotalPrice} was created";
+            
+
+            string resultMessage;
+            if (loads.Contains(false))
+            {
+                resultMessage = $"Order {entity.OrderId} can´t be created, something couldn't be loaded";
+            }
+            else
+            {
+                _repository.Create(entity);
+                resultMessage = $"Order {entity.OrderId} with total amount: ${entity.TotalPrice} was created";
+            }
 
             _logger.Information(resultMessage);
 
