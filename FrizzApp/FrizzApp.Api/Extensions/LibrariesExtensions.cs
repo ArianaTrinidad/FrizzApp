@@ -6,6 +6,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using FirzzApp.Business.Interfaces;
 
 namespace FrizzApp.Api.Extensions
 {
@@ -18,11 +19,14 @@ namespace FrizzApp.Api.Extensions
             services.AddAutoMapper(typeof(CategoryMapping).Assembly);
             services.AddFluentValidation(fv =>
                 fv.RegisterValidatorsFromAssemblyContaining<CreateProductDtoValidator>());
+            var url = configuration.GetValue<string>("RedisConfiguration:Url");
+            var port = configuration.GetValue<int>("RedisConfiguration:Port");
+            var password = configuration.GetValue<string>("RedisConfiguration:Password");
+            var redisConnectionString = $"{url}:{port},password={password}";
             services.AddHealthChecks()
                     .AddSqlServer(configuration["ConnectionStrings:FrizzAppDB"])
-                    .AddRedis(configuration["RedisConfiguration:Url"])
-                    .AddUrlGroup(new Uri ("https://dollar-conversor.herokuapp.com/cotizacion/usd-ar/actual"));
-
+                    .AddRedis(redisConnectionString)
+                    .AddUrlGroup(new Uri("https://dollar-conversor.herokuapp.com/cotizacion/usd-ar/actual"));
             return services;
         }
     }
