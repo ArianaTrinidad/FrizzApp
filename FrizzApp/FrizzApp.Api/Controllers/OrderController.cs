@@ -2,6 +2,7 @@
 using FirzzApp.Business.Interfaces.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace FrizzApp.Api.Controllers
 {
@@ -18,9 +19,9 @@ namespace FrizzApp.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult GetAll([FromQuery] GetOrderDto dto)
+        public async Task<ActionResult> GetAll([FromQuery] GetOrderDto dto)
         {
-            var result = _service.GetAll(dto);
+            var result = await _service.GetAll(dto);
 
             return Ok(result);
         }
@@ -28,9 +29,9 @@ namespace FrizzApp.Api.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Create([FromBody] CreateOrderDto dto)
+        public async Task<ActionResult> Create([FromBody] CreateOrderDto dto)
         {
-            var result = _service.Create(dto);
+            var result = await _service.Create(dto);
 
             return result.IsSuccess
                 ? Ok(result)

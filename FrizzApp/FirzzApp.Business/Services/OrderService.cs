@@ -9,6 +9,7 @@ using FrizzApp.Data.Interfaces;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FirzzApp.Business.Services
 {
@@ -30,9 +31,9 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public List<GetOrderResponseDto> GetAll(GetOrderDto dto)
+        public async Task<List<GetOrderResponseDto>> GetAll(GetOrderDto dto)
         {
-            var result = _repository.GetAll();
+            var result = await _repository.GetAll();
 
             var response = _mapper.Map<List<GetOrderResponseDto>>(result);
 
@@ -40,7 +41,7 @@ namespace FirzzApp.Business.Services
         }
 
 
-        public Result<string> Create(CreateOrderDto dto)
+        public async Task<Result<string>> Create(CreateOrderDto dto)
         {
 
             var entity = _mapper.Map<Order>(dto);
@@ -77,7 +78,7 @@ namespace FirzzApp.Business.Services
             }
             else
             {
-                _repository.Create(entity);
+                await _repository.Create(entity);
                 resultMessage = $"Order {entity.OrderId} with total amount: ${entity.TotalPrice} was created";
             }
 

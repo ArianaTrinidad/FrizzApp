@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FrizzApp.Data.Repositories
 {
@@ -19,20 +20,21 @@ namespace FrizzApp.Data.Repositories
             _httpContextAccesor = httpContextAccesor;
         }
 
-        public List<Order> GetAll()
+        public async Task<List<Order>> GetAll()
         {
-            var result = _context.Orders.Include(x => x.Products).Take(50).ToList();
+            var result = await _context.Orders.Include(x => x.Products).Take(50).ToListAsync();
 
             return result;
         }
 
 
-        public void Create(Order entity)
+        public async Task Create(Order entity)
         {
             entity.SetCreateAuditFields(_httpContextAccesor.GetUserFromToken());
 
-            _context.Orders.Add(entity);
-            _context.SaveChanges();
+            await _context.Orders.AddAsync(entity);
+            await _context.SaveChangesAsync();
+
         }
     }
 }
